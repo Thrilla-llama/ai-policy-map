@@ -26,9 +26,21 @@ function buildDistrictMap(records){
  document.querySelector('#silenceCount').textContent=ga.filter(d=>d.ai_policy_status==='none').length;
  document.querySelector('.pulse-note').append(' Georgia entities only. ');
  const attribution=document.createElement('a');attribution.href='https://github.com/millbj92/US-Zip-Codes-JSON';attribution.textContent='ZIP coordinate source';attribution.target='_blank';attribution.rel='noopener noreferrer';document.querySelector('.pulse-note').append(attribution);
- document.querySelector('.stat-band div:first-child span').textContent='entities across the full dataset';
+ const entityEl=document.querySelector('#entityCount');
+ if(entityEl) entityEl.textContent=String(records.length);
  document.querySelector('#formalCount').textContent=records.filter(d=>groupStatus(d.ai_policy_status)==='formal').length;
  document.querySelector('#safetyCount').textContent=records.filter(d=>['guidance','board_policy','procedure_handbook'].includes(d.safety_ai_status)).length;
+ const asOf=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'short',day:'numeric'}).format(new Date());
+ const pulseAsOf=document.querySelector('#pulseAsOf');
+ if(pulseAsOf) pulseAsOf.textContent='Live from canonical data · as of '+asOf;
+ const dataAsOf=document.querySelector('#dataAsOf');
+ if(dataAsOf){ dataAsOf.hidden=false; dataAsOf.textContent='Counts update from the live CSV · as of '+asOf; }
+ fetch('/data/schools.csv').then(r=>r.ok?r.text():Promise.reject()).then(t=>{
+   const lines=t.trim().split(/\r?\n/).filter(Boolean);
+   const n=Math.max(0, lines.length-1);
+   const schoolEl=document.querySelector('#schoolCount');
+   if(schoolEl) schoolEl.textContent=n.toLocaleString('en-US');
+ }).catch(()=>{ const schoolEl=document.querySelector('#schoolCount'); if(schoolEl) schoolEl.textContent='—'; });
  document.querySelector('.section-intro>p:last-child').textContent='Search all records, including Georgia and Washington. Select a map dot to read its policy summary and original sources.';
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),mobile=matchMedia('(max-width:650px)');let pending=false;
  function update(){pending=false;const p=reduced.matches||mobile.matches?1:Math.max(0,Math.min(1,(innerHeight-grid.getBoundingClientRect().top)/(innerHeight*.65)));grid.querySelectorAll('button').forEach(b=>{b.style.left=(+b.dataset.sx+(b.dataset.x-b.dataset.sx)*p)+'%';b.style.top=(+b.dataset.sy+(b.dataset.y-b.dataset.sy)*p)+'%';});}

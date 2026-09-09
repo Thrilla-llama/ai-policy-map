@@ -317,6 +317,16 @@
     ).length;
     document.querySelector('#safetyCount').textContent = safety;
     document.querySelector('#pulse-title').textContent = `${districts.length} districts`;
+    const entityEl = document.querySelector('#entityCount');
+    if (entityEl) entityEl.textContent = String(districts.length);
+    const asOf = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    }).format(new Date());
+    const pulseAsOf = document.querySelector('#pulseAsOf');
+    if (pulseAsOf) pulseAsOf.textContent = 'Live from canonical data · as of ' + asOf;
   }
 
   // Expose helpers district-map.js expects from the Codex root app.

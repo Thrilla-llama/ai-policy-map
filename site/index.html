@@ -40,9 +40,9 @@
         <div class="pulse-head">
           <div>
             <p class="micro">Statewide policy pulse</p>
-            <h2 id="pulse-title">393 districts</h2>
+            <h2 id="pulse-title">—</h2>
           </div>
-          <span class="live">September 2026 snapshot</span>
+          <span class="live" id="pulseAsOf">Loading live counts…</span>
         </div>
         <div id="dotGrid" class="dot-grid" aria-label="Each dot represents one Georgia school district"></div>
         <div class="pulse-legend">
@@ -50,7 +50,7 @@
           <span><i class="dot emerging"></i> Emerging</span>
           <span><i class="dot none"></i> No public policy found</span>
         </div>
-        <p class="pulse-note"><strong id="silenceCount">281</strong> entities have no public AI policy or guidance found. Unverified records are counted separately.</p>
+        <p class="pulse-note"><strong id="silenceCount">—</strong> entities have no public AI policy or guidance found. Unverified records are counted separately.</p>
       </aside>
       <div class="artifact artifact-left" tabindex="0"><p>Classroom clarity</p><h3>One school day.<br>Different AI rules.</h3><div>Decatur <span>Principles only</span></div><div>Marietta <span>Board resolution</span></div><small>Examples from the supplied research</small></div>
       <div class="artifact artifact-right" tabindex="0"><p>Look beyond the headline</p><h3>Policy ≠ safety</h3><div>Assignment rules <span>↗</span></div><div>Deepfake protections <span>↗</span></div><small>Two questions. Separate evidence.</small></div>
@@ -58,10 +58,11 @@
     </section>
 
     <section class="stat-band" aria-label="Dataset summary">
-      <div><strong>393</strong><span>district entities reviewed</span></div>
-      <div><strong>2,362</strong><span>schools indexed</span></div>
-      <div><strong id="formalCount">65</strong><span>formal policy or handbook rules</span></div>
-      <div><strong id="safetyCount">7</strong><span>with safety policy, guidance, or handbook rules</span></div>
+      <div><strong id="entityCount">—</strong><span>district entities reviewed</span></div>
+      <div><strong id="schoolCount">—</strong><span>schools indexed</span></div>
+      <div><strong id="formalCount">—</strong><span>formal policy or handbook rules</span></div>
+      <div><strong id="safetyCount">—</strong><span>with safety policy, guidance, or handbook rules</span></div>
+      <p class="stat-asof note" id="dataAsOf" hidden></p>
     </section>
 
     <section id="explore" class="explorer" aria-labelledby="explore-title">

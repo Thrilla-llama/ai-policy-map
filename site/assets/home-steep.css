@@ -29,3 +29,5 @@ body{background:radial-gradient(ellipse 70% 650px at 5% 480px,#f7c9b5b3,transpar
 .artifact:hover p,.artifact:hover span,.artifact:hover small,.artifact:focus-visible p,.artifact:focus-visible span,.artifact:focus-visible small{color:inherit}
 .artifact:focus-visible{outline:2px solid currentColor;outline-offset:4px}
 @media(prefers-reduced-motion:reduce){.artifact{transition:none}}
+
+.stat-asof{grid-column:1/-1;margin:.35rem 0 0;font-size:.8rem;opacity:.8}
