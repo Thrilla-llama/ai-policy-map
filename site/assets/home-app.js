@@ -305,6 +305,21 @@
     return list.length < AIPM_FREE_DISTRICT_CAP;
   }
 
+  function updateHomeFreemiumMeta() {
+    var el = document.getElementById('home-freemium-meta');
+    if (!el) return;
+    if (isPaidSession()) {
+      el.textContent = 'Paid view on — district opens unlocked in this tab.';
+      return;
+    }
+    var n = getViewedDistricts().length;
+    el.textContent =
+      n +
+      ' of ' +
+      AIPM_FREE_DISTRICT_CAP +
+      ' free district views used in this browser (map + Explore).';
+  }
+
   function closeHomePaywall() {
     var el = document.getElementById('home-paywall');
     if (el && el.parentNode) el.parentNode.removeChild(el);
@@ -378,6 +393,7 @@
     ev.preventDefault();
     if (canOpenDistrict(districtId)) {
       recordDistrictView(districtId);
+      updateHomeFreemiumMeta();
       window.location.href = href;
       return;
     }
@@ -464,6 +480,7 @@
         .join('') ||
       '<article class="result-card"><h3>No matching district</h3><p class="summary">Try a broader name or change the policy-stage filter.</p></article>';
     showMore.hidden = matched.length <= limit;
+    updateHomeFreemiumMeta();
   }
 
   function buildPulse() {
@@ -552,6 +569,7 @@
   window.AIPM_HOME.handleDistrictOpen = handleDistrictOpen;
   window.AIPM_HOME.openHomePaywall = openHomePaywall;
   window.AIPM_HOME.getViewedDistricts = getViewedDistricts;
+  window.updateHomeFreemiumMeta = updateHomeFreemiumMeta;
   window.AIPM_HOME.isPaidSession = isPaidSession;
 
 
