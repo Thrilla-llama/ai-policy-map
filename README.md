@@ -8,7 +8,7 @@ Georgia-first district AI policy scoreboard for students and teachers.
 
 | Path | What’s here |
 |------|-------------|
-| `site/` | Local multi-page site (served at `http://127.0.0.1:8770/` on the workshop machine) |
+| `site/` | Product site: Codex homepage + LEA/GA/compare pages (serve `site/` on `:8770`) |
 | `data/` | Canonical CSVs (`districts`, `schools`, `zip_lea_bridge`, GA LEA + state charter rosters) |
 | `docs/` | Schemas, public scoring rubric, parent copy, Safety-lag article draft |
 
@@ -26,6 +26,8 @@ Public soft-launch (frozen until greenlight): https://ai-policy-map.pages.dev/
 
 ## Local site
 
+The homepage under `site/` is adapted from the Codex root design (`index.html`, `styles.css`, `steep.css`, `app.js`, `district-map.js`). Root files remain the design reference; do not serve the repo root for the product preview.
+
 ```bash
-cd site && python3 -m http.server 8770
+cd site && python3 -m http.server 8770 --bind 127.0.0.1
 ```
