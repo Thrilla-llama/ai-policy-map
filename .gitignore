@@ -1,0 +1,13 @@
+# Scratch / backups — never commit
+*.bak
+*.bak-*
+*.bak_*
+**/*.bak*
+**/FINDINGS.md
+**/FINDINGS/
+**/raw/
+.DS_Store
+node_modules/
+.venv/
+__pycache__/
+*.pyc

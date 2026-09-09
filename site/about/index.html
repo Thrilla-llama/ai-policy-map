@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About · AI Policy Map</title>
+  <link rel="stylesheet" href="/assets/app.css" />
+</head>
+<body data-page="about">
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <strong>AI Policy Map</strong>
+        <span>For students and teachers</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/">Find district</a>
+        <a href="/ga/">Georgia</a>
+        <a href="/compare/">Compare</a>
+        <a href="/about/" aria-current="page">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="kicker"><span class="dot" aria-hidden="true"></span> Method · plain words</p>
+        <h1>How we score &amp; source</h1>
+        <p class="lead">
+          This site is free for parents and teachers. We map what schools have made public —
+          their AI stance, who can explain the rules, and separate notes for students and teachers.
+          We do not invent missing facts.
+        </p>
+      </section>
+
+      <section class="section card">
+        <h2>Three lenses we use</h2>
+        <p class="note" style="margin:0.35rem 0 0.75rem">
+          Short names: <strong>Student</strong>, <strong>Guidance</strong>, and <strong>Accountability</strong> (S / G / A).
+        </p>
+        <div class="kv">
+          <div class="kv-row">
+            <div class="kv-label">Student</div>
+            <div class="kv-value">
+              Can a learner point to clear rules for homework AI?
+              We look for student literacy programs, assignment frameworks, and student-impact notes —
+              only when we have checked a public source.
+            </div>
+          </div>
+          <div class="kv-row">
+            <div class="kv-label">Guidance</div>
+            <div class="kv-value">
+              How strong are the public operating rules?
+              In our data files this is the field <code>ai_policy_status</code>
+              (for example <code>board_policy</code>, <code>guidance</code>, <code>procedure_handbook</code>,
+              <code>principles_only</code>, <code>none</code>).
+              On the rest of the site we translate those codes into plain English.
+              Values without classroom rules still leave teachers inventing day-to-day norms.
+            </div>
+          </div>
+          <div class="kv-row">
+            <div class="kv-label">Accountability</div>
+            <div class="kv-value">
+              Who can answer a parent email?
+              Public districts and charters: superintendent, tech lead, board chair or roster.
+              Private schools: Head of School and accreditation — not an elected school board.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card proscons">
+        <h2>Policy strength buckets — upside &amp; downside</h2>
+        <p class="note" style="margin:0.35rem 0 1rem">
+          These buckets are for parents. Codes in parentheses are method labels only.
+        </p>
+
+        <h3 style="margin-top:0.5rem">Clear public rules</h3>
+        <p class="note">Codes: <code>board_policy</code>, <code>guidance</code></p>
+        <div class="proscons-grid" style="margin-top:0.5rem">
+          <div class="pros-block">
+            <h3>Upside</h3>
+            <ul>
+              <li><strong>Students:</strong> Easier to know what is allowed on schoolwork.</li>
+              <li><strong>Teachers:</strong> Shared rules instead of every room inventing its own.</li>
+              <li><strong>Accountability:</strong> Families can cite a public document when they ask questions.</li>
+            </ul>
+          </div>
+          <div class="cons-block">
+            <h3>Downside</h3>
+            <ul>
+              <li>Clear rules can still be strict or limited to approved tools only.</li>
+              <li>Guidance without a finished board policy may leave some gaps.</li>
+              <li>A public page can lag behind classroom practice.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.25rem">Some rules (handbook or draft)</h3>
+        <p class="note">Codes: <code>procedure_handbook</code>, <code>drafting_guidance</code>, <code>drafting_IFBG</code>, <code>resolution</code></p>
+        <div class="proscons-grid" style="margin-top:0.5rem">
+          <div class="pros-block">
+            <h3>Upside</h3>
+            <ul>
+              <li>Shows the district is working on AI — not silent.</li>
+              <li>Handbooks and drafts can give teachers a starting point.</li>
+              <li>Families can ask when a finished policy will be public.</li>
+            </ul>
+          </div>
+          <div class="cons-block">
+            <h3>Downside</h3>
+            <ul>
+              <li>Drafts can change; kids may still face uneven rules.</li>
+              <li>Handbook language is easy to miss if it is buried in a long PDF.</li>
+              <li>Teachers may still lack shared training.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.25rem">Values only — few operating rules</h3>
+        <p class="note">Code: <code>principles_only</code></p>
+        <div class="proscons-grid" style="margin-top:0.5rem">
+          <div class="pros-block">
+            <h3>Upside</h3>
+            <ul>
+              <li>Signals that leaders care about AI and student voice.</li>
+              <li>Leaves room for schools to try careful pilots.</li>
+            </ul>
+          </div>
+          <div class="cons-block">
+            <h3>Downside</h3>
+            <ul>
+              <li>Principles without classroom rules leave day-to-day choices to each teacher.</li>
+              <li>Harder for a student to know what is fair across classes.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top:1.25rem">No public AI rules found</h3>
+        <p class="note">Codes: <code>none</code>, <code>unknown</code></p>
+        <div class="proscons-grid" style="margin-top:0.5rem">
+          <div class="pros-block">
+            <h3>Upside</h3>
+            <ul>
+              <li>Many districts are still learning and talking. Delay does not mean they do not care.</li>
+              <li>A blank public page is a chance to ask for a clear family FAQ.</li>
+            </ul>
+          </div>
+          <div class="cons-block">
+            <h3>Downside</h3>
+            <ul>
+              <li>Families and teachers may not know what is allowed.</li>
+              <li>Rules can differ classroom to classroom.</li>
+              <li>Harder to hold anyone to a shared standard until something is posted.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <h2>Sources &amp; method</h2>
+        <ul class="note" style="margin:0.5rem 0 0;padding-left:1.1rem;line-height:1.7">
+          <li>Primary district and school sites, board packets, handbooks, and published guidance.</li>
+          <li>Each row carries sources, optional people/impact sources, and a last-verified date.</li>
+          <li>Empty fields stay empty in the UI — no invented contacts or policy facts.</li>
+          <li>Georgia traditional coverage target (180) does not count charter or private schools in that number; those schools still get pages when we have them.</li>
+          <li>Washington rows exist for early comparison; this local preview focuses on Georgia districts and private schools.</li>
+        </ul>
+      </section>
+
+      <section class="section card">
+        <h2>What this local preview is not</h2>
+        <p class="note" style="margin:0.5rem 0 0">
+          Not a Cloudflare / pages.dev deploy. Board-pack and pilot ideas from an older single-page prototype
+          are off this homepage on purpose. Treat them as later products, not the free parent path.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span><a href="/">← Find district</a></span>
+      <span>Local preview · AI Policy Map</span>
+    </footer>
+  </div>
+</body>
+</html>

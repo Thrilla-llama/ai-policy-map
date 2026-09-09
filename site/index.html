@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Policy for Schools · AI · POLICY · MAP</title>
+  <meta name="description" content="We map how AI impacts child and teacher safety, graduation, attendance and learning. Free ZIP search for Georgia school districts." />
+  <link rel="stylesheet" href="/assets/app.css" />
+</head>
+<!--
+  Homepage composite bands (provisional, Safety-heavy AIPM.compositeScore):
+  Leaders ≥ 55 · Mid-pack 20–54 · Laggards < 20
+-->
+<body class="theme-dark" data-page="home">
+  <div class="wrap home-wrap">
+    <header class="site-header home-masthead">
+      <a class="brand brand-dark" href="/">
+        <strong>AI · POLICY · MAP</strong>
+      </a>
+      <nav class="nav nav-dark" aria-label="Primary">
+        <a href="/ga/">Map</a>
+        <a href="/compare/">Comparison</a>
+        <a href="/about/">About</a>
+        <a href="/about/">Contacts</a>
+        <a href="/about/">Glossary</a>
+        <a href="/about/">Risk / Impact</a>
+      </nav>
+      <div class="masthead-cta">
+        <span class="free-tag">FREE · NOT PAYWALLED</span>
+        <a class="btn btn-pill primary" href="/ga/">Open the table</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="home-hero">
+        <div class="home-hero-copy">
+          <p class="home-kicker">[ GA = LAUNCH STATE · WA = COHORT · 48 COMING ]</p>
+          <h1>AI Policy for Schools</h1>
+          <p class="lead home-lead">
+            We map how AI impacts child and teacher safety, graduation, attendance and learning.
+          </p>
+
+          <form class="zip-form" id="zip-form" action="#" method="get">
+            <label class="visually-hidden" for="zip-input">ZIP code</label>
+            <input
+              type="text"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              maxlength="5"
+              id="zip-input"
+              name="zip"
+              placeholder="30794"
+              autocomplete="postal-code"
+            />
+            <button type="submit" class="btn btn-pill primary" id="zip-submit">Find my district</button>
+          </form>
+          <p class="home-zip-note">
+            Step 1: ZIP matches you to your district · Step 2: open the district page · free · not paywalled
+          </p>
+          <div id="zip-results" class="zip-results" hidden></div>
+
+          <div class="name-search-secondary">
+            <p class="note" id="search-hint">Or type a district name</p>
+            <div class="search-wrap">
+              <label class="visually-hidden" for="district-search">Search districts and schools</label>
+              <input
+                type="search"
+                id="district-search"
+                placeholder="Type a district or school name"
+                autocomplete="off"
+                aria-autocomplete="list"
+                aria-controls="district-results"
+                aria-expanded="false"
+              />
+              <ul class="typeahead" id="district-results" role="listbox" hidden></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-map-card card">
+          <div class="home-map-head">
+            <h2>Georgia · leaders &amp; laggards by district</h2>
+            <span class="home-map-badge" id="home-map-badge">180 districts · Safety hits: —</span>
+          </div>
+          <div class="home-map-visual" id="home-map-visual">
+            <object
+              id="ga-map-object"
+              type="image/svg+xml"
+              data="/assets/ga-counties.svg"
+              aria-label="Georgia map colored by composite score"
+            ></object>
+          </div>
+          <div class="home-map-chips" id="home-map-chips" aria-live="polite"></div>
+          <div class="home-map-legend">
+            <span><i class="lg-dot lg-leader" aria-hidden="true"></i> Leaders</span>
+            <span><i class="lg-dot lg-mid" aria-hidden="true"></i> Mid-pack</span>
+            <span><i class="lg-dot lg-lag" aria-hidden="true"></i> Laggards</span>
+            <a class="home-district-link" href="/ga/">district →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="used-by" aria-label="Used by">
+        <span class="used-by-label">USED BY</span>
+        <div class="used-by-placeholders">
+          <span class="used-ph">district logo</span>
+          <span class="used-ph">district logo</span>
+          <span class="used-ph">state agency</span>
+          <span class="used-ph">ed-policy org</span>
+          <span class="used-ph">research group</span>
+        </div>
+        <span class="used-by-targets">school boards · state agencies · policy researchers</span>
+      </section>
+    </main>
+
+    <footer class="site-footer home-footer">
+      <span>prototype · seed: districts.csv · no invented facts · not legal advice</span>
+    </footer>
+  </div>
+  <div id="boot-error"></div>
+  <script src="/assets/data-ver.js"></script>
+  <script src="/assets/csv.js?v=1788972718"></script>
+  <script src="/assets/slug-map.js"></script>
+  <script src="/assets/app.js?v=1788972718"></script>
+</body>
+</html>

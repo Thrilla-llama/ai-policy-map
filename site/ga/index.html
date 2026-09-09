@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Georgia · AI Policy Map</title>
+  <meta name="description" content="Georgia school districts — clear rules, some rules, and no public AI rules yet." />
+  <link rel="stylesheet" href="/assets/app.css" />
+</head>
+<body data-page="ga">
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <strong>AI Policy Map</strong>
+        <span>For students and teachers</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/">Find district</a>
+        <a href="/ga/" aria-current="page">Georgia</a>
+        <a href="/compare/">Compare</a>
+        <a href="/about/">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="kicker"><span class="dot" aria-hidden="true"></span> Launch state</p>
+        <h1>Georgia school districts</h1>
+        <p class="lead">
+          Traditional districts and state charter schools are listed here.
+          Private schools have their own pages. Counts come from what each place has published about AI.
+        </p>
+      </section>
+
+      <section class="section card proscons">
+        <h2>What strong vs weak policy means for families</h2>
+        <div class="proscons-grid">
+          <div class="pros-block">
+            <h3>When rules are clearer</h3>
+            <ul>
+              <li><strong>Students:</strong> Kids know what AI they may use on homework and tests.</li>
+              <li><strong>Teachers:</strong> Staff share the same playbook instead of guessing room by room.</li>
+              <li><strong>Accountability:</strong> You can point to a public page and ask fair follow-up questions.</li>
+            </ul>
+          </div>
+          <div class="cons-block">
+            <h3>When rules are thin or missing</h3>
+            <ul>
+              <li><strong>Students:</strong> What is allowed can change by classroom.</li>
+              <li><strong>Teachers:</strong> Educators may invent norms alone — that is hard and uneven.</li>
+              <li><strong>Accountability:</strong> Harder to know who decided what. Many places are still deciding; that does not mean they do not care.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid-3" style="margin-top:1.25rem">
+        <div class="card stat-card">
+          <p class="stat-kicker">Districts tracked</p>
+          <p class="stat-value" id="ga-total">—</p>
+          <p class="stat-sub">traditional + charter</p>
+        </div>
+        <div class="card stat-card">
+          <p class="stat-kicker">Clear rules</p>
+          <p class="stat-value good" id="ga-leaders">—</p>
+          <p class="stat-sub">Public board policy or guidance</p>
+        </div>
+        <div class="card stat-card">
+          <p class="stat-kicker">Some rules</p>
+          <p class="stat-value mid" id="ga-mid">—</p>
+          <p class="stat-sub">Handbook, draft, or values</p>
+        </div>
+      </section>
+      <div class="card stat-card" style="margin-top:0.85rem">
+        <p class="stat-kicker">No public rules yet</p>
+        <p class="stat-value bad" id="ga-none">—</p>
+        <p class="stat-sub">Still deciding, or nothing posted that we could find</p>
+      </div>
+
+      <div class="card stat-card sga-headline" style="margin-top:0.85rem" id="ga-composite-card">
+        <p class="stat-kicker">Georgia score (preview)</p>
+        <p class="stat-value sga-headline-score" id="ga-composite-score">—</p>
+        <p class="sga-band" id="ga-composite-band">Provisional</p>
+        <p class="stat-sub" id="ga-composite-sub">One state number from district scores. Safety counts most. Formula still locking · local only.</p>
+      </div>
+
+      <section class="section grid-2">
+        <div class="card">
+          <h2>How rules break down</h2>
+          <ul id="ga-status-breakdown" class="note" style="margin:0.5rem 0 0;padding-left:1.1rem;line-height:1.8"></ul>
+        </div>
+        <div class="card">
+          <h2>Districts with clearer rules</h2>
+          <ul class="entity-list" id="ga-top-links" style="margin-top:0.75rem"></ul>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="section-head">
+          <h2>Browse districts</h2>
+        </div>
+        <div class="search-wrap">
+          <label class="visually-hidden" for="ga-search">Filter Georgia districts</label>
+          <input type="search" id="ga-search" placeholder="Filter by name…" autocomplete="off" />
+        </div>
+        <ul class="entity-list" id="ga-list" style="margin-top:0.85rem"></ul>
+        <p class="note" style="margin-top:0.75rem">We show a shorter list at first so the page stays fast. Type a name to narrow it.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span><a href="/">← Find district</a></span>
+      <span><a href="/about/">How scoring works</a></span>
+    </footer>
+  </div>
+  <script src="/assets/data-ver.js"></script>
+  <script src="/assets/csv.js?v=1788972718"></script>
+  <script src="/assets/slug-map.js"></script>
+  <script src="/assets/app.js?v=1788972718"></script>
+</body>
+</html>
