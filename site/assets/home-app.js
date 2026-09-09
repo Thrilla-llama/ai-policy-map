@@ -240,6 +240,150 @@
     return el.innerHTML;
   }
 
+
+  /* Freemium — reuse LEA key/cap from app.js */
+  var AIPM_FREE_DISTRICT_KEY = 'aipm_free_district_follows';
+  var AIPM_FREE_DISTRICT_CAP = 3;
+  var AIPM_VIEW_KEY = 'aipm_view';
+
+  function getViewedDistricts() {
+    try {
+      var raw = localStorage.getItem(AIPM_FREE_DISTRICT_KEY);
+      var arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr.map(String) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function recordDistrictView(districtId) {
+    var id = String(districtId || '');
+    var list = getViewedDistricts();
+    if (id && list.indexOf(id) === -1) {
+      list.push(id);
+      try {
+        localStorage.setItem(AIPM_FREE_DISTRICT_KEY, JSON.stringify(list));
+      } catch (e) {}
+    }
+    return list;
+  }
+
+  function isPaidSession() {
+    try {
+      var params = new URLSearchParams(window.location.search || '');
+      var q = String(params.get('view') || '').trim().toLowerCase();
+      if (q === 'paid') return true;
+      if (q === 'free') return false;
+    } catch (e) {}
+    try {
+      var stored = String(sessionStorage.getItem(AIPM_VIEW_KEY) || '')
+        .trim()
+        .toLowerCase();
+      if (stored === 'paid') return true;
+    } catch (e2) {}
+    return false;
+  }
+
+  function setPaidSession(on) {
+    var next = on ? 'paid' : 'free';
+    try {
+      sessionStorage.setItem(AIPM_VIEW_KEY, next);
+    } catch (e) {}
+    try {
+      var url = new URL(window.location.href);
+      if (on) url.searchParams.set('view', 'paid');
+      else url.searchParams.delete('view');
+      window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+    } catch (e2) {}
+  }
+
+  function canOpenDistrict(districtId) {
+    if (isPaidSession()) return true;
+    var id = String(districtId || '');
+    var list = getViewedDistricts();
+    if (list.indexOf(id) !== -1) return true;
+    return list.length < AIPM_FREE_DISTRICT_CAP;
+  }
+
+  function closeHomePaywall() {
+    var el = document.getElementById('home-paywall');
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  function openHomePaywall(districtName, href, districtId) {
+    closeHomePaywall();
+    var viewed = getViewedDistricts();
+    var backdrop = document.createElement('div');
+    backdrop.id = 'home-paywall';
+    backdrop.className = 'home-paywall-backdrop';
+    backdrop.setAttribute('role', 'dialog');
+    backdrop.setAttribute('aria-modal', 'true');
+    backdrop.setAttribute('aria-labelledby', 'home-paywall-title');
+    backdrop.innerHTML =
+      '<div class="home-paywall">' +
+      '<h2 id="home-paywall-title">Free covers 3 districts</h2>' +
+      '<p>You’ve opened <strong>' +
+      viewed.length +
+      ' of ' +
+      AIPM_FREE_DISTRICT_CAP +
+      '</strong> free district pages in this browser. ' +
+      (districtName
+        ? '<strong>' + safe(districtName) + '</strong> would be another.'
+        : '') +
+      '</p>' +
+      '<p>Upgrade (Paid) unlocks more districts and deeper Evidence (quotes + audit). Sources stay available on free. Homepage cards stay teasers — scores and status only.</p>' +
+      '<div class="home-paywall-actions">' +
+      '<button type="button" class="button" data-paywall-action="upgrade">Unlock Paid view</button>' +
+      '<button type="button" class="button-ghost" data-paywall-action="close">Keep browsing free</button>' +
+      '</div>' +
+      '<p class="home-paywall-note">Prototype toggle: Paid is stored in this tab (?view=paid). Already-opened free districts remain available.</p>' +
+      '</div>';
+    document.body.appendChild(backdrop);
+    backdrop.addEventListener('click', function (ev) {
+      if (ev.target === backdrop) closeHomePaywall();
+      var btn = ev.target && ev.target.closest && ev.target.closest('[data-paywall-action]');
+      if (!btn) return;
+      var action = btn.getAttribute('data-paywall-action');
+      if (action === 'close') {
+        closeHomePaywall();
+        return;
+      }
+      if (action === 'upgrade') {
+        setPaidSession(true);
+        closeHomePaywall();
+        if (href) {
+          recordDistrictView(districtId);
+          window.location.href = href;
+        }
+      }
+    });
+    document.addEventListener(
+      'keydown',
+      function onKey(ev) {
+        if (ev.key === 'Escape') {
+          closeHomePaywall();
+          document.removeEventListener('keydown', onKey);
+        }
+      },
+      { once: true }
+    );
+  }
+
+  function handleDistrictOpen(ev, districtId, href, districtName) {
+    if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button === 1) {
+      /* allow modified clicks through; still count when we can */
+      if (canOpenDistrict(districtId)) recordDistrictView(districtId);
+      return;
+    }
+    ev.preventDefault();
+    if (canOpenDistrict(districtId)) {
+      recordDistrictView(districtId);
+      window.location.href = href;
+      return;
+    }
+    openHomePaywall(districtName, href, districtId);
+  }
+
   function render() {
     const q = search.value.trim().toLowerCase();
     const status = filter.value;
@@ -284,13 +428,34 @@
                 )}</span>`
               : '';
           const href = entityHref(d);
-          return `<a class="result-card ${group}" href="${safe(
+          const districtId = slugify(d.district);
+          const viewed = getViewedDistricts();
+          const opened = viewed.indexOf(districtId) !== -1;
+          const paid = isPaidSession();
+          const gated = !paid && !opened && viewed.length >= AIPM_FREE_DISTRICT_CAP;
+          const viewedChip = opened
+            ? '<span class="status-chip viewed-chip">In your free 3</span>'
+            : '';
+          const parts = [
+            comp.parts && comp.parts.safety && comp.parts.safety.score != null
+              ? 'Safety ' + comp.parts.safety.score
+              : null,
+            comp.parts && comp.parts.clarity && comp.parts.clarity.score != null
+              ? 'Clarity ' + comp.parts.clarity.score
+              : null,
+          ].filter(Boolean);
+          const partHint = parts.length
+            ? `<p class="location score-parts">${safe(parts.join(' · '))} · composite Safety~70/Clarity~30</p>`
+            : '';
+          return `<a class="result-card ${group}${gated ? ' is-gated' : ''}" href="${safe(
             href
-          )}"><div class="result-top"><div><h3>${safe(
+          )}" data-district-id="${safe(districtId)}" data-district-name="${safe(
             d.district
-          )}</h3><p class="location">${safe(locationLine)}</p></div><div class="chip-stack"><span class="status-chip">${safe(
+          )}" data-gated="${gated ? '1' : '0'}"><div class="result-top"><div><h3>${safe(
+            d.district
+          )}</h3><p class="location">${safe(locationLine)}</p>${partHint}</div><div class="chip-stack"><span class="status-chip">${safe(
             humanize(d.ai_policy_status)
-          )}</span>${scoreChip}</div></div><p class="summary">${safe(
+          )}</span>${scoreChip}${viewedChip}</div></div><p class="summary">${safe(
             summary
           )}</p><div class="signals">${signals
             .map((x) => `<span>${safe(x)}</span>`)
@@ -351,6 +516,22 @@
     limit += 12;
     render();
   });
+
+  if (results && !results.getAttribute('data-freemium-bound')) {
+    results.setAttribute('data-freemium-bound', '1');
+    results.addEventListener('click', function (ev) {
+      var card = ev.target && ev.target.closest && ev.target.closest('a.result-card[data-district-id]');
+      if (!card || !results.contains(card)) return;
+      handleDistrictOpen(
+        ev,
+        card.getAttribute('data-district-id'),
+        card.getAttribute('href'),
+        card.getAttribute('data-district-name')
+      );
+    });
+  }
+
+
 
   fetch('/districts.csv')
     .then((r) => {
