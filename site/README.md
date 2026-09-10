@@ -1,15 +1,22 @@
-# AI Policy Map — local multi-page IA sketch
+# AI Policy Map — site/
 
-Do **not** deploy to Cloudflare / pages.dev from here. Legacy single-page lives at `../index.html`.
+Canonical product repo: https://github.com/Thrilla-llama/ai-policy-map
+
+Do **not** deploy to Cloudflare / pages.dev from this checkout without an explicit greenlight.
 
 ## Serve locally
 
 ```bash
-cd /workspace/district-ai-intel/site
-python3 -m http.server 8770
+cd /workspace/ai-policy-map-repo/site
+python3 -m http.server 8770 --bind 127.0.0.1
 ```
 
-Open http://127.0.0.1:8770/ (port 8770 avoids the legacy server on 8765).
+Open http://127.0.0.1:8770/
+
+- `/` — Codex homepage (hero, pulse map, Explore search) — assets under `/assets/home-*.css`, `/assets/home-app.js`, `/assets/district-map.js`
+- `/districts.csv` — full canonical district records (Explore + map)
+- `/data/locations.json` — approximate GA map pins
+- `/lea/{slug}/`, `/ga/`, `/compare/`, `/about/` — multipage IA (uses `/assets/app.js`)
 
 ## Regenerate entity folders
 
@@ -17,4 +24,8 @@ Open http://127.0.0.1:8770/ (port 8770 avoids the legacy server on 8765).
 python3 build_pages.py
 ```
 
-Creates `/lea/{slug}/` for all GA traditional + charter rows and `/private/{slug}/` for all private rows.
+Creates `/lea/{slug}/` for GA traditional + charter rows and `/private/{slug}/` for private rows.
+
+## Design source
+
+Root-level Codex export (`../index.html`, `../styles.css`, `../steep.css`, `../app.js`, `../district-map.js`, `../assets/`) is the design reference. The live homepage is the adapted copy under this `site/` tree so one server root serves both the new homepage and LEA pages.

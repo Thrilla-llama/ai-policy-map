@@ -1,0 +1,376 @@
+/* Codex light skin for LEA / entity / app.css pages.
+   Loads AFTER /assets/app.css. Remaps shared tokens to match
+   homepage home-steep.css / home-styles.css — do not fork freemium,
+   evidence, or board-email behavior; this file is visual only. */
+
+:root {
+  /* Shared with site/assets/home-steep.css :root */
+  --ink: #17191c;
+  --muted: #626570;
+  --canvas: #ffffff;
+  --paper: #ffffff;
+  --line: #ececec;
+  --line-dark: #d4d4d6;
+  --blue: #17191c;
+  --blue-dark: #17191c;
+  --blue-soft: #f2f2f3;
+  --yellow: #fbe1d1;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Remap app.css tokens onto Codex */
+  --bg: #ffffff;
+  --card: #ffffff;
+  --accent: #17191c;
+  --accent-soft: #f2f2f3;
+  --warn: #9a6700;
+  --warn-soft: #f2f2f3;
+  --good: #15803d;
+  --good-soft: #f2f2f3;
+  --bad: #b91c1c;
+  --bad-soft: #fef2f2;
+  --mid: #3b4a63;
+  --mid-soft: #eef2f7;
+  --shadow: 0 0 0 1px #ececec, 0 16px 40px rgba(23, 25, 28, 0.06);
+  --radius: 20px;
+  --font: var(--sans);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+body {
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--ink); opacity: 0.75; }
+
+.wrap {
+  width: min(1120px, calc(100% - 2.5rem));
+}
+
+/* Header — same product chrome as homepage */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: 0 0 1.75rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  align-items: center;
+}
+.brand {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.brand strong {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.brand span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.brand span::before {
+  content: "·";
+  margin-right: 0.55rem;
+  color: var(--line-dark);
+}
+.nav {
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+.nav a {
+  color: var(--ink);
+  font-weight: 400;
+  text-decoration: none;
+}
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  opacity: 0.7;
+}
+
+/* Type */
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+h2, h3 {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.lead, .note { color: var(--muted); }
+.kicker {
+  color: var(--muted);
+  background: var(--accent-soft);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.kicker .dot { background: var(--ink); }
+
+/* Cards / panels */
+.card {
+  border: 0;
+  border-radius: var(--radius);
+  background: #f7f7f8;
+  box-shadow: none;
+  padding: 1.25rem 1.35rem;
+}
+.card .card,
+.safety-evidence,
+.stat-card {
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+/* Buttons — Codex pills */
+.btn {
+  border-radius: 999px;
+  border: 1px solid var(--line-dark);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 400;
+  padding: 0.65rem 1.15rem;
+  box-shadow: none;
+}
+.btn:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+.btn.primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.btn.primary:hover {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+.btn-pill {
+  border-radius: 999px;
+}
+
+/* Search / lists */
+.search-wrap input[type="search"] {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  height: 56px;
+  padding: 0 1rem;
+}
+.search-wrap input:focus {
+  outline: 3px solid var(--yellow);
+  border-color: var(--ink);
+}
+.typeahead {
+  border-radius: 16px;
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+.typeahead li button:hover,
+.typeahead li button:focus {
+  background: var(--accent-soft);
+}
+.entity-list a {
+  border: 0;
+  border-radius: 16px;
+  background: #f7f7f8;
+}
+.entity-list a:hover {
+  background: #f2f2f3;
+  border-color: transparent;
+}
+.map-chip {
+  border-radius: 999px;
+  border-color: var(--line);
+  font-weight: 400;
+}
+.map-chip:hover { border-color: var(--ink); }
+
+/* Badges — keep semantic colors, soften chrome */
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: var(--accent-soft);
+  color: var(--muted);
+}
+
+/* Stat cards */
+.stat-kicker {
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+.stat-value {
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+/* Safety / evidence / freemium — keep structure; match Codex surfaces */
+.safety-evidence {
+  border-radius: var(--radius);
+}
+.safety-evidence-badge {
+  border-radius: 999px;
+  font-weight: 500;
+}
+.safety-evidence-quote,
+.safety-locked-teaser-btn {
+  border-radius: 16px;
+}
+.safety-locked-teaser-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+
+/* Board email modal / forms */
+.board-email-field input,
+.board-email-field textarea,
+.aipm-modal input,
+.aipm-modal textarea {
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+.aipm-modal {
+  border-radius: 24px;
+}
+
+.site-footer {
+  border-top-color: var(--line);
+  color: var(--muted);
+}
+
+code {
+  background: #f2f2f3;
+  border-radius: 6px;
+}
+
+/* Pros / cons — same Codex box structure as homepage .tool-mock / finding cards */
+.section.card.proscons {
+  background: #f2f2f3;
+  border: 0;
+  border-radius: 24px;
+  box-shadow: none;
+  padding: 24px;
+}
+.section.card.proscons .section-head h2 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.proscons-grid {
+  gap: 20px;
+  margin-top: 18px;
+}
+.section.card.proscons .pros-block,
+.section.card.proscons .cons-block {
+  background: #fff;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px var(--line);
+  padding: 22px 22px 18px;
+  color: var(--ink);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.section.card.proscons .pros-block h3,
+.section.card.proscons .cons-block h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+.section.card.proscons .pros-block ul,
+.section.card.proscons .cons-block ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  line-height: 1.55;
+  font-size: 0.95rem;
+  color: inherit;
+}
+.section.card.proscons .pros-block .empty-msg,
+.section.card.proscons .cons-block .empty-msg {
+  color: var(--muted);
+  font-style: normal;
+}
+.section.card.proscons > .note {
+  margin-top: 16px !important;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+/* Homepage-style rollover (finding-grid / artifact tints) */
+.section.card.proscons .pros-block:hover,
+.section.card.proscons .pros-block:focus-within {
+  background: #fbe1d1;
+  color: #5d2a1a;
+  box-shadow: 0 0 0 1px #f0c9b0;
+  transform: translateY(-4px);
+}
+.section.card.proscons .cons-block:hover,
+.section.card.proscons .cons-block:focus-within {
+  background: #dce3ef;
+  color: #243552;
+  box-shadow: 0 0 0 1px #c5d0e4;
+  transform: translateY(-4px);
+}
+.section.card.proscons .pros-block:hover .empty-msg,
+.section.card.proscons .cons-block:hover .empty-msg,
+.section.card.proscons .pros-block:focus-within .empty-msg,
+.section.card.proscons .cons-block:focus-within .empty-msg {
+  color: inherit;
+  opacity: 0.8;
+}
+@media (max-width: 800px) {
+  .section.card.proscons .pros-block:hover,
+  .section.card.proscons .cons-block:hover,
+  .section.card.proscons .pros-block:focus-within,
+  .section.card.proscons .cons-block:focus-within {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section.card.proscons .pros-block,
+  .section.card.proscons .cons-block {
+    transition: none;
+  }
+  .section.card.proscons .pros-block:hover,
+  .section.card.proscons .cons-block:hover,
+  .section.card.proscons .pros-block:focus-within,
+  .section.card.proscons .cons-block:focus-within {
+    transform: none;
+  }
+}
+
+
+/* Keep dark theme opt-in usable if a page sets body.theme-dark */
+body.theme-dark {
+  --bg: #0d1117;
+  --ink: #e6edf3;
+  --muted: #9aa4b2;
+  --card: #161b22;
+  --line: #30363d;
+  --accent: #e6edf3;
+  --accent-soft: rgba(230, 237, 243, 0.08);
+}

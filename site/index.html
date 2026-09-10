@@ -1,126 +1,214 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Policy for Schools · AI · POLICY · MAP</title>
-  <meta name="description" content="We map how AI impacts child and teacher safety, graduation, attendance and learning. Free ZIP search for Georgia school districts." />
-  <link rel="stylesheet" href="/assets/app.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A public map of how Georgia school districts are governing AI—from classroom rules to safety protections.">
+  <title>AI Policy Map for Schools</title>
+  <link rel="stylesheet" href="/assets/home-styles.css?v=1788998500">
+  <link rel="stylesheet" href="/assets/home-steep.css?v=1788998500">
 </head>
-<!--
-  Homepage composite bands (provisional, Safety-heavy AIPM.compositeScore):
-  Leaders ≥ 55 · Mid-pack 20–54 · Laggards < 20
--->
-<body class="theme-dark" data-page="home">
-  <div class="wrap home-wrap">
-    <header class="site-header home-masthead">
-      <a class="brand brand-dark" href="/">
-        <strong>AI · POLICY · MAP</strong>
-      </a>
-      <nav class="nav nav-dark" aria-label="Primary">
-        <a href="/ga/">Map</a>
-        <a href="/compare/">Comparison</a>
-        <a href="/about/">About</a>
-        <a href="/about/">Contacts</a>
-        <a href="/about/">Glossary</a>
-        <a href="/about/">Risk / Impact</a>
-      </nav>
-      <div class="masthead-cta">
-        <span class="free-tag">FREE · NOT PAYWALLED</span>
-        <a class="btn btn-pill primary" href="/ga/">Open the table</a>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="AI Policy Map home">
+      <span class="brand-mark">AI</span>
+      <span>Policy Map <em>for schools</em></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#explore">Explore</a>
+      <a href="#tool">The tool</a>
+      <a href="#why">Why it matters</a>
+      <a href="#method">Method</a>
+      <a href="/ga/">Georgia</a>
+      <a href="/about/">About</a>
+    </nav>
+    <a class="button button-small" href="#explore">Find your district</a>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Georgia · Public data · Updated September 2026</p>
+        <h1 id="hero-title">AI entered the classroom.<br><em>Did policy keep up?</em></h1>
+        <p class="lede">See what every Georgia district tells students, teachers, and families about classroom AI—and where silence is still the policy.</p>
+        <div class="hero-actions">
+          <a class="button" href="#explore">Explore the map</a>
+          <a class="text-link" href="#method">See how we score it <span aria-hidden="true">↘</span></a>
+        </div>
       </div>
-    </header>
 
-    <main>
-      <section class="home-hero">
-        <div class="home-hero-copy">
-          <p class="home-kicker">[ GA = LAUNCH STATE · WA = COHORT · 48 COMING ]</p>
-          <h1>AI Policy for Schools</h1>
-          <p class="lead home-lead">
-            We map how AI impacts child and teacher safety, graduation, attendance and learning.
-          </p>
+      <aside class="pulse" aria-labelledby="pulse-title">
+        <div class="pulse-head">
+          <div>
+            <p class="micro">Statewide policy pulse</p>
+            <h2 id="pulse-title">—</h2>
+          </div>
+          <span class="live" id="pulseAsOf">Loading live counts…</span>
+        </div>
+        <div id="dotGrid" class="dot-grid" aria-label="Each dot represents one Georgia school district"></div>
+        <div class="pulse-legend">
+          <span><i class="dot adopted"></i> Adopted / formal</span>
+          <span><i class="dot emerging"></i> Emerging</span>
+          <span><i class="dot none"></i> No public policy found</span>
+        </div>
+        <p class="pulse-note"><strong id="silenceCount">—</strong> entities have no public AI policy or guidance found. Unverified records are counted separately.</p>
+      </aside>
+      <div class="artifact-pair" aria-label="Policy examples">
+      <div class="artifact artifact-left" tabindex="0">
+        <p>Classroom clarity</p>
+        <h3>One school day. Different AI rules.</h3>
+        <div class="artifact-body">
+          <div>Decatur <span>Principles only</span></div>
+          <div>Marietta <span>Board resolution</span></div>
+        </div>
+        <small>Examples from the supplied research</small>
+      </div>
+      <div class="artifact artifact-right" tabindex="0">
+        <p>Look beyond the headline</p>
+        <h3>Policy is not the same as safety.</h3>
+        <div class="artifact-body">
+          <div>Assignment rules <span>↗</span></div>
+          <div>Deepfake protections <span>↗</span></div>
+        </div>
+        <small>Two questions. Separate evidence.</small>
+      </div>
+      </div>
+      <p class="scroll-cue">Scroll to see the policy landscape ↓</p>
+    </section>
 
-          <form class="zip-form" id="zip-form" action="#" method="get">
-            <label class="visually-hidden" for="zip-input">ZIP code</label>
-            <input
-              type="text"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              maxlength="5"
-              id="zip-input"
-              name="zip"
-              placeholder="30794"
-              autocomplete="postal-code"
-            />
-            <button type="submit" class="btn btn-pill primary" id="zip-submit">Find my district</button>
-          </form>
-          <p class="home-zip-note">
-            Step 1: ZIP matches you to your district · Step 2: open the district page · free · not paywalled
-          </p>
-          <div id="zip-results" class="zip-results" hidden></div>
+    <section class="stat-band" aria-label="Dataset summary">
+      <div><strong id="entityCount">—</strong><span>district entities reviewed</span></div>
+      <div><strong id="schoolCount">—</strong><span>schools indexed</span></div>
+      <div><strong id="formalCount">—</strong><span>formal policy or handbook rules</span></div>
+      <div><strong id="safetyCount">—</strong><span>with safety policy, guidance, or handbook rules</span></div>
+      <p class="stat-asof note" id="dataAsOf" hidden></p>
+    </section>
 
-          <div class="name-search-secondary">
-            <p class="note" id="search-hint">Or type a district name</p>
-            <div class="search-wrap">
-              <label class="visually-hidden" for="district-search">Search districts and schools</label>
-              <input
-                type="search"
-                id="district-search"
-                placeholder="Type a district or school name"
-                autocomplete="off"
-                aria-autocomplete="list"
-                aria-controls="district-results"
-                aria-expanded="false"
-              />
-              <ul class="typeahead" id="district-results" role="listbox" hidden></ul>
+    <section id="explore" class="explorer" aria-labelledby="explore-title">
+      <div class="section-intro">
+        <p class="eyebrow">The policy explorer</p>
+        <h2 id="explore-title">Start with your district.</h2>
+        <p>Search Georgia’s public, charter, and private-school entities. Every result separates classroom clarity from AI safety protections.</p>
+      </div>
+
+      <div class="search-panel">
+        <label for="districtSearch">District or school system</label>
+        <div class="search-row">
+          <div class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="districtSearch" type="search" placeholder="Try “Decatur,” “Marietta,” or “Fulton”" autocomplete="off">
+          </div>
+          <select id="policyFilter" aria-label="Filter by policy status">
+            <option value="all">All policy stages</option>
+            <option value="formal">Formal policy / handbook</option>
+            <option value="emerging">Guidance / in progress</option>
+            <option value="none">No public policy found</option>
+          </select>
+        </div>
+        <div id="resultsMeta" class="results-meta" aria-live="polite">Loading district records…</div>
+          <p class="results-meta home-freemium-meta" id="home-freemium-meta">0 of 3 free district views used in this browser (map + Explore).</p>
+        <div id="districtResults" class="result-grid"></div>
+        <button id="showMore" class="show-more" type="button" hidden>Show more districts</button>
+      </div>
+    </section>
+
+
+    <section id="tool" class="tool-preview" aria-labelledby="tool-title">
+      <div class="section-intro">
+        <p class="eyebrow">What the tool underneath looks like</p>
+        <h2 id="tool-title">Open a district. See Safety, Clarity, and how to act.</h2>
+        <p>Homepage cards are teasers. The district page is the product: score breakdown, empty-state honesty, board contacts, and deeper Evidence when you upgrade.</p>
+      </div>
+      <div class="tool-mock" aria-label="Annotated preview of a district detail page">
+        <div class="tool-mock-panel">
+          <p class="tool-mock-eyebrow">District page · scores</p>
+          <h3>Fulton County Schools</h3>
+          <div class="tool-score-row">
+            <div class="tool-score-box">
+              <span class="label">Safety (~70%)</span>
+              <strong>—</strong>
+              <span class="hint">Weighted heavier in the headline score</span>
+            </div>
+            <div class="tool-score-box">
+              <span class="label">Clarity (~30%)</span>
+              <strong>42</strong>
+              <span class="hint">Classroom rules &amp; guidance</span>
             </div>
           </div>
+          <p class="tool-empty-safety"><strong>Safety:</strong> No public AI safety rule found</p>
+          <p class="tool-anno">Parent copy stays plain — we never say “None found.”</p>
         </div>
-
-        <div class="home-map-card card">
-          <div class="home-map-head">
-            <h2>Georgia · leaders &amp; laggards by district</h2>
-            <span class="home-map-badge" id="home-map-badge">180 districts · Safety hits: —</span>
-          </div>
-          <div class="home-map-visual" id="home-map-visual">
-            <object
-              id="ga-map-object"
-              type="image/svg+xml"
-              data="/assets/ga-counties.svg"
-              aria-label="Georgia map colored by composite score"
-            ></object>
-          </div>
-          <div class="home-map-chips" id="home-map-chips" aria-live="polite"></div>
-          <div class="home-map-legend">
-            <span><i class="lg-dot lg-leader" aria-hidden="true"></i> Leaders</span>
-            <span><i class="lg-dot lg-mid" aria-hidden="true"></i> Mid-pack</span>
-            <span><i class="lg-dot lg-lag" aria-hidden="true"></i> Laggards</span>
-            <a class="home-district-link" href="/ga/">district →</a>
-          </div>
+        <div class="tool-mock-panel">
+          <p class="tool-mock-eyebrow">Act · Evidence</p>
+          <h3>Board contacts &amp; Evidence</h3>
+          <ul class="tool-mock-list">
+            <li>Email the board <span>Ask for an AI plan agenda item</span></li>
+            <li>Board roster / contacts <span>Public emails when listed</span></li>
+            <li>Sources on free <span>Links stay available</span></li>
+            <li>Deeper Evidence <span class="tool-lock" aria-hidden="true">Paid</span></li>
+          </ul>
+          <p class="tool-anno">Free: up to 3 districts + sources. Paid: more districts and quotes/audit Evidence — not stuffed onto the homepage card.</p>
         </div>
-      </section>
+      </div>
+      <div class="tool-mock-cta">
+        <a class="button" href="/lea/fulton-county-schools/">Open sample: Fulton County Schools</a>
+        <a class="text-link" href="#explore">Or find your district <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
 
-      <section class="used-by" aria-label="Used by">
-        <span class="used-by-label">USED BY</span>
-        <div class="used-by-placeholders">
-          <span class="used-ph">district logo</span>
-          <span class="used-ph">district logo</span>
-          <span class="used-ph">state agency</span>
-          <span class="used-ph">ed-policy org</span>
-          <span class="used-ph">research group</span>
+    <section id="why" class="why">
+      <div class="why-head">
+        <p class="eyebrow">What the map reveals</p>
+        <h2>A policy can exist on paper and still leave a student guessing.</h2>
+      </div>
+      <div class="finding-grid">
+        <article tabindex="0">
+          <span class="finding-no">01</span>
+          <h3>Clarity is uneven</h3>
+          <img class="pencil-icon" src="/assets/home/clarity.png" alt="" width="260" height="260" loading="lazy">
+          <p>“Use AI responsibly” is a principle. It is not an answer to whether ChatGPT is allowed on tonight’s homework.</p>
+        </article>
+        <article tabindex="0">
+          <span class="finding-no">02</span>
+          <h3>Safety is separate</h3>
+          <img class="pencil-icon" src="/assets/home/safety.png" alt="" width="260" height="260" loading="lazy">
+          <p>We track deepfakes, impersonation, harassment links, and approved-tool rules independently from academic-integrity guidance.</p>
+        </article>
+        <article tabindex="0">
+          <span class="finding-no">03</span>
+          <h3>Evidence beats theater</h3>
+          <img class="pencil-icon" src="/assets/home/evidence.png" alt="" width="260" height="260" loading="lazy">
+          <p>Graduation and attendance outcomes count only when a district connects published evidence to its AI work.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="method" class="method">
+      <div>
+        <p class="eyebrow">Built for useful scrutiny</p>
+        <h2>Public claims, translated into plain English.</h2>
+      </div>
+      <div class="method-copy">
+        <p>Records are coded from district websites, board policies, handbooks, guidance documents, and other cited public sources. When we find no public rule, we say so plainly—it is not proof that informal practices do not exist. Headline rank weights Safety ~70% and Clarity ~30%.</p>
+        <div class="method-tags" aria-label="Research priorities">
+          <span>1 · Safety</span><span>2 · Clarity</span><span>3 · Graduation · Attendance (context)</span>
         </div>
-        <span class="used-by-targets">school boards · state agencies · policy researchers</span>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    <footer class="site-footer home-footer">
-      <span>prototype · seed: districts.csv · no invented facts · not legal advice</span>
-    </footer>
-  </div>
-  <div id="boot-error"></div>
-  <script src="/assets/data-ver.js"></script>
-  <script src="/assets/csv.js?v=1788972718"></script>
-  <script src="/assets/slug-map.js"></script>
-  <script src="/assets/app.js?v=1788972718"></script>
+  <footer>
+    <div class="brand footer-brand"><span class="brand-mark">AI</span><span>Policy Map <em>for schools</em></span></div>
+    <p>Better questions make better policy.</p>
+    <nav aria-label="Footer">
+      <a href="/ga/">Georgia</a>
+      ·
+      <a href="/about/">About</a>
+      ·
+      <a href="#top">Back to top ↑</a>
+    </nav>
+  </footer>
+  <script src="/assets/home-app.js?v=1788997372"></script>
+  <script src="/assets/district-map.js?v=1788997372"></script>
 </body>
 </html>
