@@ -508,17 +508,7 @@
           const viewedChip = opened
             ? '<span class="status-chip viewed-chip">In your free 3</span>'
             : '';
-          const parts = [
-            comp.parts && comp.parts.safety && comp.parts.safety.score != null
-              ? 'Safety ' + comp.parts.safety.score
-              : null,
-            comp.parts && comp.parts.clarity && comp.parts.clarity.score != null
-              ? 'Clarity ' + comp.parts.clarity.score
-              : null,
-          ].filter(Boolean);
-          const partHint = parts.length
-            ? `<p class="location score-parts">${safe(parts.join(' · '))}</p>`
-            : '';
+          const partHint = '';
           return `<a class="result-card ${group}${gated ? ' is-gated' : ''}" href="${safe(
             href
           )}" data-district-id="${safe(districtId)}" data-district-name="${safe(
