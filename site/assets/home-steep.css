@@ -471,13 +471,13 @@ a.result-card:focus-visible .see-more {
   transform: none;
   width: 100%;
   max-width: none;
-  min-height: 260px;
+  min-height: 0;
   height: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   margin: 0;
-  padding: 22px 22px 18px;
+  padding: 20px 20px 16px;
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 0 0 1px #ececec, 0 16px 40px rgba(23, 25, 28, 0.06);
@@ -492,7 +492,7 @@ a.result-card:focus-visible .see-more {
   color: var(--muted);
 }
 .hero .artifact-pair.artifact-trio .artifact > h3 {
-  margin: 0 0 14px;
+  margin: 0 0 6px;
   font-family: var(--serif);
   font-size: 22px;
   font-weight: 400;
@@ -500,17 +500,22 @@ a.result-card:focus-visible .see-more {
   letter-spacing: -0.02em;
 }
 .hero .artifact-pair.artifact-trio .artifact-body {
-  flex: 1;
+  flex: 0 1 auto;
+  margin-top: 0;
 }
 .hero .artifact-pair.artifact-trio .artifact-body > div {
   font-size: 14px;
-  padding: 8px 0;
+  padding: 6px 0;
   border-top: 1px solid #eee;
   display: block;
 }
+.hero .artifact-pair.artifact-trio .artifact-body > div:first-child {
+  padding-top: 8px;
+}
 .hero .artifact-pair.artifact-trio .artifact > small {
   display: block;
-  margin-top: 12px;
+  margin-top: auto;
+  padding-top: 10px;
   font-size: 12px;
   color: var(--muted);
   line-height: 1.4;
