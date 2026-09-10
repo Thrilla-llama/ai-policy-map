@@ -451,71 +451,106 @@ a.result-card:focus-visible .see-more {
 }
 
 
-/* === Pete QA: force equal artifact boxes (wins over earlier steep rules) === */
-.hero .artifact-pair {
+/* === Hero pillars: Safety / Clarity / Efficacy (equal boxes) === */
+.hero .artifact-pair.artifact-trio {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
   grid-column: 1 / -1;
   grid-row: 4;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: stretch;
   width: 100%;
+  max-width: 1100px;
+  margin: 8px auto 0;
+  align-items: stretch;
 }
-.hero .artifact-pair .artifact-left,
-.hero .artifact-pair .artifact-right {
-  grid-row: auto;
-  justify-self: stretch;
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  transform: none !important;
-  box-sizing: border-box !important;
-  width: 100% !important;
-  max-width: none !important;
-  height: 260px !important;
-  min-height: 260px !important;
-  max-height: 260px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-  margin: 0 !important;
+.hero .artifact-pair.artifact-trio .artifact {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  min-height: 260px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 22px 22px 18px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px #ececec, 0 16px 40px rgba(23, 25, 28, 0.06);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
-.hero .artifact-pair .artifact > p {
-  flex: 0 0 auto;
-  margin: 0 0 10px !important;
+.hero .artifact-pair.artifact-trio .artifact > p {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
-.hero .artifact-pair .artifact > h3 {
-  flex: 0 0 auto;
-  margin: 0 0 12px !important;
-  min-height: 2.6em;
-  max-height: 2.6em;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+.hero .artifact-pair.artifact-trio .artifact > h3 {
+  margin: 0 0 14px;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
-.hero .artifact-pair .artifact-body {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
+.hero .artifact-pair.artifact-trio .artifact-body {
+  flex: 1;
 }
-.hero .artifact-pair .artifact > small {
-  flex: 0 0 auto;
-  margin-top: auto !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.hero .artifact-pair.artifact-trio .artifact-body > div {
+  font-size: 14px;
+  padding: 8px 0;
+  border-top: 1px solid #eee;
+  display: block;
 }
-@media (max-width: 650px) {
-  .hero .artifact-pair {
+.hero .artifact-pair.artifact-trio .artifact > small {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.hero .artifact-safety:hover,
+.hero .artifact-safety:focus-visible {
+  background: #fbe1d1;
+  color: #5d2a1a;
+}
+.hero .artifact-clarity:hover,
+.hero .artifact-clarity:focus-visible {
+  background: #dce3ef;
+  color: #243552;
+}
+.hero .artifact-efficacy:hover,
+.hero .artifact-efficacy:focus-visible {
+  background: #e9dce3;
+  color: #4a2c3c;
+}
+.hero .artifact-pair.artifact-trio .artifact:hover > p,
+.hero .artifact-pair.artifact-trio .artifact:focus-visible > p,
+.hero .artifact-pair.artifact-trio .artifact:hover > small,
+.hero .artifact-pair.artifact-trio .artifact:focus-visible > small,
+.hero .artifact-pair.artifact-trio .artifact:hover .artifact-body > div,
+.hero .artifact-pair.artifact-trio .artifact:focus-visible .artifact-body > div {
+  color: inherit;
+  border-color: currentColor;
+  opacity: 0.85;
+}
+@media (max-width: 900px) {
+  .hero .artifact-pair.artifact-trio {
     grid-template-columns: 1fr;
   }
-  .hero .artifact-pair .artifact-left,
-  .hero .artifact-pair .artifact-right {
-    height: 240px !important;
-    min-height: 240px !important;
-    max-height: 240px !important;
+  .hero .artifact-pair.artifact-trio .artifact {
+    min-height: 0;
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  .hero .artifact-pair.artifact-trio .artifact {
+    transition: none;
+  }
+}
+
