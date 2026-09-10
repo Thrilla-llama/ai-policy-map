@@ -211,6 +211,10 @@
       offered: 'PD offered',
       cohort: 'PD cohort',
       ad_hoc: 'Ad hoc PD',
+      /* entity_type — parent-plain */
+      traditional: 'traditional public',
+      charter: 'charter',
+      private: 'private',
     };
     if (labels[value]) return labels[value];
     return String(value || '').replaceAll('_', ' ');
@@ -477,6 +481,7 @@
               ? 'No public AI safety rule found'
               : 'Safety: ' + humanize(d.safety_ai_status, 'safety');
           const signals = [
+            humanize(d.ai_policy_status),
             humanize(d.assignment_framework),
             humanize(d.teacher_pd),
             safetyLabel,
@@ -500,9 +505,7 @@
             d.district
           )}</h3>${scoreBlock}</div><p class="location">${safe(
             locationLine
-          )}</p><span class="status-chip policy-stage">${safe(
-            humanize(d.ai_policy_status)
-          )}</span></div></div><p class="summary">${safe(
+          )}</p></div></div><p class="summary">${safe(
             summary
           )}</p><div class="signals">${signals
             .map((x) => `<span>${safe(x)}</span>`)

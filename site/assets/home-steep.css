@@ -213,9 +213,25 @@ a.result-card:focus-visible .signals span {
   min-width: 0;
   padding-right: 8px;
 }
+
 .result-title-row .score-block {
   margin-top: -2px;
 }
+
+.result-title-row h3 {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  padding-right: 8px;
+}
+a.result-card .location {
+  margin: 2px 0 0;
+  line-height: 1.3;
+}
+a.result-card .summary {
+  margin-top: 12px;
+}
+
 
 .result-copy .policy-stage {
   display: inline-block;
