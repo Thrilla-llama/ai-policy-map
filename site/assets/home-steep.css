@@ -199,7 +199,24 @@ a.result-card:focus-visible .signals span {
 .result-copy {
   min-width: 0;
   flex: 1;
+  width: 100%;
 }
+.result-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.result-title-row h3 {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  padding-right: 8px;
+}
+.result-title-row .score-block {
+  margin-top: -2px;
+}
+
 .result-copy .policy-stage {
   display: inline-block;
   margin-top: 10px;

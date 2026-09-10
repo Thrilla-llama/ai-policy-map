@@ -298,26 +298,15 @@
   }
 
   function canOpenDistrict(districtId) {
-    if (isPaidSession()) return true;
-    var id = String(districtId || '');
-    var list = getViewedDistricts();
-    if (list.indexOf(id) !== -1) return true;
-    return list.length < AIPM_FREE_DISTRICT_CAP;
+    /* Pete 2026-09-10: all free until monetization is decided */
+    return true;
   }
 
   function updateHomeFreemiumMeta() {
     var el = document.getElementById('home-freemium-meta');
     if (!el) return;
-    if (isPaidSession()) {
-      el.textContent = 'Paid view on — district opens unlocked in this tab.';
-      return;
-    }
-    var n = getViewedDistricts().length;
-    el.textContent =
-      n +
-      ' of ' +
-      AIPM_FREE_DISTRICT_CAP +
-      ' free district views used in this browser (map + Explore).';
+    el.hidden = true;
+    el.textContent = '';
   }
 
   function closeHomePaywall() {
@@ -503,24 +492,17 @@
               : '';
           const href = entityHref(d);
           const districtId = slugify(d.district);
-          const viewed = getViewedDistricts();
-          const opened = viewed.indexOf(districtId) !== -1;
-          const paid = isPaidSession();
-          const gated = !paid && !opened && viewed.length >= AIPM_FREE_DISTRICT_CAP;
-          const viewedChip = opened
-            ? '<span class="status-chip viewed-chip">In your free 3</span>'
-            : '';
-          return `<a class="result-card ${group}${gated ? ' is-gated' : ''}" href="${safe(
+          return `<a class="result-card ${group}" href="${safe(
             href
           )}" data-district-id="${safe(districtId)}" data-district-name="${safe(
             d.district
-          )}" data-gated="${gated ? '1' : '0'}"><div class="result-top"><div class="result-copy"><h3>${safe(
+          )}" data-gated="0"><div class="result-top"><div class="result-copy"><div class="result-title-row"><h3>${safe(
             d.district
-          )}</h3><p class="location">${safe(
+          )}</h3>${scoreBlock}</div><p class="location">${safe(
             locationLine
           )}</p><span class="status-chip policy-stage">${safe(
             humanize(d.ai_policy_status)
-          )}</span>${viewedChip}</div>${scoreBlock}</div><p class="summary">${safe(
+          )}</span></div></div><p class="summary">${safe(
             summary
           )}</p><div class="signals">${signals
             .map((x) => `<span>${safe(x)}</span>`)

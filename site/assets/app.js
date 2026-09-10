@@ -580,18 +580,8 @@
   var AIPM_VIEW_KEY = 'aipm_view';
 
   function getSafetyViewMode() {
-    try {
-      var params = new URLSearchParams(window.location.search || '');
-      var q = String(params.get('view') || '').trim().toLowerCase();
-      if (q === 'paid' || q === 'free') return q;
-    } catch (e) {}
-    try {
-      var stored = String(sessionStorage.getItem(AIPM_VIEW_KEY) || '')
-        .trim()
-        .toLowerCase();
-      if (stored === 'paid' || stored === 'free') return stored;
-    } catch (e2) {}
-    return 'free';
+    /* Pete 2026-09-10: all free — show full Evidence until monetization */
+    return 'paid';
   }
 
   function setSafetyViewMode(mode) {
@@ -737,6 +727,8 @@
   }
 
   function renderSafetyViewToggle(mode) {
+    /* Pete 2026-09-10: all free — no Free|Paid toggle */
+    return '';
     const isPaid = mode === 'paid';
     return (
       '<div class="aipm-view-toggle" role="group" aria-label="Prototype view mode">' +
@@ -2026,10 +2018,8 @@
   }
 
   function canFollowDistrict(districtId) {
-    const id = String(districtId || '');
-    const list = getFollowedDistricts();
-    if (list.indexOf(id) !== -1) return true;
-    return list.length < AIPM_FREE_DISTRICT_CAP;
+    /* Pete 2026-09-10: all free until monetization is decided */
+    return true;
   }
 
   function recordDistrictFollow(districtId) {

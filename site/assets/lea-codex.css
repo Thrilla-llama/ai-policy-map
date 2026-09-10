@@ -374,3 +374,11 @@ body.theme-dark {
   --accent: #e6edf3;
   --accent-soft: rgba(230, 237, 243, 0.08);
 }
+
+/* Pete 2026-09-10: all free — hide prototype free/paid chrome */
+.aipm-view-toggle,
+.safety-locked-teaser,
+.safety-locked-teaser-btn,
+.home-freemium-meta {
+  display: none !important;
+}
