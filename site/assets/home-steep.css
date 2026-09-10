@@ -412,14 +412,26 @@ a.result-card:focus-visible .see-more {
   gap: 8px;
 }
 .tool-mock-list li {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 7.25rem minmax(0, 1fr);
+  column-gap: 10px;
+  align-items: baseline;
   font-size: 14px;
   padding: 10px 0;
   border-top: 1px solid #eee;
 }
-.tool-mock-list li span { color: var(--muted); font-size: 12px; }
+.tool-mock-list .tool-mock-k {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+}
+.tool-mock-list .tool-mock-v {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
 .tool-lock {
   display: inline-flex;
   align-items: center;
