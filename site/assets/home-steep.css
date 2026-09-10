@@ -155,11 +155,16 @@ body{background:radial-gradient(ellipse 70% 650px at 5% 480px,#f7c9b5b3,transpar
 
 /* "What the tool underneath looks like" product preview */
 .tool-preview {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
   max-width: 1200px;
   margin: 0 auto;
   padding: 64px 24px;
 }
 .tool-preview .section-intro {
+  position: static;
+  top: auto;
   margin-bottom: 28px;
 }
 .tool-mock {
