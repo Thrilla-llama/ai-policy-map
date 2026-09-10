@@ -24,9 +24,9 @@
   --accent: #17191c;
   --accent-soft: #f2f2f3;
   --warn: #9a6700;
-  --warn-soft: #fff6e0;
+  --warn-soft: #f2f2f3;
   --good: #15803d;
-  --good-soft: #ecfdf3;
+  --good-soft: #f2f2f3;
   --bad: #b91c1c;
   --bad-soft: #fef2f2;
   --mid: #3b4a63;
@@ -261,6 +261,61 @@ h2, h3 {
 code {
   background: #f2f2f3;
   border-radius: 6px;
+}
+
+/* Pros / cons — same Codex box structure as homepage .tool-mock panels */
+.section.card.proscons {
+  background: #f2f2f3;
+  border: 0;
+  border-radius: 24px;
+  box-shadow: none;
+  padding: 24px;
+}
+.section.card.proscons .section-head h2 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.proscons-grid {
+  gap: 20px;
+  margin-top: 18px;
+}
+.pros-block,
+.cons-block {
+  background: #fff;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px var(--line);
+  padding: 22px 22px 18px;
+}
+.pros-block h3,
+.cons-block h3 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.pros-block ul,
+.cons-block ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  line-height: 1.55;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.pros-block .empty-msg,
+.cons-block .empty-msg {
+  color: var(--muted);
+  font-style: normal;
+}
+.section.card.proscons > .note {
+  margin-top: 16px !important;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 /* Keep dark theme opt-in usable if a page sets body.theme-dark */
