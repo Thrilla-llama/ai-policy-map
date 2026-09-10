@@ -501,11 +501,11 @@
             href
           )}" data-district-id="${safe(districtId)}" data-district-name="${safe(
             d.district
-          )}" data-gated="0"><div class="result-top"><div class="result-copy"><div class="result-title-row"><h3>${safe(
+          )}" data-gated="0"><div class="result-top"><div class="result-copy"><div class="result-title-row"><div class="result-heading"><h3>${safe(
             d.district
-          )}</h3>${scoreBlock}</div><p class="location">${safe(
+          )}</h3><p class="location">${safe(
             locationLine
-          )}</p></div></div><p class="summary">${safe(
+          )}</p></div>${scoreBlock}</div></div></div><p class="summary">${safe(
             summary
           )}</p><div class="signals">${signals
             .map((x) => `<span>${safe(x)}</span>`)

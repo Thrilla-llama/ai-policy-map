@@ -154,6 +154,29 @@ body{background:radial-gradient(ellipse 70% 650px at 5% 480px,#f7c9b5b3,transpar
 }
 
 /* Explore cards — bigger Overall, hover tint, See more */
+
+.result-heading {
+  flex: 1;
+  min-width: 0;
+  padding-right: 8px;
+}
+.result-heading h3 {
+  margin: 0;
+}
+.result-heading .location {
+  margin: 4px 0 0;
+  line-height: 1.3;
+}
+.result-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+a.result-card .summary {
+  margin-top: 14px;
+}
+
 a.result-card {
   display: block;
   text-decoration: none;
