@@ -17,6 +17,7 @@ LEA_SHELL = """<!DOCTYPE html>
   <title>{title} · AI Policy Map</title>
   <meta name="description" content="AI policy snapshot for {title}." />
   <link rel="stylesheet" href="/assets/app.css" />
+  <link rel="stylesheet" href="/assets/lea-codex.css" />
 </head>
 <body data-page="lea">
   <div class="wrap">
@@ -55,6 +56,7 @@ PRIVATE_SHELL = """<!DOCTYPE html>
   <title>{title} · AI Policy Map</title>
   <meta name="description" content="AI policy snapshot for {title} (private)." />
   <link rel="stylesheet" href="/assets/app.css" />
+  <link rel="stylesheet" href="/assets/lea-codex.css" />
 </head>
 <body data-page="private">
   <div class="wrap">

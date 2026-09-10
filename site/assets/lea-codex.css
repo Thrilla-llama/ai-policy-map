@@ -1,0 +1,275 @@
+/* Codex light skin for LEA / entity / app.css pages.
+   Loads AFTER /assets/app.css. Remaps shared tokens to match
+   homepage home-steep.css / home-styles.css — do not fork freemium,
+   evidence, or board-email behavior; this file is visual only. */
+
+:root {
+  /* Shared with site/assets/home-steep.css :root */
+  --ink: #17191c;
+  --muted: #626570;
+  --canvas: #ffffff;
+  --paper: #ffffff;
+  --line: #ececec;
+  --line-dark: #d4d4d6;
+  --blue: #17191c;
+  --blue-dark: #17191c;
+  --blue-soft: #f2f2f3;
+  --yellow: #fbe1d1;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Remap app.css tokens onto Codex */
+  --bg: #ffffff;
+  --card: #ffffff;
+  --accent: #17191c;
+  --accent-soft: #f2f2f3;
+  --warn: #9a6700;
+  --warn-soft: #fff6e0;
+  --good: #15803d;
+  --good-soft: #ecfdf3;
+  --bad: #b91c1c;
+  --bad-soft: #fef2f2;
+  --mid: #3b4a63;
+  --mid-soft: #eef2f7;
+  --shadow: 0 0 0 1px #ececec, 0 16px 40px rgba(23, 25, 28, 0.06);
+  --radius: 20px;
+  --font: var(--sans);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+body {
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover { color: var(--ink); opacity: 0.75; }
+
+.wrap {
+  width: min(1120px, calc(100% - 2.5rem));
+}
+
+/* Header — same product chrome as homepage */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: 0 0 1.75rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  align-items: center;
+}
+.brand {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.brand strong {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.brand span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.brand span::before {
+  content: "·";
+  margin-right: 0.55rem;
+  color: var(--line-dark);
+}
+.nav {
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+.nav a {
+  color: var(--ink);
+  font-weight: 400;
+  text-decoration: none;
+}
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  opacity: 0.7;
+}
+
+/* Type */
+h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+h2, h3 {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.lead, .note { color: var(--muted); }
+.kicker {
+  color: var(--muted);
+  background: var(--accent-soft);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.kicker .dot { background: var(--ink); }
+
+/* Cards / panels */
+.card {
+  border: 0;
+  border-radius: var(--radius);
+  background: #f7f7f8;
+  box-shadow: none;
+  padding: 1.25rem 1.35rem;
+}
+.card .card,
+.safety-evidence,
+.stat-card {
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+/* Buttons — Codex pills */
+.btn {
+  border-radius: 999px;
+  border: 1px solid var(--line-dark);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 400;
+  padding: 0.65rem 1.15rem;
+  box-shadow: none;
+}
+.btn:hover {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+.btn.primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.btn.primary:hover {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+.btn-pill {
+  border-radius: 999px;
+}
+
+/* Search / lists */
+.search-wrap input[type="search"] {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  height: 56px;
+  padding: 0 1rem;
+}
+.search-wrap input:focus {
+  outline: 3px solid var(--yellow);
+  border-color: var(--ink);
+}
+.typeahead {
+  border-radius: 16px;
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+.typeahead li button:hover,
+.typeahead li button:focus {
+  background: var(--accent-soft);
+}
+.entity-list a {
+  border: 0;
+  border-radius: 16px;
+  background: #f7f7f8;
+}
+.entity-list a:hover {
+  background: #f2f2f3;
+  border-color: transparent;
+}
+.map-chip {
+  border-radius: 999px;
+  border-color: var(--line);
+  font-weight: 400;
+}
+.map-chip:hover { border-color: var(--ink); }
+
+/* Badges — keep semantic colors, soften chrome */
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: var(--accent-soft);
+  color: var(--muted);
+}
+
+/* Stat cards */
+.stat-kicker {
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+.stat-value {
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+/* Safety / evidence / freemium — keep structure; match Codex surfaces */
+.safety-evidence {
+  border-radius: var(--radius);
+}
+.safety-evidence-badge {
+  border-radius: 999px;
+  font-weight: 500;
+}
+.safety-evidence-quote,
+.safety-locked-teaser-btn {
+  border-radius: 16px;
+}
+.safety-locked-teaser-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+
+/* Board email modal / forms */
+.board-email-field input,
+.board-email-field textarea,
+.aipm-modal input,
+.aipm-modal textarea {
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+.aipm-modal {
+  border-radius: 24px;
+}
+
+.site-footer {
+  border-top-color: var(--line);
+  color: var(--muted);
+}
+
+code {
+  background: #f2f2f3;
+  border-radius: 6px;
+}
+
+/* Keep dark theme opt-in usable if a page sets body.theme-dark */
+body.theme-dark {
+  --bg: #0d1117;
+  --ink: #e6edf3;
+  --muted: #9aa4b2;
+  --card: #161b22;
+  --line: #30363d;
+  --accent: #e6edf3;
+  --accent-soft: rgba(230, 237, 243, 0.08);
+}
