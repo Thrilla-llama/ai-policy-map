@@ -138,6 +138,7 @@ footer p { margin: 0 auto; color: var(--muted); }.footer-brand { font-size: 15px
 
 /* Homepage result cards as links (LEA / private entity pages) */
 a.result-card { display: block; text-decoration: none; color: inherit; transition: box-shadow .15s ease, transform .15s ease; }
-a.result-card:hover { box-shadow: 0 8px 24px rgba(17,24,39,.08); }
+/* hover color handled in home-steep.css */
+a.result-card:hover { box-shadow: none; }
 .chip-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
 .score-chip { color: var(--ink) !important; border-color: var(--line-dark) !important; letter-spacing: 0 !important; text-transform: none !important; font-weight: 700 !important; }

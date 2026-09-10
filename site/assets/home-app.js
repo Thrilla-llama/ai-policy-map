@@ -493,11 +493,13 @@
             safetyLabel,
           ].filter((x) => x && !String(x).toLowerCase().includes('unknown'));
           const comp = compositeScore(d);
-          const scoreChip =
+          const scoreBlock =
             comp.score != null
-              ? `<span class="status-chip score-chip">Overall ${comp.score} · ${safe(
+              ? `<div class="score-block" aria-label="Overall policy score ${comp.score}, ${safe(
                   comp.label
-                )}</span>`
+                )}"><span class="score-kicker">Overall</span><span class="score-value">${
+                  comp.score
+                }</span><span class="score-band">${safe(comp.label)}</span></div>`
               : '';
           const href = entityHref(d);
           const districtId = slugify(d.district);
@@ -508,20 +510,23 @@
           const viewedChip = opened
             ? '<span class="status-chip viewed-chip">In your free 3</span>'
             : '';
-          const partHint = '';
           return `<a class="result-card ${group}${gated ? ' is-gated' : ''}" href="${safe(
             href
           )}" data-district-id="${safe(districtId)}" data-district-name="${safe(
             d.district
-          )}" data-gated="${gated ? '1' : '0'}"><div class="result-top"><div><h3>${safe(
+          )}" data-gated="${gated ? '1' : '0'}"><div class="result-top"><div class="result-copy"><h3>${safe(
             d.district
-          )}</h3><p class="location">${safe(locationLine)}</p>${partHint}</div><div class="chip-stack"><span class="status-chip">${safe(
+          )}</h3><p class="location">${safe(
+            locationLine
+          )}</p><span class="status-chip policy-stage">${safe(
             humanize(d.ai_policy_status)
-          )}</span>${scoreChip}${viewedChip}</div></div><p class="summary">${safe(
+          )}</span>${viewedChip}</div>${scoreBlock}</div><p class="summary">${safe(
             summary
           )}</p><div class="signals">${signals
             .map((x) => `<span>${safe(x)}</span>`)
-            .join('')}</div></a>`;
+            .join(
+              ''
+            )}</div><span class="see-more">See more <span aria-hidden="true">→</span></span></a>`;
         })
         .join('') ||
       '<article class="result-card"><h3>No matching district</h3><p class="summary">Try a broader name or change the policy-stage filter.</p></article>';

@@ -153,6 +153,124 @@ body{background:radial-gradient(ellipse 70% 650px at 5% 480px,#f7c9b5b3,transpar
   color: var(--muted);
 }
 
+/* Explore cards — bigger Overall, hover tint, See more */
+a.result-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+a.result-card:hover,
+a.result-card:focus-visible {
+  background: #fbe1d1;
+  color: #5d2a1a;
+  transform: translateY(-4px);
+  box-shadow: none;
+  outline: none;
+}
+a.result-card.formal:hover,
+a.result-card.formal:focus-visible {
+  background: #dce3ef;
+  color: #243552;
+}
+a.result-card.emerging:hover,
+a.result-card.emerging:focus-visible {
+  background: #e9dce3;
+  color: #4a2c3c;
+}
+a.result-card:hover .location,
+a.result-card:focus-visible .location,
+a.result-card:hover .policy-stage,
+a.result-card:focus-visible .policy-stage,
+a.result-card:hover .summary,
+a.result-card:focus-visible .summary {
+  color: inherit;
+  opacity: 0.85;
+}
+a.result-card:hover .signals span,
+a.result-card:focus-visible .signals span {
+  background: rgba(255, 255, 255, 0.65);
+  color: inherit;
+}
+.result-top {
+  align-items: flex-start;
+  gap: 16px;
+}
+.result-copy {
+  min-width: 0;
+  flex: 1;
+}
+.result-copy .policy-stage {
+  display: inline-block;
+  margin-top: 10px;
+}
+.score-block {
+  flex-shrink: 0;
+  text-align: right;
+  line-height: 1;
+  min-width: 5.5rem;
+}
+.score-block .score-kicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.score-block .score-value {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(40px, 8vw, 52px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.score-block .score-band {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+a.result-card:hover .score-block .score-kicker,
+a.result-card:focus-visible .score-block .score-kicker,
+a.result-card:hover .score-block .score-value,
+a.result-card:focus-visible .score-block .score-value,
+a.result-card:hover .score-block .score-band,
+a.result-card:focus-visible .score-block .score-band {
+  color: inherit;
+}
+.see-more {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a.result-card:hover .see-more,
+a.result-card:focus-visible .see-more {
+  color: inherit;
+}
+@media (max-width: 650px) {
+  a.result-card:hover,
+  a.result-card:focus-visible {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  a.result-card {
+    transition: none;
+  }
+  a.result-card:hover,
+  a.result-card:focus-visible {
+    transform: none;
+  }
+}
+
 /* "What the tool underneath looks like" product preview */
 .tool-preview {
   position: relative;
