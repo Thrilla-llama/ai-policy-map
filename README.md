@@ -20,9 +20,20 @@ Headline rank = **Safety (~70%) + Clarity (~30%)** only. See `docs/scoring_rubri
 
 Research batch folders, FINDINGS dumps, `.bak` CSVs, and raw PDF scrapes stay on the workshop machine — not in git.
 
-## Soft-launch
+## Soft-launch / Cloudflare Pages
 
-Public soft-launch: https://ai-policy-map.pages.dev/
+Public site: https://ai-policy-map.pages.dev/
+
+| Setting | Value |
+|---------|--------|
+| Pages project | `ai-policy-map` |
+| GitHub repo | `Thrilla-llama/ai-policy-map` |
+| Production branch | `main` |
+| Root directory | `site` |
+| Build command | _(none — static)_ |
+| Framework preset | None |
+
+Pushes to `main` auto-deploy. No API-token hand deploys.
 
 ## Local site
 
