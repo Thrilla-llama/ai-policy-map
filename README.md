@@ -22,7 +22,7 @@ Research batch folders, FINDINGS dumps, `.bak` CSVs, and raw PDF scrapes stay on
 
 ## Soft-launch
 
-Public soft-launch (frozen until greenlight): https://ai-policy-map.pages.dev/
+Public soft-launch: https://ai-policy-map.pages.dev/
 
 ## Local site
 
