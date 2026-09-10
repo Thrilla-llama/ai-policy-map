@@ -400,6 +400,66 @@
     openHomePaywall(districtName, href, districtId);
   }
 
+
+  /** Plain-language Explore/map blurb — not research one_liner. */
+  function cardSummary(d) {
+    var status = String(d.ai_policy_status || '').trim();
+    var assign = String(d.assignment_framework || '').trim();
+    var safety = String(d.safety_ai_status || '').trim().toLowerCase();
+    var bits = [];
+
+    var statusLine = {
+      board_policy: 'Has a board AI policy parents can find online.',
+      procedure_handbook: 'AI rules show up in the student handbook.',
+      principles_only: 'Published AI principles for teachers and students.',
+      guidance: 'Published AI guidance for schools.',
+      resolution: 'The board passed an AI resolution.',
+      drafting_IFBG: 'Still drafting AI policy — nothing finished for classrooms yet.',
+      drafting_guidance: 'Still drafting AI guidance — nothing finished for classrooms yet.',
+      none: 'No public AI policy found.',
+      unknown: 'No verified public AI policy yet.',
+    }[status];
+    if (statusLine) bits.push(statusLine);
+    else if (status)
+      bits.push('Public AI status: ' + humanize(status) + '.');
+
+    var hasClassroomRules =
+      assign === 'traffic_light' ||
+      assign === 'required' ||
+      assign === 'prohibited' ||
+      assign === 'allowed_with_citation';
+    if (
+      status === 'principles_only' ||
+      status.indexOf('drafting') === 0 ||
+      (!hasClassroomRules &&
+        status !== 'none' &&
+        status !== 'unknown' &&
+        (assign === 'teacher_discretion' || assign === 'ad_hoc' || !assign))
+    ) {
+      bits.push('No finished classroom assignment rules yet.');
+    } else if (assign === 'traffic_light') {
+      bits.push('Classroom AI rules use a traffic-light system.');
+    } else if (hasClassroomRules) {
+      bits.push('Published classroom rules for student AI use.');
+    }
+
+    if (!safety || safety === 'none' || safety === 'unknown') {
+      bits.push('No public AI safety rule found.');
+    } else {
+      bits.push('Published AI safety rules parents can find online.');
+    }
+
+    // de-dupe while keeping order
+    var seen = {};
+    var out = [];
+    bits.forEach(function (b) {
+      if (!b || seen[b]) return;
+      seen[b] = true;
+      out.push(b);
+    });
+    return out.join(' ') || 'Open the district page for what we found.';
+  }
+
   function render() {
     const q = search.value.trim().toLowerCase();
     const status = filter.value;
@@ -416,11 +476,7 @@
         .slice(0, limit)
         .map((d) => {
           const group = groupStatus(d.ai_policy_status);
-          const summary =
-            d.one_liner ||
-            (group === 'none'
-              ? 'No public AI policy or guidance was found in the reviewed sources.'
-              : 'Public AI guidance has been identified and coded.');
+          const summary = cardSummary(d);
           const metro = metroParentLabel(d);
           const locationParts = [metro, humanize(d.entity_type)]
             .filter(Boolean)
@@ -439,7 +495,7 @@
           const comp = compositeScore(d);
           const scoreChip =
             comp.score != null
-              ? `<span class="status-chip score-chip">Score ${comp.score} · ${safe(
+              ? `<span class="status-chip score-chip">Overall ${comp.score} · ${safe(
                   comp.label
                 )}</span>`
               : '';
@@ -461,7 +517,7 @@
               : null,
           ].filter(Boolean);
           const partHint = parts.length
-            ? `<p class="location score-parts">${safe(parts.join(' · '))} · composite Safety~70/Clarity~30</p>`
+            ? `<p class="location score-parts">${safe(parts.join(' · '))}</p>`
             : '';
           return `<a class="result-card ${group}${gated ? ' is-gated' : ''}" href="${safe(
             href
@@ -518,6 +574,7 @@
   };
   window.metroParentLabel = metroParentLabel;
   window.compositeScore = compositeScore;
+  window.cardSummary = cardSummary;
   window.slugify = slugify;
   window.entityHref = entityHref;
 
