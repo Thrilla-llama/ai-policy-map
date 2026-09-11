@@ -43,8 +43,6 @@ function buildDistrictMap(records){
  const asOf=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'short',day:'numeric'}).format(new Date());
  const pulseAsOf=document.querySelector('#pulseAsOf');
  if(pulseAsOf) pulseAsOf.textContent='Live from canonical data · as of '+asOf;
- const dataAsOf=document.querySelector('#dataAsOf');
- if(dataAsOf){ dataAsOf.hidden=false; dataAsOf.textContent='Counts update from the live CSV · as of '+asOf; }
  fetch('/data/schools.csv').then(r=>r.ok?r.text():Promise.reject()).then(t=>{
    const lines=t.trim().split(/\r?\n/).filter(Boolean);
    const n=Math.max(0, lines.length-1);

@@ -600,3 +600,28 @@ a.result-card:focus-visible .see-more {
   color: var(--muted);
   font-size: 12px;
 }
+
+/* Stat band · vertical separators */
+.stat-band {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: hidden;
+}
+.stat-band > div {
+  border: 0;
+  border-right: 1px solid #e3e3e4;
+}
+.stat-band > div:last-of-type {
+  border-right: 0;
+}
+@media (max-width: 900px) {
+  .stat-band {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .stat-band > div:nth-child(2n) {
+    border-right: 0;
+  }
+  .stat-band > div:nth-child(-n+2) {
+    border-bottom: 1px solid #e3e3e4;
+  }
+}
