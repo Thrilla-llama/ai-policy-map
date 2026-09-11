@@ -1186,7 +1186,6 @@
       listOrEmpty(meaning.hurts, empty) +
       '</div>' +
       '</div>' +
-      '<p class="note" style="margin-top:0.75rem">That box is about this kind of policy strength in general — not unique facts we invented for this school.</p>' +
       '</section>' +
       '<section class="section card proscons">' +
       '<div class="section-head"><h2>What we found for this school</h2></div>' +
