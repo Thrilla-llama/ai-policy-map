@@ -13,11 +13,11 @@ body{background:#fff;font-weight:400}.site-header{position:absolute;width:100%;b
 .pulse{position:relative;grid-column:1/-1;grid-row:3;top:auto;left:auto;width:100%;max-width:980px;justify-self:center;margin:0;padding:32px;z-index:4}
 .artifact{position:relative;top:auto;left:auto;right:auto;width:100%;max-width:478px;transform:none;margin:0;z-index:2}
 .artifact-left{grid-row:4;justify-self:end}.artifact-right{grid-row:4;justify-self:start}
-.hero-track .hero{max-width:1100px}
+.hero-track .hero{max-width:1400px}
 @media(max-width:960px){.hero-track .hero{min-height:1300px}.artifact{width:100%;padding:24px}}
 @media(max-width:650px){.hero-track{height:auto}.hero-track .hero{display:flex;flex-direction:column;min-height:0;height:auto;padding:120px 20px 40px;gap:24px}.pulse{margin:0;padding:24px}.artifact{max-width:none;margin:0}.artifact-right{display:block}.scroll-cue{display:none}}
 @media(prefers-reduced-motion:reduce){.hero-track{height:auto}.hero-track .hero{position:relative;top:0;min-height:0}.reveal{opacity:1;transform:none;transition:none}}
-.hero{display:grid;grid-template-columns:1fr 1fr;align-content:start;gap:24px;height:auto;min-height:0;max-width:1100px;padding:120px 24px 48px}.hero-copy{grid-column:1/-1}.hero .pulse{position:relative;top:auto;left:auto;width:100%;grid-column:1/-1;grid-row:3;background:radial-gradient(ellipse at 5% 15%,#fbe1d170,transparent 55%),radial-gradient(ellipse at 95% 40%,#dbdce85e,transparent 55%),radial-gradient(ellipse at 45% 90%,#e8cfd650,transparent 60%),#fafafb}.hero .artifact{position:relative;top:auto;left:auto;right:auto;transform:none;width:100%}.scroll-cue{position:static;grid-column:1/-1;grid-row:2;margin:0;text-align:center;width:100%}.explorer,.method{padding-top:64px;padding-bottom:64px}.stat-band{margin-top:0}.geo-stage{display:block;position:relative;width:min(100%,600px);aspect-ratio:1/1;margin:0 auto;min-height:0;background:transparent}.district-dot{position:absolute;width:10px;height:10px;padding:0;border:1px solid #a3a3a8;border-radius:50%;background:#d0d0d5;transform:translate(-50%,-50%);cursor:pointer}.district-dot.formal{background:#17191c;border-color:#17191c}.district-dot.emerging{background:#979799;border-color:#979799}.district-dot.unknown{background:white;border:1px dashed #626570}.district-dot:hover,.district-dot:focus-visible{outline:3px solid #5d2a1a;outline-offset:2px;z-index:5}.map-info{min-height:52px;padding:14px 16px;background:white;border-radius:16px;font-size:15px}.map-instruction{font-size:14px;color:#626570}.unmapped{margin-top:16px;font-size:14px}.unmapped summary{cursor:pointer}.unmapped button{display:inline-block;background:white;border:1px solid #ddd;border-radius:20px;padding:8px 12px;margin:6px;cursor:pointer}.district-dialog{max-width:650px;width:calc(100% - 32px);max-height:85vh;border:1px solid #ececec;border-radius:24px;padding:32px;color:#17191c}.district-dialog::backdrop{background:#17191c66}.dialog-close{float:right;width:40px;height:40px;border:0;border-radius:50%;font-size:26px;cursor:pointer}.district-dialog h2{font-family:Georgia,serif;font-weight:400;font-size:32px}.district-dialog p,.district-dialog a{font-size:16px}.district-dialog li{margin:10px 0}.district-dialog a{overflow-wrap:anywhere}.hero .artifact-left,.hero .artifact-right{grid-row:4}.reveal{opacity:1;transform:none}
+.hero{display:grid;grid-template-columns:1fr 1fr;align-content:start;gap:24px;height:auto;min-height:0;max-width:1400px;padding:120px 24px 48px}.hero-copy{grid-column:1/-1}.hero .pulse{position:relative;top:auto;left:auto;width:100%;grid-column:1/-1;grid-row:3;background:radial-gradient(ellipse at 5% 15%,#fbe1d170,transparent 55%),radial-gradient(ellipse at 95% 40%,#dbdce85e,transparent 55%),radial-gradient(ellipse at 45% 90%,#e8cfd650,transparent 60%),#fafafb}.hero .artifact{position:relative;top:auto;left:auto;right:auto;transform:none;width:100%}.scroll-cue{position:static;grid-column:1/-1;grid-row:2;margin:0;text-align:center;width:100%}.explorer,.method{padding-top:64px;padding-bottom:64px}.stat-band{margin-top:0}.geo-stage{display:block;position:relative;width:min(100%,600px);aspect-ratio:1/1;margin:0 auto;min-height:0;background:transparent}.district-dot{position:absolute;width:10px;height:10px;padding:0;border:1px solid #a3a3a8;border-radius:50%;background:#d0d0d5;transform:translate(-50%,-50%);cursor:pointer}.district-dot.formal{background:#17191c;border-color:#17191c}.district-dot.emerging{background:#979799;border-color:#979799}.district-dot.unknown{background:white;border:1px dashed #626570}.district-dot:hover,.district-dot:focus-visible{outline:3px solid #5d2a1a;outline-offset:2px;z-index:5}.map-info{min-height:52px;padding:14px 16px;background:white;border-radius:16px;font-size:15px}.map-instruction{font-size:14px;color:#626570}.unmapped{margin-top:16px;font-size:14px}.unmapped summary{cursor:pointer}.unmapped button{display:inline-block;background:white;border:1px solid #ddd;border-radius:20px;padding:8px 12px;margin:6px;cursor:pointer}.district-dialog{max-width:650px;width:calc(100% - 32px);max-height:85vh;border:1px solid #ececec;border-radius:24px;padding:32px;color:#17191c}.district-dialog::backdrop{background:#17191c66}.dialog-close{float:right;width:40px;height:40px;border:0;border-radius:50%;font-size:26px;cursor:pointer}.district-dialog h2{font-family:Georgia,serif;font-weight:400;font-size:32px}.district-dialog p,.district-dialog a{font-size:16px}.district-dialog li{margin:10px 0}.district-dialog a{overflow-wrap:anywhere}.hero .artifact-left,.hero .artifact-right{grid-row:4}.reveal{opacity:1;transform:none}
 @media(max-width:650px){.hero{display:flex;flex-direction:column;padding:110px 20px 32px;overflow:visible}.hero .artifact{display:block;max-width:none;margin:0}.hero .pulse{margin:0}.district-dot{width:8px;height:8px}.explorer,.method{padding-top:48px;padding-bottom:48px}}
 .geo-stage{width:min(100%,680px)}
 .district-dot{width:2.9%;height:2.9%;border-width:1px}
@@ -471,8 +471,8 @@ a.result-card:focus-visible .see-more {
   grid-column: 1 / -1;
   grid-row: 4;
   width: 100%;
-  max-width: 1100px;
-  margin: 8px auto 0;
+  max-width: none;
+  margin: 8px 0 0;
   align-items: stretch;
 }
 .hero .artifact-pair.artifact-trio .artifact {
@@ -489,11 +489,11 @@ a.result-card:focus-visible .see-more {
   flex-direction: column;
   box-sizing: border-box;
   margin: 0;
-  padding: 20px 20px 16px;
+  padding: 22px 24px 18px;
   background: #fff;
   border-radius: 20px;
   box-shadow: 0 0 0 1px #ececec, 0 16px 40px rgba(23, 25, 28, 0.06);
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 .hero .artifact-pair.artifact-trio .artifact > p {
   margin: 0 0 8px;
@@ -504,49 +504,62 @@ a.result-card:focus-visible .see-more {
   color: var(--muted);
 }
 .hero .artifact-pair.artifact-trio .artifact > h3 {
-  margin: 0 0 6px;
+  margin: 0 0 10px;
   font-family: var(--serif);
   font-size: 22px;
   font-weight: 400;
   line-height: 1.25;
   letter-spacing: -0.02em;
 }
+/* Kill legacy .artifact div border/flex so we don't get a double rule line */
 .hero .artifact-pair.artifact-trio .artifact-body {
   flex: 0 1 auto;
-  margin-top: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  min-height: 0;
+  overflow: visible;
 }
 .hero .artifact-pair.artifact-trio .artifact-body > div {
-  font-size: 14px;
-  padding: 6px 0;
-  border-top: 1px solid #eee;
   display: block;
-}
-.hero .artifact-pair.artifact-trio .artifact-body > div:first-child {
-  padding-top: 8px;
+  font-size: 14px;
+  line-height: 1.35;
+  padding: 10px 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid rgba(23, 25, 28, 0.12);
+  justify-content: unset;
+  gap: 0;
 }
 .hero .artifact-pair.artifact-trio .artifact > small {
   display: block;
   margin-top: auto;
-  padding-top: 10px;
+  padding-top: 12px;
   font-size: 12px;
   color: var(--muted);
   line-height: 1.4;
+  border: 0;
 }
 .hero .artifact-safety:hover,
 .hero .artifact-safety:focus-visible {
   background: #fbe1d1;
   color: #5d2a1a;
+  box-shadow: 0 0 0 1px rgba(93, 42, 26, 0.18), 0 16px 40px rgba(23, 25, 28, 0.06);
 }
 .hero .artifact-clarity:hover,
 .hero .artifact-clarity:focus-visible {
   background: #dce3ef;
   color: #243552;
+  box-shadow: 0 0 0 1px rgba(36, 53, 82, 0.18), 0 16px 40px rgba(23, 25, 28, 0.06);
 }
 .hero .artifact-efficacy:hover,
 .hero .artifact-efficacy:focus-visible {
   background: #e9dce3;
   color: #4a2c3c;
+  box-shadow: 0 0 0 1px rgba(74, 44, 60, 0.18), 0 16px 40px rgba(23, 25, 28, 0.06);
 }
+/* Text follows box color; borders stay quiet (no flash) */
 .hero .artifact-pair.artifact-trio .artifact:hover > p,
 .hero .artifact-pair.artifact-trio .artifact:focus-visible > p,
 .hero .artifact-pair.artifact-trio .artifact:hover > small,
@@ -554,15 +567,12 @@ a.result-card:focus-visible .see-more {
 .hero .artifact-pair.artifact-trio .artifact:hover .artifact-body > div,
 .hero .artifact-pair.artifact-trio .artifact:focus-visible .artifact-body > div {
   color: inherit;
-  border-color: currentColor;
-  opacity: 0.85;
+  opacity: 1;
+  border-top-color: rgba(23, 25, 28, 0.16);
 }
 @media (max-width: 900px) {
   .hero .artifact-pair.artifact-trio {
     grid-template-columns: 1fr;
-  }
-  .hero .artifact-pair.artifact-trio .artifact {
-    min-height: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
