@@ -80,7 +80,6 @@ body{background:radial-gradient(ellipse 70% 650px at 5% 480px,#f7c9b5b3,transpar
   height: 280px;
 }
 @media (max-width: 650px) {
-  .hero .artifact,
   .hero .artifact-left,
   .hero .artifact-right {
     height: 260px;
@@ -516,7 +515,7 @@ a.result-card:focus-visible .see-more {
 }
 /* One divider set — kill legacy .artifact div border/flex double-line */
 .hero .artifact-pair.artifact-trio .artifact-body {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   margin: 0;
   padding: 0;
   border: 0;
@@ -537,14 +536,39 @@ a.result-card:focus-visible .see-more {
   color: inherit;
   opacity: 0.85;
 }
+.hero .artifact-pair.artifact-trio .artifact {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+}
+.hero .artifact-pair.artifact-trio .artifact > h3 {
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+}
+.hero .artifact-pair.artifact-trio .artifact-body {
+  flex: 0 0 auto;
+  overflow: visible;
+  min-height: 0;
+}
 .hero .artifact-pair.artifact-trio .artifact > small {
   display: block;
-  margin-top: auto;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  margin-top: 8px;
   padding-top: 12px;
+  border-top: 1px solid rgba(23, 25, 28, 0.12);
   font-size: 12px;
   color: #626570;
   line-height: 1.4;
-  border: 0;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: unset;
 }
 /* Why-card hover: soft fill on the whole box, ink stays put */
 .hero .artifact-safety:hover,
