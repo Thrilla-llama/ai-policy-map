@@ -2198,9 +2198,10 @@
     if (!list || !list.length) return esc(emptyMsg);
     return list
       .map(function (r) {
-        const label = hasVal(r.name) ? r.name + ' <' + r.email + '>' : r.email;
+        /* Parent UI: names + roles only — keep emails out of the list */
+        const name = hasVal(r.name) ? r.name : 'Board contact';
         const role = r.role ? ' (' + r.role.replace(/_/g, ' ') + ')' : '';
-        return esc(label + role);
+        return esc(name + role);
       })
       .join('<br>');
   }
