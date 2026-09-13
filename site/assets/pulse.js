@@ -13,11 +13,10 @@
   const roleOther = document.getElementById('roleOther');
   const formError = document.getElementById('formError');
 
-  const STEP_NAMES = ['Screener', 'Published vs practice', 'Google vs ChatGPT'];
+  const DEFAULT_STEP_NAMES = ['Screener', 'Published vs practice', 'Google vs ChatGPT'];
   const TOTAL_STEPS = 3;
 
   let leas = [];
-  let activeIndex = -1;
 
   function show(name) {
     chooser.hidden = name !== 'chooser';
@@ -73,7 +72,6 @@
     if (normalized === 'teacher' || normalized === 'admin') {
       show('teacher');
       resetWizard(form);
-      // Preselect administrator when Admin pill; otherwise leave teacher roles open
       const adminRadio = document.querySelector('input[name="role_detail"][value="administrator"]');
       const teacherRadios = document.querySelectorAll('input[name="role_detail"]');
       if (normalized === 'admin' && adminRadio) {
@@ -111,7 +109,6 @@
     btn.addEventListener('click', () => setRole(null, true));
   });
 
-  // Deep-link / category on load
   const initial = roleFromQuery();
   if (initial) setRole(initial, false);
   else {
@@ -128,37 +125,6 @@
       leas = [];
     });
 
-  function renderSuggest(q) {
-    const query = (q || '').trim().toLowerCase();
-    if (!query || query.length < 1) {
-      suggest.hidden = true;
-      suggest.innerHTML = '';
-      districtInput.setAttribute('aria-expanded', 'false');
-      return;
-    }
-    const matches = leas
-      .filter((d) => d.name.toLowerCase().includes(query))
-      .slice(0, 8);
-    if (!matches.length) {
-      suggest.hidden = true;
-      suggest.innerHTML = '';
-      districtInput.setAttribute('aria-expanded', 'false');
-      return;
-    }
-    suggest.innerHTML = matches
-      .map(
-        (d, i) =>
-          `<li role="option" data-name="${escapeAttr(d.name)}" aria-selected="${
-            i === activeIndex ? 'true' : 'false'
-          }">${escapeHtml(d.name)}<span class="suggest-type">${
-            d.type === 'charter' ? 'charter' : 'LEA'
-          }</span></li>`
-      )
-      .join('');
-    suggest.hidden = false;
-    districtInput.setAttribute('aria-expanded', 'true');
-  }
-
   function escapeHtml(s) {
     return String(s)
       .replace(/&/g, '&amp;')
@@ -171,71 +137,140 @@
     return escapeHtml(s).replace(/'/g, '&#39;');
   }
 
-  function pickDistrict(name) {
-    districtInput.value = name;
-    entityPath.value = 'lea';
-    privateField.hidden = true;
-    suggest.hidden = true;
-    districtInput.setAttribute('aria-expanded', 'false');
-    districtInput.required = true;
-  }
+  function wireDistrictTypeahead(opts) {
+    const input = opts.input;
+    const list = opts.list;
+    const entity = opts.entity;
+    const privateFieldEl = opts.privateField;
+    const privateBtnEl = opts.privateBtn;
+    const privateSchoolInput = opts.privateSchoolInput;
+    if (!input || !list || !entity) return;
 
-  if (districtInput) {
-    districtInput.addEventListener('input', () => {
-      activeIndex = -1;
-      if (entityPath.value === 'private') {
-        entityPath.value = 'lea';
-        privateField.hidden = true;
-        districtInput.required = true;
+    let activeIndex = -1;
+
+    function renderSuggest(q) {
+      const query = (q || '').trim().toLowerCase();
+      if (!query || query.length < 1) {
+        list.hidden = true;
+        list.innerHTML = '';
+        input.setAttribute('aria-expanded', 'false');
+        return;
       }
-      renderSuggest(districtInput.value);
+      const matches = leas
+        .filter((d) => d.name.toLowerCase().includes(query))
+        .slice(0, 8);
+      if (!matches.length) {
+        list.hidden = true;
+        list.innerHTML = '';
+        input.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      list.innerHTML = matches
+        .map(
+          (d, i) =>
+            `<li role="option" data-name="${escapeAttr(d.name)}" aria-selected="${
+              i === activeIndex ? 'true' : 'false'
+            }">${escapeHtml(d.name)}<span class="suggest-type">${
+              d.type === 'charter' ? 'charter' : 'LEA'
+            }</span></li>`
+        )
+        .join('');
+      list.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    function pickDistrict(name) {
+      input.value = name;
+      entity.value = 'lea';
+      if (privateFieldEl) privateFieldEl.hidden = true;
+      list.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      input.required = true;
+    }
+
+    input.addEventListener('input', () => {
+      activeIndex = -1;
+      if (entity.value === 'private') {
+        entity.value = 'lea';
+        if (privateFieldEl) privateFieldEl.hidden = true;
+        input.required = true;
+      }
+      renderSuggest(input.value);
     });
 
-    districtInput.addEventListener('keydown', (e) => {
-      const items = [...suggest.querySelectorAll('li')];
-      if (suggest.hidden || !items.length) return;
+    input.addEventListener('keydown', (e) => {
+      const items = [...list.querySelectorAll('li')];
+      if (list.hidden || !items.length) return;
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         activeIndex = (activeIndex + 1) % items.length;
-        renderSuggest(districtInput.value);
+        renderSuggest(input.value);
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         activeIndex = (activeIndex - 1 + items.length) % items.length;
-        renderSuggest(districtInput.value);
+        renderSuggest(input.value);
       } else if (e.key === 'Enter' && activeIndex >= 0) {
         e.preventDefault();
         pickDistrict(items[activeIndex].dataset.name);
       } else if (e.key === 'Escape') {
-        suggest.hidden = true;
+        list.hidden = true;
       }
     });
-  }
 
-  if (suggest) {
-    suggest.addEventListener('mousedown', (e) => {
+    list.addEventListener('mousedown', (e) => {
       const li = e.target.closest('li');
       if (!li) return;
       e.preventDefault();
       pickDistrict(li.dataset.name);
     });
+
+    document.addEventListener('click', (e) => {
+      if (!list.contains(e.target) && e.target !== input) {
+        list.hidden = true;
+      }
+    });
+
+    if (privateBtnEl) {
+      privateBtnEl.addEventListener('click', () => {
+        entity.value = 'private';
+        input.value = 'Private / independent';
+        input.required = false;
+        if (privateFieldEl) privateFieldEl.hidden = false;
+        list.hidden = true;
+        if (privateSchoolInput) privateSchoolInput.focus();
+      });
+    }
+
+    return {
+      validateLea() {
+        if (entity.value === 'private') return true;
+        const name = input.value.trim();
+        const known = leas.some((d) => d.name.toLowerCase() === name.toLowerCase());
+        return !!(name && known);
+      },
+      focus() {
+        input.focus();
+      },
+    };
   }
 
-  document.addEventListener('click', (e) => {
-    if (suggest && !suggest.contains(e.target) && e.target !== districtInput) {
-      suggest.hidden = true;
-    }
+  const teacherDistrict = wireDistrictTypeahead({
+    input: districtInput,
+    list: suggest,
+    entity: entityPath,
+    privateField: privateField,
+    privateBtn: privateBtn,
+    privateSchoolInput: document.getElementById('privateSchool'),
   });
 
-  if (privateBtn) {
-    privateBtn.addEventListener('click', () => {
-      entityPath.value = 'private';
-      districtInput.value = 'Private / independent';
-      districtInput.required = false;
-      privateField.hidden = false;
-      suggest.hidden = true;
-      document.getElementById('privateSchool').focus();
-    });
-  }
+  const parentDistrict = wireDistrictTypeahead({
+    input: document.getElementById('parentDistrictSearch'),
+    list: document.getElementById('parentDistrictSuggest'),
+    entity: document.getElementById('parentEntityPath'),
+    privateField: document.getElementById('parentPrivateSchoolField'),
+    privateBtn: document.getElementById('parentPrivatePath'),
+    privateSchoolInput: document.getElementById('parentPrivateSchool'),
+  });
 
   if (form) {
     form.querySelectorAll('input[name="role_detail"]').forEach((radio) => {
@@ -248,7 +283,30 @@
     });
   }
 
+  // Parent: optional one-liner when Yes / Suspected on AI issues
+  (function wireParentAiIssuesNote() {
+    const noteField = document.getElementById('parentAiIssuesNoteField');
+    const noteInput = document.getElementById('parentAiIssuesNote');
+    const parentForm = document.getElementById('parent-form');
+    if (!parentForm || !noteField) return;
+    parentForm.querySelectorAll('input[name="ai_issues"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        const show = radio.checked && (radio.value === 'yes' || radio.value === 'suspected');
+        noteField.hidden = !show;
+        if (!show && noteInput) noteInput.value = '';
+      });
+    });
+  })();
+
   /* ---- Wizard helpers ---- */
+
+  function stepNamesFor(formEl) {
+    const panel = formEl && formEl.closest('.pulse-panel');
+    const progress = panel && panel.querySelector('[data-wizard-progress]');
+    const raw = progress && progress.getAttribute('data-step-names');
+    if (raw) return raw.split('|');
+    return DEFAULT_STEP_NAMES;
+  }
 
   function getStep(formEl) {
     return Number(formEl.dataset.wizardStep || '1');
@@ -263,13 +321,14 @@
     });
     const panel = formEl.closest('.pulse-panel');
     const progress = panel && panel.querySelector('[data-wizard-progress]');
+    const names = stepNamesFor(formEl);
     if (progress) {
       const numEl = progress.querySelector('[data-step-num]');
       const nameEl = progress.querySelector('[data-step-name]');
       const bar = progress.querySelector('[data-wizard-bar]');
       const fill = progress.querySelector('.wizard-bar-fill');
       if (numEl) numEl.textContent = String(s);
-      if (nameEl) nameEl.textContent = STEP_NAMES[s - 1] || '';
+      if (nameEl) nameEl.textContent = names[s - 1] || '';
       if (bar) bar.setAttribute('aria-valuenow', String(s));
       if (fill) fill.style.width = (s / TOTAL_STEPS) * 100 + '%';
     }
@@ -293,17 +352,27 @@
     const fs = formEl.querySelector('.wizard-step[data-step="' + step + '"]');
     if (!fs) return true;
 
-    // Teacher step 1: district must be a known LEA or private path
-    if (formEl.id === 'teacher-form' && step === 1 && entityPath && entityPath.value === 'lea') {
-      const name = districtInput.value.trim();
-      const known = leas.some((d) => d.name.toLowerCase() === name.toLowerCase());
-      if (!name || !known) {
+    if (formEl.id === 'teacher-form' && step === 1 && teacherDistrict) {
+      if (!teacherDistrict.validateLea()) {
         if (formError) {
           formError.textContent =
             'Please pick a Georgia district from the suggestions (or choose Private / independent).';
           formError.hidden = false;
         }
-        districtInput.focus();
+        teacherDistrict.focus();
+        return false;
+      }
+    }
+
+    if (formEl.id === 'parent-form' && step === 1 && parentDistrict) {
+      if (!parentDistrict.validateLea()) {
+        const err = formEl.querySelector('.form-error');
+        if (err) {
+          err.textContent =
+            'Please pick a Georgia district from the suggestions (or choose Private / independent).';
+          err.hidden = false;
+        }
+        parentDistrict.focus();
         return false;
       }
     }
@@ -331,7 +400,6 @@
       }
     });
 
-    // role_other when Other selected on teacher step 1
     if (formEl.id === 'teacher-form' && step === 1 && roleOther && !roleOther.hidden && roleOther.required) {
       if (!roleOther.value.trim()) {
         ok = false;

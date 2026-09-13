@@ -7,7 +7,7 @@
   <title>Pulse · AI Policy Map</title>
   <link rel="stylesheet" href="/assets/home-styles.css?v=1789045911">
   <link rel="stylesheet" href="/assets/home-steep.css?v=1789045911">
-  <link rel="stylesheet" href="/assets/pulse.css?v=1789331201">
+  <link rel="stylesheet" href="/assets/pulse.css?v=1789332501">
 </head>
 <body class="pulse-page">
   <header class="site-header">
@@ -64,7 +64,7 @@
       <p class="eyebrow">Teacher/Admin pulse</p>
       <h1 id="teacher-title">Answers are anonymous</h1>
 
-      <div class="wizard-progress" data-wizard-progress="teacher" aria-live="polite">
+      <div class="wizard-progress" data-wizard-progress="teacher" data-step-names="Screener|Published vs practice|Google vs ChatGPT" aria-live="polite">
         <div class="wizard-progress-meta">
           <span class="wizard-step-label">Step <span data-step-num>1</span> of 3</span>
           <span class="wizard-step-name" data-step-name>Screener</span>
@@ -193,7 +193,7 @@
       <p class="eyebrow">Parent pulse</p>
       <h1 id="parent-title">Answers are anonymous</h1>
 
-      <div class="wizard-progress" data-wizard-progress="parent" aria-live="polite">
+      <div class="wizard-progress" data-wizard-progress="parent" data-step-names="Screener|What’s allowed|Google vs ChatGPT + safety" aria-live="polite">
         <div class="wizard-progress-meta">
           <span class="wizard-step-label">Step <span data-step-num>1</span> of 3</span>
           <span class="wizard-step-name" data-step-name>Screener</span>
@@ -206,65 +206,129 @@
       <form id="parent-form" class="pulse-form" novalidate>
         <fieldset class="pulse-block wizard-step" data-step="1">
           <legend>Screener</legend>
+
           <div class="field">
-            <span class="label-like">Grade band for your child? <span class="req">Required</span></span>
+            <label for="parentDistrictSearch">Which Georgia district is your child in? <span class="req">Required</span></label>
+            <input id="parentDistrictSearch" name="district" type="search" autocomplete="off" placeholder="Start typing a district name…" required aria-autocomplete="list" aria-controls="parentDistrictSuggest" aria-expanded="false">
+            <ul id="parentDistrictSuggest" class="suggest" role="listbox" hidden></ul>
+            <p class="field-hint">Or choose <button type="button" class="linkish" id="parentPrivatePath">Private / independent</button> if they don’t attend a public LEA.</p>
+            <input type="hidden" name="entity_path" id="parentEntityPath" value="lea">
+          </div>
+
+          <div class="field" id="parentPrivateSchoolField" hidden>
+            <label for="parentPrivateSchool">School name <span class="opt">(optional)</span></label>
+            <input id="parentPrivateSchool" name="private_school" type="text" autocomplete="organization">
+          </div>
+
+          <div class="field">
+            <span class="label-like">Grade band of your child (or the one you’re thinking about)? <span class="req">Required</span></span>
             <div class="choice-stack" role="radiogroup" aria-label="Child grade band">
               <label class="choice"><input type="radio" name="grade_band" value="elementary" required> Elementary (K–5)</label>
               <label class="choice"><input type="radio" name="grade_band" value="middle"> Middle (6–8)</label>
               <label class="choice"><input type="radio" name="grade_band" value="high"> High (9–12)</label>
-              <label class="choice"><input type="radio" name="grade_band" value="mixed"> More than one / other</label>
+              <label class="choice"><input type="radio" name="grade_band" value="mixed"> More than one / mixed</label>
             </div>
-          </div>
-          <div class="field">
-            <label for="parentDistrict">Georgia district <span class="opt">(optional)</span></label>
-            <input id="parentDistrict" name="district" type="text" autocomplete="off" placeholder="District name if you know it">
           </div>
         </fieldset>
 
         <fieldset class="pulse-block wizard-step" data-step="2" hidden>
-          <legend>Published vs practice</legend>
+          <legend>What’s allowed</legend>
+
           <div class="field">
-            <span class="label-like">Have you seen clear, written rules from the school or district about student use of AI? <span class="req">Required</span></span>
-            <div class="choice-stack" role="radiogroup" aria-label="Parent written AI rules">
-              <label class="choice"><input type="radio" name="written_rules" value="clear_seen" required> Yes — clear and I’ve seen them</label>
-              <label class="choice"><input type="radio" name="written_rules" value="vague"> Something exists but it’s vague or hard to find</label>
-              <label class="choice"><input type="radio" name="written_rules" value="heard_never_seen"> I’ve heard of rules but never seen them</label>
-              <label class="choice"><input type="radio" name="written_rules" value="none_aware"> No written student AI rules I’m aware of</label>
-              <label class="choice"><input type="radio" name="written_rules" value="not_sure"> Not sure</label>
+            <span class="label-like">Do you know whether your child is allowed to use ChatGPT or another chatbot for homework? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="ChatGPT homework allowed">
+              <label class="choice"><input type="radio" name="chatgpt_homework" value="clearly_allowed" required> Yes — clearly allowed</label>
+              <label class="choice"><input type="radio" name="chatgpt_homework" value="clearly_not_allowed"> Yes — clearly not allowed</label>
+              <label class="choice"><input type="radio" name="chatgpt_homework" value="some_classes"> Allowed in some classes only</label>
+              <label class="choice"><input type="radio" name="chatgpt_homework" value="dont_know"> I don’t know</label>
+              <label class="choice"><input type="radio" name="chatgpt_homework" value="never_told"> We’ve never been told</label>
             </div>
           </div>
+
           <div class="field">
-            <span class="label-like">From what you see at home, how is student AI use handled day to day? <span class="req">Required</span></span>
-            <div class="choice-stack" role="radiogroup" aria-label="Parent day-to-day AI">
-              <label class="choice"><input type="radio" name="practice_day" value="clear_enforced" required> Clear expectations, consistently enforced</label>
-              <label class="choice"><input type="radio" name="practice_day" value="uneven"> Expectations exist but enforcement is uneven</label>
-              <label class="choice"><input type="radio" name="practice_day" value="teacher_set"> Teachers mostly set their own rules</label>
-              <label class="choice"><input type="radio" name="practice_day" value="ignored"> Mostly ignored / unspoken</label>
-              <label class="choice"><input type="radio" name="practice_day" value="encouraged"> Actively encouraged with few limits</label>
-              <label class="choice"><input type="radio" name="practice_day" value="not_sure"> Not sure</label>
+            <span class="label-like">If one teacher allows ChatGPT, can your child use it in all their classes? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="One teacher vs all classes">
+              <label class="choice"><input type="radio" name="one_vs_all" value="schoolwide" required> Yes, schoolwide rule</label>
+              <label class="choice"><input type="radio" name="one_vs_all" value="depends_teacher"> No — it depends on the teacher</label>
+              <label class="choice"><input type="radio" name="one_vs_all" value="dont_know"> I don’t know</label>
+              <label class="choice"><input type="radio" name="one_vs_all" value="not_applicable"> Not applicable</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">How would you know if a class decided AI / ChatGPT was not OK? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="How you’d know if not OK">
+              <label class="choice"><input type="radio" name="how_know_not_ok" value="syllabus" required> Syllabus / class rules</label>
+              <label class="choice"><input type="radio" name="how_know_not_ok" value="teacher_email"> Teacher told us / email</label>
+              <label class="choice"><input type="radio" name="how_know_not_ok" value="handbook_site"> School handbook or district site</label>
+              <label class="choice"><input type="radio" name="how_know_not_ok" value="child_told"> My child told me</label>
+              <label class="choice"><input type="radio" name="how_know_not_ok" value="wouldnt_know"> I wouldn’t know unless something went wrong</label>
+              <label class="choice"><input type="radio" name="how_know_not_ok" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">How clear are your district’s public AI rules for families? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Clarity of public AI rules for families">
+              <label class="choice"><input type="radio" name="rules_clarity" value="clear_seen" required> Clear and I’ve seen them</label>
+              <label class="choice"><input type="radio" name="rules_clarity" value="vague_hard"> Vague or hard to find</label>
+              <label class="choice"><input type="radio" name="rules_clarity" value="never_seen"> I’ve never seen any</label>
+              <label class="choice"><input type="radio" name="rules_clarity" value="not_sure"> Not sure</label>
             </div>
           </div>
         </fieldset>
 
         <fieldset class="pulse-block wizard-step" data-step="3" hidden>
-          <legend>Google vs ChatGPT</legend>
+          <legend>Google vs ChatGPT + safety</legend>
+
           <div class="field">
-            <span class="label-like">At your child’s school, is it OK to <em>google</em> answers for schoolwork? <span class="req">Required</span></span>
-            <div class="choice-stack" role="radiogroup" aria-label="Parent google answers">
-              <label class="choice"><input type="radio" name="ok_google" value="usually_ok" required> Usually OK</label>
-              <label class="choice"><input type="radio" name="ok_google" value="sometimes"> Sometimes / depends</label>
+            <span class="label-like">Is googling answers for homework usually OK in your child’s school? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Googling OK">
+              <label class="choice"><input type="radio" name="ok_google" value="usually" required> Usually</label>
+              <label class="choice"><input type="radio" name="ok_google" value="sometimes"> Sometimes</label>
               <label class="choice"><input type="radio" name="ok_google" value="not_ok"> Not OK</label>
               <label class="choice"><input type="radio" name="ok_google" value="not_sure"> Not sure</label>
             </div>
           </div>
+
           <div class="field">
-            <span class="label-like">How about asking <em>ChatGPT</em> (or similar AI) for answers? <span class="req">Required</span></span>
-            <div class="choice-stack" role="radiogroup" aria-label="Parent ChatGPT answers">
-              <label class="choice"><input type="radio" name="ok_chatgpt" value="usually_ok" required> Usually OK</label>
-              <label class="choice"><input type="radio" name="ok_chatgpt" value="sometimes"> Sometimes / depends</label>
+            <span class="label-like">Is using ChatGPT (or similar) for homework usually OK? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="ChatGPT OK">
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="usually" required> Usually</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="sometimes"> Sometimes</label>
               <label class="choice"><input type="radio" name="ok_chatgpt" value="not_ok"> Not OK</label>
               <label class="choice"><input type="radio" name="ok_chatgpt" value="not_sure"> Not sure</label>
             </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">Are you worried about AI fakes, deepfakes, or AI nudes involving kids? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Worry about AI fakes/deepfakes">
+              <label class="choice"><input type="radio" name="worry_fakes" value="very" required> Very worried</label>
+              <label class="choice"><input type="radio" name="worry_fakes" value="somewhat"> Somewhat worried</label>
+              <label class="choice"><input type="radio" name="worry_fakes" value="not_really"> Not really</label>
+              <label class="choice"><input type="radio" name="worry_fakes" value="havent_thought"> Haven’t thought about it</label>
+              <label class="choice"><input type="radio" name="worry_fakes" value="prefer_not"> Prefer not to say</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">Have there been any AI-related issues with kids at school that worried you? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="AI issues that worried you">
+              <label class="choice"><input type="radio" name="ai_issues" value="yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="ai_issues" value="suspected"> Suspected / heard about something</label>
+              <label class="choice"><input type="radio" name="ai_issues" value="no"> No</label>
+              <label class="choice"><input type="radio" name="ai_issues" value="prefer_not"> Prefer not to say</label>
+            </div>
+            <div class="field" id="parentAiIssuesNoteField" hidden style="margin-top:12px">
+              <label for="parentAiIssuesNote">Optional one-line (no names) <span class="opt">(optional)</span></label>
+              <input id="parentAiIssuesNote" name="ai_issues_note" type="text" maxlength="200" placeholder="Short note — no names">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="parentAnythingElse">Anything else about AI at your child’s school we should know? <span class="opt">(optional)</span></label>
+            <textarea id="parentAnythingElse" name="anything_else" rows="3" maxlength="500" placeholder="Short text"></textarea>
           </div>
         </fieldset>
 
@@ -284,7 +348,7 @@
       <p class="eyebrow">Student pulse</p>
       <h1 id="student-title">Answers are anonymous</h1>
 
-      <div class="wizard-progress" data-wizard-progress="student" aria-live="polite">
+      <div class="wizard-progress" data-wizard-progress="student" data-step-names="Screener|Published vs practice|Google vs ChatGPT" aria-live="polite">
         <div class="wizard-progress-meta">
           <span class="wizard-step-label">Step <span data-step-num>1</span> of 3</span>
           <span class="wizard-step-name" data-step-name>Screener</span>
@@ -391,6 +455,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789331201"></script>
+  <script src="/assets/pulse.js?v=1789332500"></script>
 </body>
 </html>

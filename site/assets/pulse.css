@@ -200,6 +200,17 @@
   background: white;
 }
 
+.field textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 14px 16px;
+  border: 1px solid #ececec;
+  border-radius: 16px;
+  background: white;
+  font: inherit;
+  resize: vertical;
+}
+
 .field-hint {
   margin: 8px 0 0;
   font-size: 13px;
