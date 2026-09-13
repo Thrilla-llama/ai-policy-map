@@ -184,6 +184,17 @@
               <label class="choice"><input type="radio" name="ok_chatgpt" value="not_sure"> Not sure</label>
             </div>
           </div>
+
+          <div class="field">
+            <span class="label-like">How often do you use AI as a job aid for your own work (planning, emails, quizzes, feedback, IEPs, etc.)? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="AI as job aid for your work">
+              <label class="choice"><input type="radio" name="teacher_ai_job_aid" value="often" required> Often / regularly</label>
+              <label class="choice"><input type="radio" name="teacher_ai_job_aid" value="sometimes"> Sometimes</label>
+              <label class="choice"><input type="radio" name="teacher_ai_job_aid" value="rarely"> Rarely</label>
+              <label class="choice"><input type="radio" name="teacher_ai_job_aid" value="never"> Never</label>
+              <label class="choice"><input type="radio" name="teacher_ai_job_aid" value="prefer_not"> Prefer not to say</label>
+            </div>
+          </div>
         </fieldset>
 
         <p id="formError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
@@ -318,6 +329,26 @@
               <label class="choice"><input type="radio" name="ok_chatgpt" value="sometimes"> Sometimes</label>
               <label class="choice"><input type="radio" name="ok_chatgpt" value="not_ok"> Not OK</label>
               <label class="choice"><input type="radio" name="ok_chatgpt" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">Have you been told whether teachers may use AI for their own work (planning, emails, grading help)? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Told about teacher AI job aid rules">
+              <label class="choice"><input type="radio" name="parent_told_teacher_ai" value="allowed" required> Yes — allowed</label>
+              <label class="choice"><input type="radio" name="parent_told_teacher_ai" value="not_allowed"> Yes — not allowed</label>
+              <label class="choice"><input type="radio" name="parent_told_teacher_ai" value="nobody_said"> Nobody has said</label>
+              <label class="choice"><input type="radio" name="parent_told_teacher_ai" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">Are you OK with teachers using AI as a job aid for their own work? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="OK with teacher AI job aid">
+              <label class="choice"><input type="radio" name="parent_ok_teacher_ai" value="yes" required> Yes</label>
+              <label class="choice"><input type="radio" name="parent_ok_teacher_ai" value="yes_if_open"> Yes, if they’re open about it</label>
+              <label class="choice"><input type="radio" name="parent_ok_teacher_ai" value="no"> No</label>
+              <label class="choice"><input type="radio" name="parent_ok_teacher_ai" value="not_sure"> Not sure / haven’t thought about it</label>
             </div>
           </div>
 
@@ -536,6 +567,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789334104"></script>
+  <script src="/assets/pulse.js?v=1789334105"></script>
 </body>
 </html>
