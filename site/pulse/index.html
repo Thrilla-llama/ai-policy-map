@@ -55,7 +55,7 @@
           <strong>Parent</strong>
         </button>
       </div>
-      <p class="pulse-footnote">Answers are anonymous. We publish only district-level patterns next to each district’s public AI rules — never named quotes without separate consent.</p>
+      <p class="pulse-footnote">All answers are anonymous.</p>
     </section>
 
     <!-- Teacher flow -->
@@ -149,6 +149,16 @@
               <label class="choice"><input type="radio" name="gap" value="looser"> Practice is looser than what’s written</label>
               <label class="choice"><input type="radio" name="gap" value="no_standard"> There isn’t really a written standard to compare</label>
               <label class="choice"><input type="radio" name="gap" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">If one teacher doesn’t allow ChatGPT, but another has said nothing, is it OK for a student to use ChatGPT for the second teacher’s class? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Silence vs ban for a student">
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="silence_allowed" required> Yes — silence means allowed</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="assume_not_ok"> No — assume not OK until told</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="only_if_ok"> Only if that teacher / school policy says it’s OK</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="not_sure"> I’m not sure</label>
             </div>
           </div>
         </fieldset>
@@ -252,6 +262,16 @@
               <label class="choice"><input type="radio" name="one_vs_all" value="depends_teacher"> No — it depends on the teacher</label>
               <label class="choice"><input type="radio" name="one_vs_all" value="dont_know"> I don’t know</label>
               <label class="choice"><input type="radio" name="one_vs_all" value="not_applicable"> Not applicable</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">If one teacher doesn’t allow ChatGPT, but another has said nothing, is it OK for your child to use ChatGPT in the second teacher’s class? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Silence vs ban for your child">
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="silence_allowed" required> Yes — silence means allowed</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="assume_not_ok"> No — assume not OK until told</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="only_if_ok"> Only if that teacher / school policy says it’s OK</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="not_sure"> I’m not sure</label>
             </div>
           </div>
 
@@ -400,11 +420,11 @@
           </div>
 
           <div class="field">
-            <span class="label-like">If one teacher doesn’t allow ChatGPT, but another has said nothing, is it OK to use ChatGPT for the second teacher’s class? <span class="req">Required</span></span>
-            <div class="choice-stack" role="radiogroup" aria-label="Silence vs ban for second teacher">
-              <label class="choice"><input type="radio" name="silence_vs_ban" value="yes" required> Yes</label>
-              <label class="choice"><input type="radio" name="silence_vs_ban" value="no"> No</label>
-              <label class="choice"><input type="radio" name="silence_vs_ban" value="only_if_ok"> Only if that teacher says it’s OK</label>
+            <span class="label-like">If one teacher doesn’t allow ChatGPT, but another has said nothing, is it OK for you to use ChatGPT for the second teacher’s class? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Silence vs ban for you">
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="silence_allowed" required> Yes — silence means allowed</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="assume_not_ok"> No — assume not OK until told</label>
+              <label class="choice"><input type="radio" name="silence_vs_ban" value="only_if_ok"> Only if that teacher / school policy says it’s OK</label>
               <label class="choice"><input type="radio" name="silence_vs_ban" value="not_sure"> I’m not sure</label>
             </div>
           </div>
@@ -516,6 +536,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789334000"></script>
+  <script src="/assets/pulse.js?v=1789334100"></script>
 </body>
 </html>
