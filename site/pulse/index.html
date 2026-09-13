@@ -247,12 +247,10 @@
         <fieldset class="pulse-block wizard-step" data-step="1">
           <legend>Screener</legend>
 
-          <div class="field field-district-multi">
-            <label for="parentDistrictSearch">Which Georgia district(s) are your children in? <span class="hint-inline">(add all that apply)</span> <span class="req">Required</span></label>
-            <input id="parentDistrictSearch" type="search" autocomplete="off" placeholder="Search and add a district…" aria-autocomplete="list" aria-controls="parentDistrictSuggest" aria-expanded="false">
+          <div class="field">
+            <label for="parentDistrictSearch">Which Georgia district is your child in? <span class="hint-inline">(one school at a time)</span> <span class="req">Required</span></label>
+            <input id="parentDistrictSearch" name="district" type="search" autocomplete="off" placeholder="Start typing a district name…" required aria-autocomplete="list" aria-controls="parentDistrictSuggest" aria-expanded="false">
             <ul id="parentDistrictSuggest" class="suggest" role="listbox" hidden></ul>
-            <div id="parentDistrictPills" class="district-pills" aria-live="polite"></div>
-            <input type="hidden" name="district" id="parentDistrictValue" value="">
             <p class="field-hint">Or choose <button type="button" class="linkish" id="parentPrivatePath">Private / independent</button> if they don’t attend a public LEA.</p>
             <input type="hidden" name="entity_path" id="parentEntityPath" value="lea">
           </div>
@@ -636,6 +634,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789334110"></script>
+  <script src="/assets/pulse.js?v=1789334111"></script>
 </body>
 </html>

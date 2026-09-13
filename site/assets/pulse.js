@@ -386,9 +386,6 @@
     privateField: document.getElementById('parentPrivateSchoolField'),
     privateBtn: document.getElementById('parentPrivatePath'),
     privateSchoolInput: document.getElementById('parentPrivateSchool'),
-    multi: true,
-    pills: document.getElementById('parentDistrictPills'),
-    valueInput: document.getElementById('parentDistrictValue'),
   });
 
   const studentDistrict = wireDistrictTypeahead({
