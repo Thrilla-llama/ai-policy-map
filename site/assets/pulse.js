@@ -405,8 +405,10 @@
     required.forEach((el) => {
       if (el.type === 'radio') {
         const key = el.name;
-        if (!groups[key]) groups[key] = [];
-        groups[key].push(el);
+        // Only the first option is marked required in HTML; collect the whole group.
+        if (!groups[key]) {
+          groups[key] = [...fs.querySelectorAll('input[type="radio"][name="' + key + '"]')];
+        }
       } else if (el.type === 'checkbox') {
         if (!el.checked) ok = false;
       } else if (!el.value || !String(el.value).trim()) {
