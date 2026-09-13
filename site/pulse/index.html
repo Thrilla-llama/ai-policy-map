@@ -261,12 +261,11 @@
           </div>
 
           <div class="field">
-            <span class="label-like">Grade band of your child (or the one you’re thinking about)? <span class="req">Required</span></span>
-            <div class="choice-stack" role="radiogroup" aria-label="Child grade band">
-              <label class="choice"><input type="radio" name="grade_band" value="elementary" required> Elementary (K–5)</label>
-              <label class="choice"><input type="radio" name="grade_band" value="middle"> Middle (6–8)</label>
-              <label class="choice"><input type="radio" name="grade_band" value="high"> High (9–12)</label>
-              <label class="choice"><input type="radio" name="grade_band" value="mixed"> More than one / mixed</label>
+            <span class="label-like">Grade band of your children? <span class="hint-inline">(select all that apply)</span> <span class="req">Required</span></span>
+            <div class="choice-stack" role="group" aria-label="Children grade bands">
+              <label class="choice"><input type="checkbox" name="grade_band" value="elementary" data-required-group="grade_band"> Elementary (K–5)</label>
+              <label class="choice"><input type="checkbox" name="grade_band" value="middle" data-required-group="grade_band"> Middle (6–8)</label>
+              <label class="choice"><input type="checkbox" name="grade_band" value="high" data-required-group="grade_band"> High (9–12)</label>
             </div>
           </div>
         </fieldset>
@@ -635,6 +634,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789334108"></script>
+  <script src="/assets/pulse.js?v=1789334109"></script>
 </body>
 </html>

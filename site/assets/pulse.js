@@ -458,6 +458,7 @@
     const required = fs.querySelectorAll('input[required], select[required], textarea[required]');
     const groups = {};
     let ok = true;
+    const checkboxGroups = {};
     required.forEach((el) => {
       if (el.type === 'radio') {
         const key = el.name;
@@ -466,17 +467,29 @@
           groups[key] = [...fs.querySelectorAll('input[type="radio"][name="' + key + '"]')];
         }
       } else if (el.type === 'checkbox') {
-        if (!el.checked) ok = false;
+        // handled via data-required-group below
       } else if (!el.value || !String(el.value).trim()) {
         ok = false;
         el.reportValidity();
       }
+    });
+    fs.querySelectorAll('input[type="checkbox"][data-required-group]').forEach((el) => {
+      const key = el.getAttribute('data-required-group') || el.name;
+      if (!checkboxGroups[key]) checkboxGroups[key] = [];
+      checkboxGroups[key].push(el);
     });
     Object.keys(groups).forEach((name) => {
       const radios = groups[name];
       if (!radios.some((r) => r.checked)) {
         ok = false;
         radios[0].reportValidity();
+      }
+    });
+    Object.keys(checkboxGroups).forEach((name) => {
+      const boxes = checkboxGroups[name];
+      if (!boxes.some((b) => b.checked)) {
+        ok = false;
+        boxes[0].reportValidity();
       }
     });
 
@@ -518,7 +531,19 @@
 
   function stubSave(formEl, pathName) {
     try {
-      const data = Object.fromEntries(new FormData(formEl).entries());
+      const fd = new FormData(formEl);
+      const data = {};
+      fd.forEach((value, key) => {
+        if (Object.prototype.hasOwnProperty.call(data, key)) {
+          if (Array.isArray(data[key])) data[key].push(value);
+          else data[key] = [data[key], value];
+        } else {
+          data[key] = value;
+        }
+      });
+      Object.keys(data).forEach((key) => {
+        if (Array.isArray(data[key])) data[key] = data[key].join(';');
+      });
       data.submitted_at = new Date().toISOString();
       data.path = pathName;
       const prev = JSON.parse(localStorage.getItem('apm_pulse_stubs') || '[]');
