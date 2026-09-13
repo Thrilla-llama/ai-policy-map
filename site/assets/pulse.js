@@ -73,7 +73,16 @@
   // Deep-link on load
   const initial = roleFromQuery();
   if (initial) setRole(initial, false);
-  else show('chooser');
+  else {
+    show('chooser');
+    const from = new URLSearchParams(window.location.search).get('from');
+    if (from === 'staff') {
+      document.querySelector('.role-card[data-role="teacher"]')?.classList.add('is-suggested');
+    } else if (from === 'family') {
+      document.querySelector('.role-card[data-role="parent"]')?.classList.add('is-suggested');
+      document.querySelector('.role-card[data-role="student"]')?.classList.add('is-suggested');
+    }
+  }
 
   fetch('/assets/ga-leas.json')
     .then((r) => r.json())

@@ -311,3 +311,7 @@
     text-align: center;
   }
 }
+
+.role-card.is-suggested {
+  box-shadow: 0 0 0 2px #17191c;
+}

@@ -675,3 +675,21 @@ a.result-card:focus-visible .see-more {
     border-bottom: 1px solid #e3e3e4;
   }
 }
+
+/* Hero secondary link under Teacher/Admin + Student/Parent pills */
+.hero-secondary {
+  margin: 14px 0 0;
+  text-align: center;
+}
+.hero-secondary .text-link-plain {
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+}
+.hero-secondary .text-link-plain:hover {
+  color: var(--ink);
+}
