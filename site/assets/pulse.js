@@ -144,9 +144,13 @@
     const privateFieldEl = opts.privateField;
     const privateBtnEl = opts.privateBtn;
     const privateSchoolInput = opts.privateSchoolInput;
+    const multi = !!opts.multi;
+    const pillsEl = opts.pills;
+    const valueEl = opts.valueInput;
     if (!input || !list || !entity) return;
 
     let activeIndex = -1;
+    let selected = [];
 
     function tokenize(s) {
       return String(s || '')
@@ -201,6 +205,23 @@
       return distScore * 10 + softScore;
     }
 
+    function syncMultiValue() {
+      if (!multi) return;
+      if (valueEl) valueEl.value = selected.join(';');
+      input.required = false;
+      if (pillsEl) {
+        pillsEl.innerHTML = selected
+          .map(
+            (name) =>
+              `<span class="district-pill"><span>${escapeHtml(name)}</span>` +
+              `<button type="button" class="district-pill-remove" data-name="${escapeAttr(
+                name
+              )}" aria-label="Remove ${escapeAttr(name)}">×</button></span>`
+          )
+          .join('');
+      }
+    }
+
     function renderSuggest(q) {
       const query = (q || '').trim().toLowerCase();
       if (!query || query.length < 1) {
@@ -209,9 +230,10 @@
         input.setAttribute('aria-expanded', 'false');
         return;
       }
+      const selectedSet = new Set(selected.map((n) => n.toLowerCase()));
       const matches = leas
         .map((d) => ({ d, score: scoreDistrict(d.name, query) }))
-        .filter((x) => x.score > 0)
+        .filter((x) => x.score > 0 && !selectedSet.has(x.d.name.toLowerCase()))
         .sort((a, b) => b.score - a.score || a.d.name.length - b.d.name.length)
         .slice(0, 8)
         .map((x) => x.d);
@@ -236,12 +258,28 @@
     }
 
     function pickDistrict(name) {
-      input.value = name;
+      if (!name) return;
       entity.value = 'lea';
       if (privateFieldEl) privateFieldEl.hidden = true;
       list.hidden = true;
       input.setAttribute('aria-expanded', 'false');
+      if (multi) {
+        if (!selected.some((n) => n.toLowerCase() === name.toLowerCase())) {
+          selected.push(name);
+        }
+        input.value = '';
+        syncMultiValue();
+        input.focus();
+        return;
+      }
+      input.value = name;
       input.required = true;
+    }
+
+    function removeDistrict(name) {
+      selected = selected.filter((n) => n.toLowerCase() !== String(name).toLowerCase());
+      syncMultiValue();
+      if (input.value.trim()) renderSuggest(input.value);
     }
 
     input.addEventListener('input', () => {
@@ -249,7 +287,11 @@
       if (entity.value === 'private') {
         entity.value = 'lea';
         if (privateFieldEl) privateFieldEl.hidden = true;
-        input.required = true;
+        if (!multi) input.required = true;
+        if (multi) {
+          selected = [];
+          syncMultiValue();
+        }
       }
       renderSuggest(input.value);
     });
@@ -280,6 +322,15 @@
       pickDistrict(li.dataset.name);
     });
 
+    if (pillsEl) {
+      pillsEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('.district-pill-remove');
+        if (!btn) return;
+        e.preventDefault();
+        removeDistrict(btn.dataset.name);
+      });
+    }
+
     document.addEventListener('click', (e) => {
       if (!list.contains(e.target) && e.target !== input) {
         list.hidden = true;
@@ -289,7 +340,13 @@
     if (privateBtnEl) {
       privateBtnEl.addEventListener('click', () => {
         entity.value = 'private';
-        input.value = 'Private / independent';
+        if (multi) {
+          selected = [];
+          syncMultiValue();
+          input.value = '';
+        } else {
+          input.value = 'Private / independent';
+        }
         input.required = false;
         if (privateFieldEl) privateFieldEl.hidden = false;
         list.hidden = true;
@@ -297,9 +354,12 @@
       });
     }
 
+    if (multi) syncMultiValue();
+
     return {
       validateLea() {
         if (entity.value === 'private') return true;
+        if (multi) return selected.length > 0;
         const name = input.value.trim();
         const known = leas.some((d) => d.name.toLowerCase() === name.toLowerCase());
         return !!(name && known);
@@ -326,6 +386,9 @@
     privateField: document.getElementById('parentPrivateSchoolField'),
     privateBtn: document.getElementById('parentPrivatePath'),
     privateSchoolInput: document.getElementById('parentPrivateSchool'),
+    multi: true,
+    pills: document.getElementById('parentDistrictPills'),
+    valueInput: document.getElementById('parentDistrictValue'),
   });
 
   const studentDistrict = wireDistrictTypeahead({
@@ -336,6 +399,7 @@
     privateBtn: document.getElementById('studentPrivatePath'),
     privateSchoolInput: document.getElementById('studentPrivateSchool'),
   });
+
 
   if (form) {
     form.querySelectorAll('input[name="role_detail"]').forEach((radio) => {
