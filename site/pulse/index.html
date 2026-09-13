@@ -7,7 +7,7 @@
   <title>Pulse · AI Policy Map</title>
   <link rel="stylesheet" href="/assets/home-styles.css?v=1789045911">
   <link rel="stylesheet" href="/assets/home-steep.css?v=1789045911">
-  <link rel="stylesheet" href="/assets/pulse.css?v=1789330002">
+  <link rel="stylesheet" href="/assets/pulse.css?v=1789330003">
 </head>
 <body class="pulse-page">
   <header class="site-header">
@@ -138,6 +138,30 @@
           </div>
         </fieldset>
 
+
+        <fieldset class="pulse-block">
+          <legend>Google vs ChatGPT</legend>
+          <p class="field-hint" style="margin-top:0">Keep it simple — what’s usually OK for students?</p>
+          <div class="field">
+            <span class="label-like">Is it OK to <em>google</em> answers for schoolwork? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Google answers">
+              <label class="choice"><input type="radio" name="ok_google" value="usually_ok" required> Usually OK</label>
+              <label class="choice"><input type="radio" name="ok_google" value="sometimes"> Sometimes / depends</label>
+              <label class="choice"><input type="radio" name="ok_google" value="not_ok"> Not OK</label>
+              <label class="choice"><input type="radio" name="ok_google" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label-like">How about asking <em>ChatGPT</em> (or similar AI) for answers? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="ChatGPT answers">
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="usually_ok" required> Usually OK</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="sometimes"> Sometimes / depends</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="not_ok"> Not OK</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+        </fieldset>
+
         <p id="formError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
 
         <div class="pulse-actions">
@@ -147,34 +171,80 @@
       </form>
     </section>
 
-    <!-- Parent stub -->
+    <!-- Parent flow -->
     <section id="parent-flow" class="pulse-panel" hidden aria-labelledby="parent-title">
       <button type="button" class="pulse-back" data-back>← Change role</button>
       <p class="eyebrow">Parent pulse</p>
-      <h1 id="parent-title">Coming soon</h1>
+      <h1 id="parent-title">What is your view on AI in school?</h1>
       <div class="pulse-frame">
-        <p>We’re drafting a parent pulse — integrity, clarity, and safety from a family lens. Questions aren’t locked yet.</p>
-        <p>In the meantime, you can <a href="/#explore">explore published district scores</a> or check back after we ship the parent path.</p>
+        <p>Anonymous and short. We’re comparing what’s written with what families actually see — starting with a simple Google vs ChatGPT question.</p>
       </div>
-      <div class="pulse-actions">
-        <a class="button" href="/#explore">Explore district scores</a>
-        <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
-      </div>
+      <form id="parent-form" class="pulse-form" novalidate>
+        <fieldset class="pulse-block">
+          <legend>Google vs ChatGPT</legend>
+          <div class="field">
+            <span class="label-like">At your child’s school, is it OK to <em>google</em> answers for schoolwork? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Parent google answers">
+              <label class="choice"><input type="radio" name="ok_google" value="usually_ok" required> Usually OK</label>
+              <label class="choice"><input type="radio" name="ok_google" value="sometimes"> Sometimes / depends</label>
+              <label class="choice"><input type="radio" name="ok_google" value="not_ok"> Not OK</label>
+              <label class="choice"><input type="radio" name="ok_google" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label-like">How about asking <em>ChatGPT</em> (or similar AI) for answers? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Parent ChatGPT answers">
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="usually_ok" required> Usually OK</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="sometimes"> Sometimes / depends</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="not_ok"> Not OK</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+        </fieldset>
+        <p id="parentFormError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
+        <div class="pulse-actions">
+          <button type="submit" class="button">Submit pulse answers</button>
+          <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
+        </div>
+      </form>
     </section>
 
-    <!-- Student stub -->
+    <!-- Student flow -->
     <section id="student-flow" class="pulse-panel" hidden aria-labelledby="student-title">
       <button type="button" class="pulse-back" data-back>← Change role</button>
       <p class="eyebrow">Student pulse</p>
-      <h1 id="student-title">Coming soon</h1>
+      <h1 id="student-title">What is your view on AI in school?</h1>
       <div class="pulse-frame">
-        <p>We’re drafting a separate student pulse — how AI shows up in classwork, integrity expectations, and day-to-day rules. Questions aren’t locked yet.</p>
-        <p>In the meantime, you can <a href="/#explore">explore published district scores</a> or check back after we ship the student path.</p>
+        <p>Anonymous and short. No names — just how Google and ChatGPT feel different at school.</p>
       </div>
-      <div class="pulse-actions">
-        <a class="button" href="/#explore">Explore district scores</a>
-        <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
-      </div>
+      <form id="student-form" class="pulse-form" novalidate>
+        <fieldset class="pulse-block">
+          <legend>Google vs ChatGPT</legend>
+          <div class="field">
+            <span class="label-like">Is it OK to <em>google</em> answers for schoolwork? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Student google answers">
+              <label class="choice"><input type="radio" name="ok_google" value="usually_ok" required> Usually OK</label>
+              <label class="choice"><input type="radio" name="ok_google" value="sometimes"> Sometimes / depends</label>
+              <label class="choice"><input type="radio" name="ok_google" value="not_ok"> Not OK</label>
+              <label class="choice"><input type="radio" name="ok_google" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label-like">How about asking <em>ChatGPT</em> (or similar AI) for answers? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Student ChatGPT answers">
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="usually_ok" required> Usually OK</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="sometimes"> Sometimes / depends</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="not_ok"> Not OK</label>
+              <label class="choice"><input type="radio" name="ok_chatgpt" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+        </fieldset>
+        <p id="studentFormError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
+        <div class="pulse-actions">
+          <button type="submit" class="button">Submit pulse answers</button>
+          <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
+        </div>
+      </form>
     </section>
 
     <!-- Thank you -->
@@ -203,6 +273,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789330003"></script>
+  <script src="/assets/pulse.js?v=1789330004"></script>
 </body>
 </html>

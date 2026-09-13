@@ -243,4 +243,35 @@
     show('thanks');
     history.replaceState(null, '', '/pulse/?role=teacher&done=1');
   });
+
+  function wireSimplePulseForm(formId, errorId, pathName) {
+    const f = document.getElementById(formId);
+    const err = document.getElementById(errorId);
+    if (!f) return;
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (err) err.hidden = true;
+      if (!f.checkValidity()) {
+        if (err) {
+          err.textContent = 'Please complete the required questions above.';
+          err.hidden = false;
+        }
+        f.reportValidity();
+        return;
+      }
+      try {
+        const data = Object.fromEntries(new FormData(f).entries());
+        data.submitted_at = new Date().toISOString();
+        data.path = pathName;
+        const prev = JSON.parse(localStorage.getItem('apm_pulse_stubs') || '[]');
+        prev.push(data);
+        localStorage.setItem('apm_pulse_stubs', JSON.stringify(prev.slice(-20)));
+      } catch (_) {}
+      show('thanks');
+      history.replaceState(null, '', '/pulse/?role=' + pathName + '&done=1');
+    });
+  }
+  wireSimplePulseForm('parent-form', 'parentFormError', 'parent');
+  wireSimplePulseForm('student-form', 'studentFormError', 'student');
+
 })();
