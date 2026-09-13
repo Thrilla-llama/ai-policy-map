@@ -402,3 +402,10 @@
 .wizard-step[hidden] {
   display: none;
 }
+
+/* Author .role-grid { display:grid } beats UA [hidden] — force hide */
+.role-grid[hidden],
+.role-card[hidden],
+.pulse-panel[hidden] {
+  display: none !important;
+}
