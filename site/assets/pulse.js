@@ -641,23 +641,17 @@
     cardsEl.innerHTML = '';
     if (!mirror || !mirror.ok) {
       scopeEl.hidden = true;
-      cardsEl.innerHTML = '<div class="peer-card">Thanks — your answers are in.</div>';
+      cardsEl.innerHTML = '';
       return;
     }
-    scopeEl.textContent = mirror.scope_label || '';
+    // Simple pool label only — never “you’re early” / sample-size apology
+    scopeEl.textContent = mirror.scope_label ? ('Among ' + mirror.scope_label) : '';
     scopeEl.hidden = !mirror.scope_label;
     const cards = Array.isArray(mirror.cards) ? mirror.cards : [];
-    if (!cards.length) {
-      cardsEl.innerHTML = '<div class="peer-card">Thanks — your answers are in. Peer comparisons unlock as more people in your area answer.</div>';
-      return;
-    }
     cardsEl.innerHTML = cards
       .map((card) => {
-        const cls = card.preview ? 'peer-card preview' : 'peer-card';
-        const text = card.preview
-          ? card.text
-          : String(card.text || '').replace(/^(\d+)%/, '<span class="peer-pct">$1%</span>');
-        return '<div class="' + cls + '">' + text + '</div>';
+        const text = String(card.text || '').replace(/^(\d+)%/, '<span class="peer-pct">$1%</span>');
+        return '<div class="peer-card">' + text + '</div>';
       })
       .join('');
   }
