@@ -7,7 +7,7 @@
   <title>Pulse · AI Policy Map</title>
   <link rel="stylesheet" href="/assets/home-styles.css?v=1789045911">
   <link rel="stylesheet" href="/assets/home-steep.css?v=1789045911">
-  <link rel="stylesheet" href="/assets/pulse.css?v=1789330003">
+  <link rel="stylesheet" href="/assets/pulse.css?v=1789330004">
 </head>
 <body class="pulse-page">
   <header class="site-header">
@@ -29,20 +29,30 @@
     <!-- Role chooser -->
     <section id="role-chooser" class="pulse-panel" aria-labelledby="role-title">
       <p class="eyebrow">Georgia · Anonymous · ~3 minutes</p>
-      <h1 id="role-title">Participate in the pulse</h1>
-      <p class="lede pulse-lede">See how peers are using AI in Georgia schools — then take the pulse. Pick the path that fits you.</p>
-      <div class="role-grid" role="list">
-        <button type="button" class="role-card" data-role="teacher" role="listitem">
-          <span class="role-kicker">Teacher/Admin</span>
-          <strong>See how other teachers are using AI — Take the Pulse</strong>
+      <h1 id="role-title">What is your view on AI in school?</h1>
+      <p class="lede pulse-lede">Pick your role</p>
+      <div id="category-bridge" class="role-grid role-grid-2" role="list" hidden>
+        <a class="role-card role-card-short" href="/pulse/?from=staff" role="listitem">
+          <strong>Teacher/Admin</strong>
+        </a>
+        <a class="role-card role-card-short" href="/pulse/?from=family" role="listitem">
+          <strong>Student/Parent</strong>
+        </a>
+      </div>
+      <div id="role-grid-staff" class="role-grid role-grid-2" role="list" hidden>
+        <button type="button" class="role-card role-card-short" data-role="teacher" role="listitem">
+          <strong>Teacher</strong>
         </button>
-        <button type="button" class="role-card" data-role="student" role="listitem">
-          <span class="role-kicker">Student</span>
-          <strong>See how students are using AI — Take the Pulse</strong>
+        <button type="button" class="role-card role-card-short" data-role="admin" role="listitem">
+          <strong>Admin</strong>
         </button>
-        <button type="button" class="role-card" data-role="parent" role="listitem">
-          <span class="role-kicker">Parent</span>
-          <strong>See what other parents are seeing with AI in school — Take the Pulse</strong>
+      </div>
+      <div id="role-grid-family" class="role-grid role-grid-2" role="list" hidden>
+        <button type="button" class="role-card role-card-short" data-role="student" role="listitem">
+          <strong>Student</strong>
+        </button>
+        <button type="button" class="role-card role-card-short" data-role="parent" role="listitem">
+          <strong>Parent</strong>
         </button>
       </div>
       <p class="pulse-footnote">Answers are anonymous. We publish only district-level patterns next to each district’s public AI rules — never named quotes without separate consent.</p>
@@ -273,6 +283,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789330004"></script>
+  <script src="/assets/pulse.js?v=1789330005"></script>
 </body>
 </html>

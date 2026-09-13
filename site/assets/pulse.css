@@ -315,3 +315,30 @@
 .role-card.is-suggested {
   box-shadow: 0 0 0 2px #17191c;
 }
+
+
+.role-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 560px;
+}
+.role-card-short {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+.role-card-short strong {
+  font-family: var(--serif, Georgia, serif);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+@media (max-width: 650px) {
+  .role-grid-2 {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+}

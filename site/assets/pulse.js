@@ -27,17 +27,69 @@
 
   function normalizeRole(role) {
     const r = (role || '').toLowerCase().trim();
-    // Old combined deep links: teacher/admin → teacher; parent/student → respective if present
-    if (r === 'teacher' || r === 'admin' || r === 'teacher/admin' || r === 'teacher-admin') {
-      return 'teacher';
-    }
-    if (r === 'parent' || r === 'parent/student' || r === 'parent-student') {
-      return 'parent';
-    }
-    if (r === 'student' || r === 'student/parent' || r === 'student-parent') {
-      return 'student';
-    }
+    if (r === 'teacher' || r === 'teacher/admin' || r === 'teacher-admin') return 'teacher';
+    if (r === 'admin' || r === 'administrator') return 'admin';
+    if (r === 'parent') return 'parent';
+    if (r === 'student') return 'student';
     return null;
+  }
+
+  function fromBucket() {
+    const params = new URLSearchParams(window.location.search);
+    const from = (params.get('from') || '').toLowerCase();
+    if (from === 'staff' || from === 'family') return from;
+    return null;
+  }
+
+  function syncChooserGrids() {
+    const bridge = document.getElementById('category-bridge');
+    const staff = document.getElementById('role-grid-staff');
+    const family = document.getElementById('role-grid-family');
+    if (!bridge || !staff || !family) return;
+    const from = fromBucket();
+    bridge.hidden = !!from;
+    staff.hidden = from !== 'staff';
+    family.hidden = from !== 'family';
+  }
+
+  function chooserUrl(extra) {
+    const params = new URLSearchParams();
+    const from = fromBucket();
+    if (from) params.set('from', from);
+    if (extra) {
+      Object.keys(extra).forEach((k) => {
+        if (extra[k] != null) params.set(k, extra[k]);
+      });
+    }
+    const q = params.toString();
+    return q ? '/pulse/?' + q : '/pulse/';
+  }
+
+  function setRole(role, pushQuery) {
+    const normalized = normalizeRole(role);
+    if (normalized === 'teacher' || normalized === 'admin') {
+      show('teacher');
+      // Preselect administrator when Admin pill; otherwise leave teacher roles open
+      const adminRadio = document.querySelector('input[name="role_detail"][value="administrator"]');
+      const teacherRadios = document.querySelectorAll('input[name="role_detail"]');
+      if (normalized === 'admin' && adminRadio) {
+        adminRadio.checked = true;
+        teacherRadios.forEach((r) => {
+          if (r !== adminRadio) r.checked = false;
+        });
+      }
+      if (pushQuery) history.replaceState(null, '', chooserUrl({ role: normalized }));
+    } else if (normalized === 'parent') {
+      show('parent');
+      if (pushQuery) history.replaceState(null, '', chooserUrl({ role: 'parent' }));
+    } else if (normalized === 'student') {
+      show('student');
+      if (pushQuery) history.replaceState(null, '', chooserUrl({ role: 'student' }));
+    } else {
+      show('chooser');
+      syncChooserGrids();
+      if (pushQuery) history.replaceState(null, '', chooserUrl());
+    }
   }
 
   function roleFromQuery() {
@@ -45,24 +97,7 @@
     return normalizeRole(params.get('role'));
   }
 
-  function setRole(role, pushQuery) {
-    const normalized = normalizeRole(role);
-    if (normalized === 'teacher') {
-      show('teacher');
-      if (pushQuery) history.replaceState(null, '', '/pulse/?role=teacher');
-    } else if (normalized === 'parent') {
-      show('parent');
-      if (pushQuery) history.replaceState(null, '', '/pulse/?role=parent');
-    } else if (normalized === 'student') {
-      show('student');
-      if (pushQuery) history.replaceState(null, '', '/pulse/?role=student');
-    } else {
-      show('chooser');
-      if (pushQuery) history.replaceState(null, '', '/pulse/');
-    }
-  }
-
-  document.querySelectorAll('.role-card').forEach((btn) => {
+  document.querySelectorAll('.role-card[data-role]').forEach((btn) => {
     btn.addEventListener('click', () => setRole(btn.dataset.role, true));
   });
 
@@ -70,18 +105,12 @@
     btn.addEventListener('click', () => setRole(null, true));
   });
 
-  // Deep-link on load
+  // Deep-link / category on load
   const initial = roleFromQuery();
   if (initial) setRole(initial, false);
   else {
     show('chooser');
-    const from = new URLSearchParams(window.location.search).get('from');
-    if (from === 'staff') {
-      document.querySelector('.role-card[data-role="teacher"]')?.classList.add('is-suggested');
-    } else if (from === 'family') {
-      document.querySelector('.role-card[data-role="parent"]')?.classList.add('is-suggested');
-      document.querySelector('.role-card[data-role="student"]')?.classList.add('is-suggested');
-    }
+    syncChooserGrids();
   }
 
   fetch('/assets/ga-leas.json')
