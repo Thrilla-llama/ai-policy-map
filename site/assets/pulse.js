@@ -272,6 +272,15 @@
     privateSchoolInput: document.getElementById('parentPrivateSchool'),
   });
 
+  const studentDistrict = wireDistrictTypeahead({
+    input: document.getElementById('studentDistrictSearch'),
+    list: document.getElementById('studentDistrictSuggest'),
+    entity: document.getElementById('studentEntityPath'),
+    privateField: document.getElementById('studentPrivateSchoolField'),
+    privateBtn: document.getElementById('studentPrivatePath'),
+    privateSchoolInput: document.getElementById('studentPrivateSchool'),
+  });
+
   if (form) {
     form.querySelectorAll('input[name="role_detail"]').forEach((radio) => {
       radio.addEventListener('change', () => {
@@ -373,6 +382,19 @@
           err.hidden = false;
         }
         parentDistrict.focus();
+        return false;
+      }
+    }
+
+    if (formEl.id === 'student-form' && step === 1 && studentDistrict) {
+      if (!studentDistrict.validateLea()) {
+        const err = formEl.querySelector('.form-error');
+        if (err) {
+          err.textContent =
+            'Please pick a Georgia district from the suggestions (or choose Private / independent).';
+          err.hidden = false;
+        }
+        studentDistrict.focus();
         return false;
       }
     }
