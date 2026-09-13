@@ -625,6 +625,43 @@
     });
   }
 
+  function newResponseId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
+  function renderPeerMirror(mirror) {
+    const scopeEl = document.getElementById('peer-scope');
+    const cardsEl = document.getElementById('peer-cards');
+    if (!scopeEl || !cardsEl) return;
+    cardsEl.innerHTML = '';
+    if (!mirror || !mirror.ok) {
+      scopeEl.hidden = true;
+      cardsEl.innerHTML = '<div class="peer-card">Thanks — your answers are in.</div>';
+      return;
+    }
+    scopeEl.textContent = mirror.scope_label || '';
+    scopeEl.hidden = !mirror.scope_label;
+    const cards = Array.isArray(mirror.cards) ? mirror.cards : [];
+    if (!cards.length) {
+      cardsEl.innerHTML = '<div class="peer-card">Thanks — your answers are in. Peer comparisons unlock as more people in your area answer.</div>';
+      return;
+    }
+    cardsEl.innerHTML = cards
+      .map((card) => {
+        const cls = card.preview ? 'peer-card preview' : 'peer-card';
+        const text = card.preview
+          ? card.text
+          : String(card.text || '').replace(/^(\d+)%/, '<span class="peer-pct">$1%</span>');
+        return '<div class="' + cls + '">' + text + '</div>';
+      })
+      .join('');
+  }
+
   async function savePulse(formEl, pathName) {
     const payload = formPayload(formEl);
     const role = resolveRole(pathName, payload);
@@ -632,7 +669,9 @@
     const gradeBand = (payload.grade_band || '').trim() || null;
     const params = new URLSearchParams(window.location.search);
     const source = (params.get('source') || 'web').slice(0, 64);
+    const id = newResponseId();
     const row = {
+      id: id,
       role: role,
       state: 'GA',
       district_key: districtKey,
@@ -647,7 +686,14 @@
     }
     const { error } = await client.from('pulse_responses').insert([row]);
     if (error) throw error;
-    return row;
+    let mirror = null;
+    try {
+      const { data, error: rpcErr } = await client.rpc('pulse_peer_mirror', { p_response_id: id });
+      if (!rpcErr) mirror = data;
+    } catch (_) {
+      /* peer mirror is best-effort */
+    }
+    return { row: row, mirror: mirror };
   }
 
   if (form) {
@@ -669,7 +715,8 @@
       const submitBtn = form.querySelector('[data-wizard-submit]');
       if (submitBtn) submitBtn.disabled = true;
       savePulse(form, 'teacher')
-        .then(() => {
+        .then((result) => {
+          renderPeerMirror(result && result.mirror);
           show('thanks');
           const role = resolveRole('teacher', formPayload(form));
           history.replaceState(null, '', '/pulse/?role=' + role + '&done=1');
@@ -709,7 +756,16 @@
       const submitBtn = f.querySelector('[data-wizard-submit]');
       if (submitBtn) submitBtn.disabled = true;
       savePulse(f, pathName)
-        .then(() => {
+        .then((result) => {
+          renderPeerMirror(result && result.mirror);
+          // Parent share CTA; others get a generic share line
+          const share = document.querySelector('#thanks .pulse-actions .text-link');
+          if (share) {
+            share.textContent = pathName === 'parent'
+              ? 'Share the pulse with another parent'
+              : 'Invite someone else to take the pulse';
+            share.setAttribute('href', '/pulse/');
+          }
           show('thanks');
           history.replaceState(null, '', '/pulse/?role=' + pathName + '&done=1');
         })

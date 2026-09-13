@@ -474,3 +474,31 @@
   background: #e8e8ea;
   color: var(--ink);
 }
+
+.peer-scope {
+  margin: 0 0 14px;
+  color: #5b6472;
+  font-size: 15px;
+}
+.peer-cards {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 22px;
+}
+.peer-card {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #ececec;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.peer-card.preview {
+  color: #3d4450;
+  background: #fafafb;
+}
+.peer-card .peer-pct {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
