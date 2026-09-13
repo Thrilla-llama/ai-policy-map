@@ -2,6 +2,7 @@
   const chooser = document.getElementById('role-chooser');
   const teacherFlow = document.getElementById('teacher-flow');
   const parentFlow = document.getElementById('parent-flow');
+  const studentFlow = document.getElementById('student-flow');
   const thanks = document.getElementById('thanks');
   const form = document.getElementById('teacher-form');
   const districtInput = document.getElementById('districtSearch');
@@ -15,31 +16,46 @@
   let leas = [];
   let activeIndex = -1;
 
-  const panels = { chooser, teacher: teacherFlow, parent: parentFlow, thanks };
-
   function show(name) {
     chooser.hidden = name !== 'chooser';
     teacherFlow.hidden = name !== 'teacher';
     parentFlow.hidden = name !== 'parent';
+    studentFlow.hidden = name !== 'student';
     thanks.hidden = name !== 'thanks';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function roleFromQuery() {
-    const params = new URLSearchParams(window.location.search);
-    const role = (params.get('role') || '').toLowerCase();
-    if (role === 'teacher' || role === 'admin') return 'teacher';
-    if (role === 'parent' || role === 'student') return 'parent';
+  function normalizeRole(role) {
+    const r = (role || '').toLowerCase().trim();
+    // Old combined deep links: teacher/admin → teacher; parent/student → respective if present
+    if (r === 'teacher' || r === 'admin' || r === 'teacher/admin' || r === 'teacher-admin') {
+      return 'teacher';
+    }
+    if (r === 'parent' || r === 'parent/student' || r === 'parent-student') {
+      return 'parent';
+    }
+    if (r === 'student' || r === 'student/parent' || r === 'student-parent') {
+      return 'student';
+    }
     return null;
   }
 
+  function roleFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    return normalizeRole(params.get('role'));
+  }
+
   function setRole(role, pushQuery) {
-    if (role === 'teacher' || role === 'admin') {
+    const normalized = normalizeRole(role);
+    if (normalized === 'teacher') {
       show('teacher');
       if (pushQuery) history.replaceState(null, '', '/pulse/?role=teacher');
-    } else if (role === 'parent' || role === 'student') {
+    } else if (normalized === 'parent') {
       show('parent');
       if (pushQuery) history.replaceState(null, '', '/pulse/?role=parent');
+    } else if (normalized === 'student') {
+      show('student');
+      if (pushQuery) history.replaceState(null, '', '/pulse/?role=student');
     } else {
       show('chooser');
       if (pushQuery) history.replaceState(null, '', '/pulse/');

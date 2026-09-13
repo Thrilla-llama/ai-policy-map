@@ -35,7 +35,13 @@
   margin: 0 0 28px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 720px) {
+  .role-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 520px) and (max-width: 719px) {
   .role-grid {
     grid-template-columns: 1fr 1fr;
   }

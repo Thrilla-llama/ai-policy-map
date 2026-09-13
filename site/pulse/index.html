@@ -7,7 +7,7 @@
   <title>Pulse · AI Policy Map</title>
   <link rel="stylesheet" href="/assets/home-styles.css?v=1789045911">
   <link rel="stylesheet" href="/assets/home-steep.css?v=1789045911">
-  <link rel="stylesheet" href="/assets/pulse.css?v=1789045911">
+  <link rel="stylesheet" href="/assets/pulse.css?v=1789324834">
 </head>
 <body class="pulse-page">
   <header class="site-header">
@@ -32,24 +32,29 @@
       <h1 id="role-title">Participate in the pulse</h1>
       <p class="lede pulse-lede">We’re closing the gap between what’s written in public AI rules and what’s real day to day. Pick the path that fits you.</p>
       <div class="role-grid" role="list">
-        <button type="button" class="role-card" data-role="teacher" role="listitem">
-          <span class="role-kicker">Path 1</span>
-          <strong>Teacher / admin</strong>
-          <span class="role-desc">Classroom educators, coaches, media specialists, and administrators</span>
-        </button>
         <button type="button" class="role-card" data-role="parent" role="listitem">
+          <span class="role-kicker">Path 1</span>
+          <strong>Parent</strong>
+          <span class="role-desc">Families — integrity, clarity, and safety from a parent lens</span>
+        </button>
+        <button type="button" class="role-card" data-role="teacher" role="listitem">
           <span class="role-kicker">Path 2</span>
-          <strong>Student / parent</strong>
-          <span class="role-desc">Families and students — integrity, clarity, and safety from your lens</span>
+          <strong>Teacher</strong>
+          <span class="role-desc">Classroom educators, coaches, media specialists, and school staff</span>
+        </button>
+        <button type="button" class="role-card" data-role="student" role="listitem">
+          <span class="role-kicker">Path 3</span>
+          <strong>Student</strong>
+          <span class="role-desc">Students — how AI shows up in classwork, integrity, and day-to-day rules</span>
         </button>
       </div>
       <p class="pulse-footnote">Answers are anonymous. We publish only district-level patterns next to each district’s public AI rules — never named quotes without separate consent.</p>
     </section>
 
-    <!-- Teacher / admin flow -->
+    <!-- Teacher flow -->
     <section id="teacher-flow" class="pulse-panel" hidden aria-labelledby="teacher-title">
       <button type="button" class="pulse-back" data-back>← Change role</button>
-      <p class="eyebrow">Teacher / admin pulse</p>
+      <p class="eyebrow">Teacher pulse</p>
       <h1 id="teacher-title">What’s written vs what’s real</h1>
 
       <div class="pulse-frame">
@@ -145,14 +150,29 @@
       </form>
     </section>
 
-    <!-- Parent / student stub -->
+    <!-- Parent stub -->
     <section id="parent-flow" class="pulse-panel" hidden aria-labelledby="parent-title">
       <button type="button" class="pulse-back" data-back>← Change role</button>
-      <p class="eyebrow">Student / parent pulse</p>
+      <p class="eyebrow">Parent pulse</p>
       <h1 id="parent-title">Coming soon</h1>
       <div class="pulse-frame">
-        <p>We’re drafting a separate pulse for students and parents — integrity, clarity, and safety from a family lens. Questions aren’t locked yet.</p>
-        <p>In the meantime, you can <a href="/#explore">explore published district scores</a> or check back after we ship the family path.</p>
+        <p>We’re drafting a parent pulse — integrity, clarity, and safety from a family lens. Questions aren’t locked yet.</p>
+        <p>In the meantime, you can <a href="/#explore">explore published district scores</a> or check back after we ship the parent path.</p>
+      </div>
+      <div class="pulse-actions">
+        <a class="button" href="/#explore">Explore district scores</a>
+        <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
+      </div>
+    </section>
+
+    <!-- Student stub -->
+    <section id="student-flow" class="pulse-panel" hidden aria-labelledby="student-title">
+      <button type="button" class="pulse-back" data-back>← Change role</button>
+      <p class="eyebrow">Student pulse</p>
+      <h1 id="student-title">Coming soon</h1>
+      <div class="pulse-frame">
+        <p>We’re drafting a separate student pulse — how AI shows up in classwork, integrity expectations, and day-to-day rules. Questions aren’t locked yet.</p>
+        <p>In the meantime, you can <a href="/#explore">explore published district scores</a> or check back after we ship the student path.</p>
       </div>
       <div class="pulse-actions">
         <a class="button" href="/#explore">Explore district scores</a>
@@ -186,6 +206,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789045911"></script>
+  <script src="/assets/pulse.js?v=1789324834"></script>
 </body>
 </html>
