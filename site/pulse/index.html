@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Anonymous AI Policy Map pulse — what’s written vs what’s real in Georgia schools.">
+  <title>Pulse · AI Policy Map</title>
+  <link rel="stylesheet" href="/assets/home-styles.css?v=1789045911">
+  <link rel="stylesheet" href="/assets/home-steep.css?v=1789045911">
+  <link rel="stylesheet" href="/assets/pulse.css?v=1789045911">
+</head>
+<body class="pulse-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="AI Policy Map home">
+      <span class="brand-mark">AI</span>
+      <span>Policy Map <em>for schools</em></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="/pulse/" aria-current="page">Pulse</a>
+      <a href="/#explore">Explore</a>
+      <a href="/#method">Method</a>
+      <a href="/ga/">Georgia</a>
+      <a href="/about/">About</a>
+    </nav>
+    <a class="button button-small" href="/#explore">Find your district</a>
+  </header>
+
+  <main class="pulse-main" id="top">
+    <!-- Role chooser -->
+    <section id="role-chooser" class="pulse-panel" aria-labelledby="role-title">
+      <p class="eyebrow">Georgia · Anonymous · ~3 minutes</p>
+      <h1 id="role-title">Participate in the pulse</h1>
+      <p class="lede pulse-lede">We’re closing the gap between what’s written in public AI rules and what’s real day to day. Pick the path that fits you.</p>
+      <div class="role-grid" role="list">
+        <button type="button" class="role-card" data-role="teacher" role="listitem">
+          <span class="role-kicker">Path 1</span>
+          <strong>Teacher / admin</strong>
+          <span class="role-desc">Classroom educators, coaches, media specialists, and administrators</span>
+        </button>
+        <button type="button" class="role-card" data-role="parent" role="listitem">
+          <span class="role-kicker">Path 2</span>
+          <strong>Student / parent</strong>
+          <span class="role-desc">Families and students — integrity, clarity, and safety from your lens</span>
+        </button>
+      </div>
+      <p class="pulse-footnote">Answers are anonymous. We publish only district-level patterns next to each district’s public AI rules — never named quotes without separate consent.</p>
+    </section>
+
+    <!-- Teacher / admin flow -->
+    <section id="teacher-flow" class="pulse-panel" hidden aria-labelledby="teacher-title">
+      <button type="button" class="pulse-back" data-back>← Change role</button>
+      <p class="eyebrow">Teacher / admin pulse</p>
+      <h1 id="teacher-title">What’s written vs what’s real</h1>
+
+      <div class="pulse-frame">
+        <p>This short pulse is about how AI shows up in your work day — not a gotcha on you or your school. Answers are anonymous. We publish only district-level patterns next to each district’s <em>public</em> AI rules on AI Policy Map. We’re trying to close the gap between “what’s written” and “what’s real.”</p>
+        <p class="pulse-privacy"><a href="/#method">Method</a> · Public scores measure published rules; this pulse is a practice signal.</p>
+      </div>
+
+      <form id="teacher-form" class="pulse-form" novalidate>
+        <fieldset class="pulse-block">
+          <legend>Screener</legend>
+
+          <div class="field">
+            <label for="districtSearch">Which Georgia district do you work in? <span class="req">Required</span></label>
+            <input id="districtSearch" name="district" type="search" autocomplete="off" placeholder="Start typing a district name…" required aria-autocomplete="list" aria-controls="districtSuggest" aria-expanded="false">
+            <ul id="districtSuggest" class="suggest" role="listbox" hidden></ul>
+            <p class="field-hint">Or choose <button type="button" class="linkish" id="privatePath">Private / independent</button> if you don’t work in a public LEA.</p>
+            <input type="hidden" name="entity_path" id="entityPath" value="lea">
+          </div>
+
+          <div class="field" id="privateSchoolField" hidden>
+            <label for="privateSchool">School name <span class="opt">(optional)</span></label>
+            <input id="privateSchool" name="private_school" type="text" autocomplete="organization">
+          </div>
+
+          <div class="field">
+            <span class="label-like">What’s your main role? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Main role">
+              <label class="choice"><input type="radio" name="role_detail" value="classroom_teacher" required> Classroom teacher</label>
+              <label class="choice"><input type="radio" name="role_detail" value="sped_teacher"> Special education teacher</label>
+              <label class="choice"><input type="radio" name="role_detail" value="media_specialist"> Media specialist / librarian</label>
+              <label class="choice"><input type="radio" name="role_detail" value="instructional_coach"> Instructional coach / specialist</label>
+              <label class="choice"><input type="radio" name="role_detail" value="administrator"> Administrator</label>
+              <label class="choice"><input type="radio" name="role_detail" value="other"> Other</label>
+            </div>
+            <input id="roleOther" name="role_other" type="text" placeholder="Describe your role" hidden class="other-input">
+          </div>
+
+          <div class="field">
+            <span class="label-like">Grade band you spend most time with? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Grade band">
+              <label class="choice"><input type="radio" name="grade_band" value="elementary" required> Elementary (K–5)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="middle"> Middle (6–8)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="high"> High (9–12)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="mixed"> Mixed / other</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="pulse-block">
+          <legend>Published vs practice</legend>
+
+          <div class="field">
+            <span class="label-like">Does your district have clear, written rules for student use of AI (chatbots, image tools, etc.) that you’ve actually seen? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Written student AI rules">
+              <label class="choice"><input type="radio" name="written_rules" value="clear_seen" required> Yes — clear and I’ve seen them</label>
+              <label class="choice"><input type="radio" name="written_rules" value="vague"> Something exists but it’s vague or hard to find</label>
+              <label class="choice"><input type="radio" name="written_rules" value="heard_never_seen"> I’ve heard of rules but never seen them</label>
+              <label class="choice"><input type="radio" name="written_rules" value="none_aware"> No written student AI rules I’m aware of</label>
+              <label class="choice"><input type="radio" name="written_rules" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">In your classroom / school, what best describes how student AI use is handled day to day? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Day-to-day student AI">
+              <label class="choice"><input type="radio" name="practice_day" value="clear_enforced" required> Clear expectations, consistently enforced</label>
+              <label class="choice"><input type="radio" name="practice_day" value="uneven"> Expectations exist but enforcement is uneven</label>
+              <label class="choice"><input type="radio" name="practice_day" value="teacher_set"> Teachers mostly set their own rules</label>
+              <label class="choice"><input type="radio" name="practice_day" value="ignored"> Mostly ignored / unspoken</label>
+              <label class="choice"><input type="radio" name="practice_day" value="encouraged"> Actively encouraged with few limits</label>
+              <label class="choice"><input type="radio" name="practice_day" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label-like">How close is day-to-day practice to whatever is written publicly? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Practice vs written">
+              <label class="choice"><input type="radio" name="gap" value="matches" required> Practice matches the written rules</label>
+              <label class="choice"><input type="radio" name="gap" value="stricter"> Practice is stricter than what’s written</label>
+              <label class="choice"><input type="radio" name="gap" value="looser"> Practice is looser than what’s written</label>
+              <label class="choice"><input type="radio" name="gap" value="no_standard"> There isn’t really a written standard to compare</label>
+              <label class="choice"><input type="radio" name="gap" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <p id="formError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
+
+        <div class="pulse-actions">
+          <button type="submit" class="button">Submit pulse answers</button>
+          <a class="text-link" href="/#explore">Explore district scores</a>
+        </div>
+      </form>
+    </section>
+
+    <!-- Parent / student stub -->
+    <section id="parent-flow" class="pulse-panel" hidden aria-labelledby="parent-title">
+      <button type="button" class="pulse-back" data-back>← Change role</button>
+      <p class="eyebrow">Student / parent pulse</p>
+      <h1 id="parent-title">Coming soon</h1>
+      <div class="pulse-frame">
+        <p>We’re drafting a separate pulse for students and parents — integrity, clarity, and safety from a family lens. Questions aren’t locked yet.</p>
+        <p>In the meantime, you can <a href="/#explore">explore published district scores</a> or check back after we ship the family path.</p>
+      </div>
+      <div class="pulse-actions">
+        <a class="button" href="/#explore">Explore district scores</a>
+        <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
+      </div>
+    </section>
+
+    <!-- Thank you -->
+    <section id="thanks" class="pulse-panel" hidden aria-labelledby="thanks-title">
+      <p class="eyebrow">Thank you</p>
+      <h1 id="thanks-title">Got it — thank you</h1>
+      <div class="pulse-frame">
+        <p>Your answers were recorded locally for this stub (no backend yet). When we go live, we’ll only publish district-level patterns once enough responses land for a district.</p>
+        <p>Published Map scores stay about <strong>what’s written</strong>; pulse aggregates will sit beside them as a <strong>practice signal</strong>.</p>
+      </div>
+      <div class="pulse-actions">
+        <a class="button" href="/#explore">Explore district scores</a>
+        <a class="text-link" href="/">Back to homepage</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand footer-brand"><span class="brand-mark">AI</span><span>Policy Map <em>for schools</em></span></div>
+    <p>Better questions make better policy.</p>
+    <nav aria-label="Footer">
+      <a href="/ga/">Georgia</a>
+      ·
+      <a href="/about/">About</a>
+      ·
+      <a href="/">Home ↑</a>
+    </nav>
+  </footer>
+  <script src="/assets/pulse.js?v=1789045911"></script>
+</body>
+</html>
