@@ -13,6 +13,9 @@
   const roleOther = document.getElementById('roleOther');
   const formError = document.getElementById('formError');
 
+  const STEP_NAMES = ['Screener', 'Published vs practice', 'Google vs ChatGPT'];
+  const TOTAL_STEPS = 3;
+
   let leas = [];
   let activeIndex = -1;
 
@@ -69,6 +72,7 @@
     const normalized = normalizeRole(role);
     if (normalized === 'teacher' || normalized === 'admin') {
       show('teacher');
+      resetWizard(form);
       // Preselect administrator when Admin pill; otherwise leave teacher roles open
       const adminRadio = document.querySelector('input[name="role_detail"][value="administrator"]');
       const teacherRadios = document.querySelectorAll('input[name="role_detail"]');
@@ -81,9 +85,11 @@
       if (pushQuery) history.replaceState(null, '', chooserUrl({ role: normalized }));
     } else if (normalized === 'parent') {
       show('parent');
+      resetWizard(document.getElementById('parent-form'));
       if (pushQuery) history.replaceState(null, '', chooserUrl({ role: 'parent' }));
     } else if (normalized === 'student') {
       show('student');
+      resetWizard(document.getElementById('student-form'));
       if (pushQuery) history.replaceState(null, '', chooserUrl({ role: 'student' }));
     } else {
       show('chooser');
@@ -174,128 +180,249 @@
     districtInput.required = true;
   }
 
-  districtInput.addEventListener('input', () => {
-    activeIndex = -1;
-    if (entityPath.value === 'private') {
-      entityPath.value = 'lea';
-      privateField.hidden = true;
-      districtInput.required = true;
-    }
-    renderSuggest(districtInput.value);
-  });
-
-  districtInput.addEventListener('keydown', (e) => {
-    const items = [...suggest.querySelectorAll('li')];
-    if (suggest.hidden || !items.length) return;
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      activeIndex = (activeIndex + 1) % items.length;
+  if (districtInput) {
+    districtInput.addEventListener('input', () => {
+      activeIndex = -1;
+      if (entityPath.value === 'private') {
+        entityPath.value = 'lea';
+        privateField.hidden = true;
+        districtInput.required = true;
+      }
       renderSuggest(districtInput.value);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      activeIndex = (activeIndex - 1 + items.length) % items.length;
-      renderSuggest(districtInput.value);
-    } else if (e.key === 'Enter' && activeIndex >= 0) {
-      e.preventDefault();
-      pickDistrict(items[activeIndex].dataset.name);
-    } else if (e.key === 'Escape') {
-      suggest.hidden = true;
-    }
-  });
+    });
 
-  suggest.addEventListener('mousedown', (e) => {
-    const li = e.target.closest('li');
-    if (!li) return;
-    e.preventDefault();
-    pickDistrict(li.dataset.name);
-  });
+    districtInput.addEventListener('keydown', (e) => {
+      const items = [...suggest.querySelectorAll('li')];
+      if (suggest.hidden || !items.length) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIndex = (activeIndex + 1) % items.length;
+        renderSuggest(districtInput.value);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIndex = (activeIndex - 1 + items.length) % items.length;
+        renderSuggest(districtInput.value);
+      } else if (e.key === 'Enter' && activeIndex >= 0) {
+        e.preventDefault();
+        pickDistrict(items[activeIndex].dataset.name);
+      } else if (e.key === 'Escape') {
+        suggest.hidden = true;
+      }
+    });
+  }
+
+  if (suggest) {
+    suggest.addEventListener('mousedown', (e) => {
+      const li = e.target.closest('li');
+      if (!li) return;
+      e.preventDefault();
+      pickDistrict(li.dataset.name);
+    });
+  }
 
   document.addEventListener('click', (e) => {
-    if (!suggest.contains(e.target) && e.target !== districtInput) {
+    if (suggest && !suggest.contains(e.target) && e.target !== districtInput) {
       suggest.hidden = true;
     }
   });
 
-  privateBtn.addEventListener('click', () => {
-    entityPath.value = 'private';
-    districtInput.value = 'Private / independent';
-    districtInput.required = false;
-    privateField.hidden = false;
-    suggest.hidden = true;
-    document.getElementById('privateSchool').focus();
-  });
-
-  form.querySelectorAll('input[name="role_detail"]').forEach((radio) => {
-    radio.addEventListener('change', () => {
-      const isOther = radio.value === 'other' && radio.checked;
-      roleOther.hidden = !isOther;
-      roleOther.required = isOther;
-      if (!isOther) roleOther.value = '';
+  if (privateBtn) {
+    privateBtn.addEventListener('click', () => {
+      entityPath.value = 'private';
+      districtInput.value = 'Private / independent';
+      districtInput.required = false;
+      privateField.hidden = false;
+      suggest.hidden = true;
+      document.getElementById('privateSchool').focus();
     });
-  });
+  }
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    formError.hidden = true;
+  if (form) {
+    form.querySelectorAll('input[name="role_detail"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        const isOther = radio.value === 'other' && radio.checked;
+        roleOther.hidden = !isOther;
+        roleOther.required = isOther;
+        if (!isOther) roleOther.value = '';
+      });
+    });
+  }
 
-    if (entityPath.value === 'lea') {
+  /* ---- Wizard helpers ---- */
+
+  function getStep(formEl) {
+    return Number(formEl.dataset.wizardStep || '1');
+  }
+
+  function setStep(formEl, step) {
+    const s = Math.max(1, Math.min(TOTAL_STEPS, step));
+    formEl.dataset.wizardStep = String(s);
+    formEl.querySelectorAll('.wizard-step').forEach((fs) => {
+      const n = Number(fs.dataset.step);
+      fs.hidden = n !== s;
+    });
+    const panel = formEl.closest('.pulse-panel');
+    const progress = panel && panel.querySelector('[data-wizard-progress]');
+    if (progress) {
+      const numEl = progress.querySelector('[data-step-num]');
+      const nameEl = progress.querySelector('[data-step-name]');
+      const bar = progress.querySelector('[data-wizard-bar]');
+      const fill = progress.querySelector('.wizard-bar-fill');
+      if (numEl) numEl.textContent = String(s);
+      if (nameEl) nameEl.textContent = STEP_NAMES[s - 1] || '';
+      if (bar) bar.setAttribute('aria-valuenow', String(s));
+      if (fill) fill.style.width = (s / TOTAL_STEPS) * 100 + '%';
+    }
+    const backBtn = formEl.querySelector('[data-wizard-back]');
+    const nextBtn = formEl.querySelector('[data-wizard-next]');
+    const submitBtn = formEl.querySelector('[data-wizard-submit]');
+    if (backBtn) backBtn.hidden = s === 1;
+    if (nextBtn) nextBtn.hidden = s === TOTAL_STEPS;
+    if (submitBtn) submitBtn.hidden = s !== TOTAL_STEPS;
+    const err = formEl.querySelector('.form-error');
+    if (err) err.hidden = true;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetWizard(formEl) {
+    if (!formEl) return;
+    setStep(formEl, 1);
+  }
+
+  function validateStep(formEl, step) {
+    const fs = formEl.querySelector('.wizard-step[data-step="' + step + '"]');
+    if (!fs) return true;
+
+    // Teacher step 1: district must be a known LEA or private path
+    if (formEl.id === 'teacher-form' && step === 1 && entityPath && entityPath.value === 'lea') {
       const name = districtInput.value.trim();
       const known = leas.some((d) => d.name.toLowerCase() === name.toLowerCase());
       if (!name || !known) {
-        formError.textContent =
-          'Please pick a Georgia district from the suggestions (or choose Private / independent).';
-        formError.hidden = false;
+        if (formError) {
+          formError.textContent =
+            'Please pick a Georgia district from the suggestions (or choose Private / independent).';
+          formError.hidden = false;
+        }
         districtInput.focus();
-        return;
+        return false;
       }
     }
 
-    if (!form.checkValidity()) {
-      formError.textContent = 'Please complete the required questions above.';
-      formError.hidden = false;
-      form.reportValidity();
-      return;
+    const required = fs.querySelectorAll('input[required], select[required], textarea[required]');
+    const groups = {};
+    let ok = true;
+    required.forEach((el) => {
+      if (el.type === 'radio') {
+        const key = el.name;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(el);
+      } else if (el.type === 'checkbox') {
+        if (!el.checked) ok = false;
+      } else if (!el.value || !String(el.value).trim()) {
+        ok = false;
+        el.reportValidity();
+      }
+    });
+    Object.keys(groups).forEach((name) => {
+      const radios = groups[name];
+      if (!radios.some((r) => r.checked)) {
+        ok = false;
+        radios[0].reportValidity();
+      }
+    });
+
+    // role_other when Other selected on teacher step 1
+    if (formEl.id === 'teacher-form' && step === 1 && roleOther && !roleOther.hidden && roleOther.required) {
+      if (!roleOther.value.trim()) {
+        ok = false;
+        roleOther.reportValidity();
+      }
     }
 
-    // Stub only — no backend. Keep a local copy for debugging.
+    if (!ok) {
+      const err = formEl.querySelector('.form-error');
+      if (err) {
+        err.textContent = 'Please complete the required questions above.';
+        err.hidden = false;
+      }
+    }
+    return ok;
+  }
+
+  function wireWizard(formEl) {
+    if (!formEl) return;
+    setStep(formEl, 1);
+    const nextBtn = formEl.querySelector('[data-wizard-next]');
+    const backBtn = formEl.querySelector('[data-wizard-back]');
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const step = getStep(formEl);
+        if (!validateStep(formEl, step)) return;
+        setStep(formEl, step + 1);
+      });
+    }
+    if (backBtn) {
+      backBtn.addEventListener('click', () => {
+        setStep(formEl, getStep(formEl) - 1);
+      });
+    }
+  }
+
+  function stubSave(formEl, pathName) {
     try {
-      const data = Object.fromEntries(new FormData(form).entries());
+      const data = Object.fromEntries(new FormData(formEl).entries());
       data.submitted_at = new Date().toISOString();
-      data.path = 'teacher';
+      data.path = pathName;
       const prev = JSON.parse(localStorage.getItem('apm_pulse_stubs') || '[]');
       prev.push(data);
       localStorage.setItem('apm_pulse_stubs', JSON.stringify(prev.slice(-20)));
     } catch (_) {
       /* ignore storage errors */
     }
+  }
 
-    show('thanks');
-    history.replaceState(null, '', '/pulse/?role=teacher&done=1');
-  });
+  if (form) {
+    wireWizard(form);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formError.hidden = true;
+      const step = getStep(form);
+      if (step !== TOTAL_STEPS) {
+        if (validateStep(form, step)) setStep(form, step + 1);
+        return;
+      }
+      for (let s = 1; s <= TOTAL_STEPS; s++) {
+        if (!validateStep(form, s)) {
+          setStep(form, s);
+          return;
+        }
+      }
+      stubSave(form, 'teacher');
+      show('thanks');
+      history.replaceState(null, '', '/pulse/?role=teacher&done=1');
+    });
+  }
 
   function wireSimplePulseForm(formId, errorId, pathName) {
     const f = document.getElementById(formId);
     const err = document.getElementById(errorId);
     if (!f) return;
+    wireWizard(f);
     f.addEventListener('submit', (e) => {
       e.preventDefault();
       if (err) err.hidden = true;
-      if (!f.checkValidity()) {
-        if (err) {
-          err.textContent = 'Please complete the required questions above.';
-          err.hidden = false;
-        }
-        f.reportValidity();
+      const step = getStep(f);
+      if (step !== TOTAL_STEPS) {
+        if (validateStep(f, step)) setStep(f, step + 1);
         return;
       }
-      try {
-        const data = Object.fromEntries(new FormData(f).entries());
-        data.submitted_at = new Date().toISOString();
-        data.path = pathName;
-        const prev = JSON.parse(localStorage.getItem('apm_pulse_stubs') || '[]');
-        prev.push(data);
-        localStorage.setItem('apm_pulse_stubs', JSON.stringify(prev.slice(-20)));
-      } catch (_) {}
+      for (let s = 1; s <= TOTAL_STEPS; s++) {
+        if (!validateStep(f, s)) {
+          setStep(f, s);
+          return;
+        }
+      }
+      stubSave(f, pathName);
       show('thanks');
       history.replaceState(null, '', '/pulse/?role=' + pathName + '&done=1');
     });

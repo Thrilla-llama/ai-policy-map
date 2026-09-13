@@ -7,7 +7,7 @@
   <title>Pulse · AI Policy Map</title>
   <link rel="stylesheet" href="/assets/home-styles.css?v=1789045911">
   <link rel="stylesheet" href="/assets/home-steep.css?v=1789045911">
-  <link rel="stylesheet" href="/assets/pulse.css?v=1789330004">
+  <link rel="stylesheet" href="/assets/pulse.css?v=1789331200">
 </head>
 <body class="pulse-page">
   <header class="site-header">
@@ -62,15 +62,20 @@
     <section id="teacher-flow" class="pulse-panel" hidden aria-labelledby="teacher-title">
       <button type="button" class="pulse-back" data-back>← Change role</button>
       <p class="eyebrow">Teacher/Admin pulse</p>
-      <h1 id="teacher-title">What’s written vs what’s real</h1>
+      <h1 id="teacher-title">Answers are anonymous</h1>
 
-      <div class="pulse-frame">
-        <p>This short pulse is about how AI shows up in your work day — not a gotcha on you or your school. Answers are anonymous. We publish only district-level patterns next to each district’s <em>public</em> AI rules on AI Policy Map. We’re trying to close the gap between “what’s written” and “what’s real.”</p>
-        <p class="pulse-privacy"><a href="/#method">Method</a> · Public scores measure published rules; this pulse is a practice signal.</p>
+      <div class="wizard-progress" data-wizard-progress="teacher" aria-live="polite">
+        <div class="wizard-progress-meta">
+          <span class="wizard-step-label">Step <span data-step-num>1</span> of 3</span>
+          <span class="wizard-step-name" data-step-name>Screener</span>
+        </div>
+        <div class="wizard-bar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" data-wizard-bar>
+          <span class="wizard-bar-fill" style="width:33.333%"></span>
+        </div>
       </div>
 
       <form id="teacher-form" class="pulse-form" novalidate>
-        <fieldset class="pulse-block">
+        <fieldset class="pulse-block wizard-step" data-step="1">
           <legend>Screener</legend>
 
           <div class="field">
@@ -110,7 +115,7 @@
           </div>
         </fieldset>
 
-        <fieldset class="pulse-block">
+        <fieldset class="pulse-block wizard-step" data-step="2" hidden>
           <legend>Published vs practice</legend>
 
           <div class="field">
@@ -148,8 +153,7 @@
           </div>
         </fieldset>
 
-
-        <fieldset class="pulse-block">
+        <fieldset class="pulse-block wizard-step" data-step="3" hidden>
           <legend>Google vs ChatGPT</legend>
           <p class="field-hint" style="margin-top:0">Keep it simple — what’s usually OK for students?</p>
           <div class="field">
@@ -174,8 +178,10 @@
 
         <p id="formError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
 
-        <div class="pulse-actions">
-          <button type="submit" class="button">Submit pulse answers</button>
+        <div class="pulse-actions wizard-nav">
+          <button type="button" class="button button-secondary" data-wizard-back hidden>Back</button>
+          <button type="button" class="button" data-wizard-next>Next</button>
+          <button type="submit" class="button" data-wizard-submit hidden>Submit pulse answers</button>
           <a class="text-link" href="/#explore">Explore district scores</a>
         </div>
       </form>
@@ -185,12 +191,62 @@
     <section id="parent-flow" class="pulse-panel" hidden aria-labelledby="parent-title">
       <button type="button" class="pulse-back" data-back>← Change role</button>
       <p class="eyebrow">Parent pulse</p>
-      <h1 id="parent-title">What is your view on AI in school?</h1>
-      <div class="pulse-frame">
-        <p>Anonymous and short. We’re comparing what’s written with what families actually see — starting with a simple Google vs ChatGPT question.</p>
+      <h1 id="parent-title">Answers are anonymous</h1>
+
+      <div class="wizard-progress" data-wizard-progress="parent" aria-live="polite">
+        <div class="wizard-progress-meta">
+          <span class="wizard-step-label">Step <span data-step-num>1</span> of 3</span>
+          <span class="wizard-step-name" data-step-name>Screener</span>
+        </div>
+        <div class="wizard-bar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" data-wizard-bar>
+          <span class="wizard-bar-fill" style="width:33.333%"></span>
+        </div>
       </div>
+
       <form id="parent-form" class="pulse-form" novalidate>
-        <fieldset class="pulse-block">
+        <fieldset class="pulse-block wizard-step" data-step="1">
+          <legend>Screener</legend>
+          <div class="field">
+            <span class="label-like">Grade band for your child? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Child grade band">
+              <label class="choice"><input type="radio" name="grade_band" value="elementary" required> Elementary (K–5)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="middle"> Middle (6–8)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="high"> High (9–12)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="mixed"> More than one / other</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="parentDistrict">Georgia district <span class="opt">(optional)</span></label>
+            <input id="parentDistrict" name="district" type="text" autocomplete="off" placeholder="District name if you know it">
+          </div>
+        </fieldset>
+
+        <fieldset class="pulse-block wizard-step" data-step="2" hidden>
+          <legend>Published vs practice</legend>
+          <div class="field">
+            <span class="label-like">Have you seen clear, written rules from the school or district about student use of AI? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Parent written AI rules">
+              <label class="choice"><input type="radio" name="written_rules" value="clear_seen" required> Yes — clear and I’ve seen them</label>
+              <label class="choice"><input type="radio" name="written_rules" value="vague"> Something exists but it’s vague or hard to find</label>
+              <label class="choice"><input type="radio" name="written_rules" value="heard_never_seen"> I’ve heard of rules but never seen them</label>
+              <label class="choice"><input type="radio" name="written_rules" value="none_aware"> No written student AI rules I’m aware of</label>
+              <label class="choice"><input type="radio" name="written_rules" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label-like">From what you see at home, how is student AI use handled day to day? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Parent day-to-day AI">
+              <label class="choice"><input type="radio" name="practice_day" value="clear_enforced" required> Clear expectations, consistently enforced</label>
+              <label class="choice"><input type="radio" name="practice_day" value="uneven"> Expectations exist but enforcement is uneven</label>
+              <label class="choice"><input type="radio" name="practice_day" value="teacher_set"> Teachers mostly set their own rules</label>
+              <label class="choice"><input type="radio" name="practice_day" value="ignored"> Mostly ignored / unspoken</label>
+              <label class="choice"><input type="radio" name="practice_day" value="encouraged"> Actively encouraged with few limits</label>
+              <label class="choice"><input type="radio" name="practice_day" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="pulse-block wizard-step" data-step="3" hidden>
           <legend>Google vs ChatGPT</legend>
           <div class="field">
             <span class="label-like">At your child’s school, is it OK to <em>google</em> answers for schoolwork? <span class="req">Required</span></span>
@@ -211,9 +267,12 @@
             </div>
           </div>
         </fieldset>
+
         <p id="parentFormError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
-        <div class="pulse-actions">
-          <button type="submit" class="button">Submit pulse answers</button>
+        <div class="pulse-actions wizard-nav">
+          <button type="button" class="button button-secondary" data-wizard-back hidden>Back</button>
+          <button type="button" class="button" data-wizard-next>Next</button>
+          <button type="submit" class="button" data-wizard-submit hidden>Submit pulse answers</button>
           <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
         </div>
       </form>
@@ -223,12 +282,58 @@
     <section id="student-flow" class="pulse-panel" hidden aria-labelledby="student-title">
       <button type="button" class="pulse-back" data-back>← Change role</button>
       <p class="eyebrow">Student pulse</p>
-      <h1 id="student-title">What is your view on AI in school?</h1>
-      <div class="pulse-frame">
-        <p>Anonymous and short. No names — just how Google and ChatGPT feel different at school.</p>
+      <h1 id="student-title">Answers are anonymous</h1>
+
+      <div class="wizard-progress" data-wizard-progress="student" aria-live="polite">
+        <div class="wizard-progress-meta">
+          <span class="wizard-step-label">Step <span data-step-num>1</span> of 3</span>
+          <span class="wizard-step-name" data-step-name>Screener</span>
+        </div>
+        <div class="wizard-bar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" data-wizard-bar>
+          <span class="wizard-bar-fill" style="width:33.333%"></span>
+        </div>
       </div>
+
       <form id="student-form" class="pulse-form" novalidate>
-        <fieldset class="pulse-block">
+        <fieldset class="pulse-block wizard-step" data-step="1">
+          <legend>Screener</legend>
+          <div class="field">
+            <span class="label-like">What grade band are you in? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Student grade band">
+              <label class="choice"><input type="radio" name="grade_band" value="elementary" required> Elementary (K–5)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="middle"> Middle (6–8)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="high"> High (9–12)</label>
+              <label class="choice"><input type="radio" name="grade_band" value="other"> Other</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="pulse-block wizard-step" data-step="2" hidden>
+          <legend>Published vs practice</legend>
+          <div class="field">
+            <span class="label-like">Have you seen clear, written rules at school about using AI (ChatGPT, etc.)? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Student written AI rules">
+              <label class="choice"><input type="radio" name="written_rules" value="clear_seen" required> Yes — clear and I’ve seen them</label>
+              <label class="choice"><input type="radio" name="written_rules" value="vague"> Something exists but it’s vague or hard to find</label>
+              <label class="choice"><input type="radio" name="written_rules" value="heard_never_seen"> I’ve heard of rules but never seen them</label>
+              <label class="choice"><input type="radio" name="written_rules" value="none_aware"> No written AI rules I’m aware of</label>
+              <label class="choice"><input type="radio" name="written_rules" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label-like">Day to day, how is AI use actually handled at your school? <span class="req">Required</span></span>
+            <div class="choice-stack" role="radiogroup" aria-label="Student day-to-day AI">
+              <label class="choice"><input type="radio" name="practice_day" value="clear_enforced" required> Clear rules, consistently enforced</label>
+              <label class="choice"><input type="radio" name="practice_day" value="uneven"> Rules exist but enforcement is uneven</label>
+              <label class="choice"><input type="radio" name="practice_day" value="teacher_set"> Teachers mostly set their own rules</label>
+              <label class="choice"><input type="radio" name="practice_day" value="ignored"> Mostly ignored / unspoken</label>
+              <label class="choice"><input type="radio" name="practice_day" value="encouraged"> Actively encouraged with few limits</label>
+              <label class="choice"><input type="radio" name="practice_day" value="not_sure"> Not sure</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="pulse-block wizard-step" data-step="3" hidden>
           <legend>Google vs ChatGPT</legend>
           <div class="field">
             <span class="label-like">Is it OK to <em>google</em> answers for schoolwork? <span class="req">Required</span></span>
@@ -249,9 +354,12 @@
             </div>
           </div>
         </fieldset>
+
         <p id="studentFormError" class="form-error" hidden role="alert">Please complete the required questions above.</p>
-        <div class="pulse-actions">
-          <button type="submit" class="button">Submit pulse answers</button>
+        <div class="pulse-actions wizard-nav">
+          <button type="button" class="button button-secondary" data-wizard-back hidden>Back</button>
+          <button type="button" class="button" data-wizard-next>Next</button>
+          <button type="submit" class="button" data-wizard-submit hidden>Submit pulse answers</button>
           <button type="button" class="text-link pulse-back-btn" data-back>Back to role chooser</button>
         </div>
       </form>
@@ -283,6 +391,6 @@
       <a href="/">Home ↑</a>
     </nav>
   </footer>
-  <script src="/assets/pulse.js?v=1789330005"></script>
+  <script src="/assets/pulse.js?v=1789331200"></script>
 </body>
 </html>

@@ -342,3 +342,63 @@
     max-width: none;
   }
 }
+
+/* Wizard progress */
+.wizard-progress {
+  margin: 0 0 28px;
+  max-width: 560px;
+}
+
+.wizard-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.wizard-step-label {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.wizard-step-name {
+  color: var(--muted);
+}
+
+.wizard-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #ececec;
+  overflow: hidden;
+}
+
+.wizard-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--ink, #17191c);
+  transition: width 0.25s ease;
+}
+
+.wizard-nav {
+  margin-top: 12px;
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid #ececec;
+  box-shadow: none;
+}
+
+.button-secondary:hover,
+.button-secondary:focus-visible {
+  background: #f2f2f3;
+  border-color: #d8d8d8;
+}
+
+.wizard-step[hidden] {
+  display: none;
+}
