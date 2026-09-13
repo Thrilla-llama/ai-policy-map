@@ -590,29 +590,64 @@
     }
   }
 
-  function stubSave(formEl, pathName) {
-    try {
-      const fd = new FormData(formEl);
-      const data = {};
-      fd.forEach((value, key) => {
-        if (Object.prototype.hasOwnProperty.call(data, key)) {
-          if (Array.isArray(data[key])) data[key].push(value);
-          else data[key] = [data[key], value];
-        } else {
-          data[key] = value;
-        }
-      });
-      Object.keys(data).forEach((key) => {
-        if (Array.isArray(data[key])) data[key] = data[key].join(';');
-      });
-      data.submitted_at = new Date().toISOString();
-      data.path = pathName;
-      const prev = JSON.parse(localStorage.getItem('apm_pulse_stubs') || '[]');
-      prev.push(data);
-      localStorage.setItem('apm_pulse_stubs', JSON.stringify(prev.slice(-20)));
-    } catch (_) {
-      /* ignore storage errors */
+  function formPayload(formEl) {
+    const fd = new FormData(formEl);
+    const data = {};
+    fd.forEach((value, key) => {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        if (Array.isArray(data[key])) data[key].push(value);
+        else data[key] = [data[key], value];
+      } else {
+        data[key] = value;
+      }
+    });
+    Object.keys(data).forEach((key) => {
+      if (Array.isArray(data[key])) data[key] = data[key].join(';');
+    });
+    return data;
+  }
+
+  function resolveRole(pathName, payload) {
+    if (pathName === 'teacher') {
+      if (payload.role_detail === 'administrator') return 'admin';
+      return 'teacher';
     }
+    if (pathName === 'parent' || pathName === 'student' || pathName === 'admin') return pathName;
+    return pathName || 'teacher';
+  }
+
+  function getSupabaseClient() {
+    const cfg = window.APM_PULSE || {};
+    if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) return null;
+    if (!window.supabase || !window.supabase.createClient) return null;
+    return window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
+  }
+
+  async function savePulse(formEl, pathName) {
+    const payload = formPayload(formEl);
+    const role = resolveRole(pathName, payload);
+    const districtKey = (payload.district || '').trim() || null;
+    const gradeBand = (payload.grade_band || '').trim() || null;
+    const params = new URLSearchParams(window.location.search);
+    const source = (params.get('source') || 'web').slice(0, 64);
+    const row = {
+      role: role,
+      state: 'GA',
+      district_key: districtKey,
+      grade_band: gradeBand,
+      payload: payload,
+      form_version: (window.APM_PULSE && window.APM_PULSE.formVersion) || 'v1-2026-09-13',
+      source: source,
+    };
+    const client = getSupabaseClient();
+    if (!client) {
+      throw new Error('Pulse backend is not configured.');
+    }
+    const { error } = await client.from('pulse_responses').insert([row]);
+    if (error) throw error;
+    return row;
   }
 
   if (form) {
@@ -631,9 +666,24 @@
           return;
         }
       }
-      stubSave(form, 'teacher');
-      show('thanks');
-      history.replaceState(null, '', '/pulse/?role=teacher&done=1');
+      const submitBtn = form.querySelector('[data-wizard-submit]');
+      if (submitBtn) submitBtn.disabled = true;
+      savePulse(form, 'teacher')
+        .then(() => {
+          show('thanks');
+          const role = resolveRole('teacher', formPayload(form));
+          history.replaceState(null, '', '/pulse/?role=' + role + '&done=1');
+        })
+        .catch((err) => {
+          if (formError) {
+            formError.textContent = 'Couldn’t save your answers. Check your connection and try again.';
+            formError.hidden = false;
+          }
+          console.error('pulse save failed', err);
+        })
+        .finally(() => {
+          if (submitBtn) submitBtn.disabled = false;
+        });
     });
   }
 
@@ -656,9 +706,23 @@
           return;
         }
       }
-      stubSave(f, pathName);
-      show('thanks');
-      history.replaceState(null, '', '/pulse/?role=' + pathName + '&done=1');
+      const submitBtn = f.querySelector('[data-wizard-submit]');
+      if (submitBtn) submitBtn.disabled = true;
+      savePulse(f, pathName)
+        .then(() => {
+          show('thanks');
+          history.replaceState(null, '', '/pulse/?role=' + pathName + '&done=1');
+        })
+        .catch((saveErr) => {
+          if (err) {
+            err.textContent = 'Couldn’t save your answers. Check your connection and try again.';
+            err.hidden = false;
+          }
+          console.error('pulse save failed', saveErr);
+        })
+        .finally(() => {
+          if (submitBtn) submitBtn.disabled = false;
+        });
     });
   }
   wireSimplePulseForm('parent-form', 'parentFormError', 'parent');
