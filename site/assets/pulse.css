@@ -414,9 +414,11 @@
   display: none;
 }
 
-/* Author .role-grid { display:grid } beats UA [hidden] — force hide */
+/* Author display rules beat UA [hidden] — force hide */
 .role-grid[hidden],
 .role-card[hidden],
-.pulse-panel[hidden] {
+.pulse-panel[hidden],
+.button[hidden],
+.wizard-nav [hidden] {
   display: none !important;
 }
