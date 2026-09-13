@@ -148,6 +148,59 @@
 
     let activeIndex = -1;
 
+    function tokenize(s) {
+      return String(s || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter(Boolean);
+    }
+
+    function tokenHitsName(nameLower, nameTokens, tok) {
+      if (nameLower.includes(tok)) return true;
+      return nameTokens.some((nt) => nt === tok || nt.startsWith(tok) || (tok.length >= 4 && tok.startsWith(nt)));
+    }
+
+    // Partial / out-of-order: "district schools of decatur" → City Schools of Decatur
+    // Distinctive tokens (e.g. Decatur) must match; soft words (district/schools) only rank.
+    function scoreDistrict(name, query) {
+      const n = name.toLowerCase();
+      const q = query.toLowerCase().trim();
+      if (!q) return 0;
+      if (n.includes(q)) return 100;
+      const stop = { of: 1, the: 1, and: 1, a: 1, an: 1, in: 1, for: 1 };
+      const soft = {
+        district: 1,
+        school: 1,
+        schools: 1,
+        county: 1,
+        city: 1,
+        public: 1,
+        system: 1,
+        systems: 1,
+        board: 1,
+        independent: 1,
+        charter: 1,
+      };
+      let tokens = tokenize(q).filter((tok) => tok.length >= 2 && !stop[tok]);
+      if (!tokens.length) tokens = tokenize(q).filter((tok) => tok.length >= 2);
+      if (!tokens.length) return 0;
+      const nameTokens = tokenize(n);
+      const distinctive = tokens.filter((tok) => tok.length >= 4 && !soft[tok]);
+      const softToks = tokens.filter((tok) => !distinctive.includes(tok));
+      if (distinctive.length && !distinctive.every((tok) => tokenHitsName(n, nameTokens, tok))) {
+        return 0;
+      }
+      let softHits = 0;
+      softToks.forEach((tok) => {
+        if (tokenHitsName(n, nameTokens, tok)) softHits += 1;
+      });
+      const softScore = softToks.length ? softHits / softToks.length : 1;
+      const distScore = distinctive.length ? 1 : softScore;
+      // Prefer distinctive hits; soft words break ties.
+      return distScore * 10 + softScore;
+    }
+
     function renderSuggest(q) {
       const query = (q || '').trim().toLowerCase();
       if (!query || query.length < 1) {
@@ -157,8 +210,11 @@
         return;
       }
       const matches = leas
-        .filter((d) => d.name.toLowerCase().includes(query))
-        .slice(0, 8);
+        .map((d) => ({ d, score: scoreDistrict(d.name, query) }))
+        .filter((x) => x.score > 0)
+        .sort((a, b) => b.score - a.score || a.d.name.length - b.d.name.length)
+        .slice(0, 8)
+        .map((x) => x.d);
       if (!matches.length) {
         list.hidden = true;
         list.innerHTML = '';
