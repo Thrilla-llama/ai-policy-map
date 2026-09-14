@@ -143,15 +143,9 @@
     return m ? ' <span class="badge">' + esc(m) + '</span>' : '';
   }
 
-  /** City systems / blank metro: map dots may be ZIP-approximated. Fine print only — never a headline chip. */
+  /** Pete lock 2026-09-13: do not show ZIP approx fine print on district cards. */
   function locationApproxFinePrint(row) {
-    const metro = metroParentLabel(row);
-    const name = String((row && row.district) || '');
-    const looksCity = /\bcity\b/i.test(name);
-    if (metro && !looksCity) return '';
-    return (
-      '<p class="location-approx-note">Approximate location from linked school ZIP codes.</p>'
-    );
+    return '';
   }
 
 
