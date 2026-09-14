@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="School AI tools in the wild — classroom GenAI, safety cameras, student monitoring, and more. Public-record deployments mapped by AI Policy Map.">
+  <title>School AI tools · AI Policy Map</title>
+  <link rel="stylesheet" href="/assets/home-styles.css?v=1789045911">
+  <link rel="stylesheet" href="/assets/home-steep.css?v=1789339800">
+  <link rel="stylesheet" href="/assets/tools.css?v=1789417564">
+</head>
+<body class="tools-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="AI Policy Map home">
+      <span class="brand-mark">AI</span>
+      <span>Policy Map <em>for schools</em></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="/pulse/">Pulse</a>
+      <a href="/#explore">Explore</a>
+      <a href="/tools/" aria-current="page">Tools</a>
+      <a href="/ga/">Georgia</a>
+      <a href="/about/">About</a>
+    </nav>
+    <a class="button button-small" href="/#explore">Find your district</a>
+  </header>
+
+  <main class="tools-main" id="top">
+    <section class="tools-hero" aria-labelledby="tools-title">
+      <p class="eyebrow tools-badge">Preview · feedback welcome</p>
+      <h1 id="tools-title">School AI tools</h1>
+      <p class="lede">
+        Which AI tools show up in schools — classroom GenAI, safety cameras, student monitoring, and more —
+        drawn from public records (news, board docs, vendor pages). We do not invent missing deployments.
+      </p>
+      <p class="tools-quiet-note">
+        Open for feedback now; deeper tools access may be paid later.
+      </p>
+    </section>
+
+    <section class="stat-band tools-stats" aria-label="Tools dataset summary">
+      <div><strong id="statDeployments">—</strong><span>deployments</span></div>
+      <div><strong id="statProducts">—</strong><span>products</span></div>
+      <div><strong id="statStates">—</strong><span>states</span></div>
+      <div><strong id="statClasses">—</strong><span>tool classes</span></div>
+    </section>
+
+    <section class="tools-controls" aria-label="Filter tools">
+      <div class="tools-search-row">
+        <label class="visually-hidden" for="toolsSearch">Search products, vendors, or districts</label>
+        <div class="search-box tools-search-box">
+          <span aria-hidden="true">⌕</span>
+          <input id="toolsSearch" type="search" placeholder="Search product, vendor, or district…" autocomplete="off">
+        </div>
+      </div>
+      <div id="classChips" class="tools-chips" role="group" aria-label="Filter by tool class"></div>
+      <p id="toolsMeta" class="results-meta" aria-live="polite">Loading school AI tools…</p>
+    </section>
+
+    <section aria-label="Products">
+      <div id="productGrid" class="tools-grid"></div>
+    </section>
+
+    <section id="productDetail" class="tools-detail" hidden aria-labelledby="detailTitle">
+      <button type="button" class="tools-detail-close" id="detailClose">← All products</button>
+      <p class="eyebrow" id="detailClass"></p>
+      <h2 id="detailTitle"></h2>
+      <p class="tools-detail-meta" id="detailMeta"></p>
+      <div id="detailExtras" class="tools-detail-extras"></div>
+      <h3 class="tools-detail-sub">Deployments</h3>
+      <div class="tools-table-wrap">
+        <table class="tools-table" id="detailTable">
+          <thead>
+            <tr>
+              <th scope="col">District / school</th>
+              <th scope="col">State</th>
+              <th scope="col">Scope</th>
+              <th scope="col">Status</th>
+              <th scope="col">Last verified</th>
+              <th scope="col">Sources</th>
+            </tr>
+          </thead>
+          <tbody id="detailBody"></tbody>
+        </table>
+      </div>
+      <ul id="detailList" class="tools-deploy-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="brand footer-brand"><span class="brand-mark">AI</span><span>Policy Map <em>for schools</em></span></div>
+    <p>Better questions make better policy.</p>
+    <nav aria-label="Footer">
+      <a href="/tools/">Tools</a>
+      ·
+      <a href="/pulse/">Pulse</a>
+      ·
+      <a href="/ga/">Georgia</a>
+      ·
+      <a href="/about/">About</a>
+      ·
+      <a href="#top">Back to top ↑</a>
+    </nav>
+  </footer>
+
+  <script src="/assets/csv.js?v=1789045911"></script>
+  <script src="/assets/tools.js?v=1789417564"></script>
+</body>
+</html>
