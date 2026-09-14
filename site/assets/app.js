@@ -2011,7 +2011,7 @@
   }
 
   function canFollowDistrict(districtId) {
-    /* Pete 2026-09-10: all free until monetization is decided */
+    /* Pete lock: no free/paid district cap */
     return true;
   }
 
@@ -2354,10 +2354,7 @@
           statusEl.hidden = false;
           if (result.status === 'stubbed') {
             statusEl.textContent =
-              'Draft confirmed — Outbound send not connected yet. This counts toward your 3-district parent follows.';
-          } else if (result.reason === 'freemium_cap') {
-            statusEl.textContent =
-              'Free plan covers 3 districts. Upgrade (Paid) to follow more — send blocked.';
+              'Draft confirmed — Outbound send not connected yet. You can still copy the draft.';
           } else if (result.reason === 'no_recipients') {
             statusEl.textContent =
               'No public board email on file — use Copy draft instead.';
@@ -2374,9 +2371,7 @@
 
   function renderEmailBoardCta(row) {
     const district = row.district || 'this district';
-    const followed = getFollowedDistricts();
     const id = districtIdFromRow(row);
-    const used = followed.length;
     const preview = previewRecipients(row);
     let contactNote = '';
     if (preview.mode === 'copy_only') {
@@ -2400,11 +2395,7 @@
       esc(id) +
       '">' +
       '<div class="section-head"><h2>Email the board about AI</h2></div>' +
-      '<p class="note">Ask leaders to put a short AI plan update on a board agenda. Free parents can follow up to 3 districts (' +
-      used +
-      ' of ' +
-      AIPM_FREE_DISTRICT_CAP +
-      ' used in this browser).</p>' +
+      '<p class="note">Ask leaders to put a short AI plan update on a board agenda.</p>' +
       contactNote +
       '<form class="board-email-preform" data-board-email-preform="1">' +
       '<label class="board-email-field"><span>Your email</span>' +
@@ -2454,14 +2445,7 @@
         }
         return;
       }
-      if (!canFollowDistrict(id)) {
-        if (status) {
-          status.hidden = false;
-          status.textContent =
-            'Free plan covers 3 districts. Switch to Paid (prototype toggle) for more — email blocked for new districts.';
-        }
-        return;
-      }
+
       if (status) status.hidden = true;
       openBoardEmailConfirm(row, parentEmail, parentName);
     });
