@@ -499,7 +499,7 @@
         esc(noPill) +
         '</span></p>';
       body +=
-        '<p class="safety-evidence-empty-note">No public rule means families have nothing written to point to when this happens. That’s a gap.</p>';
+        '<p class="safety-evidence-empty-note">No public rule means families have nothing written to point to when this happens.</p>';
       if (c.checkedUrls && c.checkedUrls.length) {
         body +=
           '<p class="safety-evidence-links"><span class="safety-evidence-meta-label">We checked:</span> ' +
