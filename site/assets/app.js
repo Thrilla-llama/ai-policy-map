@@ -419,8 +419,14 @@
     if (!label) {
       try {
         const u = new URL(href);
-        const path = u.pathname.split('/').filter(Boolean).pop() || u.hostname;
-        label = path.length > 48 ? path.slice(0, 45) + '…' : path;
+        const host = u.hostname.replace(/^www\./, '');
+        // Google Drive / Docs path ends in opaque file ids — show host, not the id
+        if (/google\.com$/i.test(host) || /drive\.google\.com$/i.test(u.hostname)) {
+          label = host;
+        } else {
+          const path = u.pathname.split('/').filter(Boolean).pop() || host;
+          label = path.length > 48 ? path.slice(0, 45) + '…' : path;
+        }
       } catch (e) {
         label = href.length > 48 ? href.slice(0, 45) + '…' : href;
       }
@@ -493,7 +499,7 @@
         esc(noPill) +
         '</span></p>';
       body +=
-        '<p class="safety-evidence-empty-note">This does not mean the district is safe — only that we did not find a public rule on this point.</p>';
+        '<p class="safety-evidence-empty-note">No public rule means families have nothing written to point to when this happens. That’s a gap.</p>';
       if (c.checkedUrls && c.checkedUrls.length) {
         body +=
           '<p class="safety-evidence-links"><span class="safety-evidence-meta-label">We checked:</span> ' +
