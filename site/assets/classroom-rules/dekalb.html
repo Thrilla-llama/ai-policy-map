@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>DeKalb — Classroom AI rules (visual mock)</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px;
+    background: #e7e5e4;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: #1c1917;
+  }
+  .sheet {
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 12px 40px rgba(0,0,0,.18);
+    padding: 0.55in 0.6in 0.5in;
+    position: relative;
+  }
+  .topline {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 3px solid #1e3a5f; padding-bottom: 10px; margin-bottom: 12px;
+  }
+  .brand { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #57534e; font-weight: 600; }
+  .brand strong { display: block; font-size: 20px; color: #1e3a5f; letter-spacing: 0; text-transform: none; margin-top: 2px; }
+  .badge {
+    background: #fff7ed; color: #9a3412; border: 1px solid #fdba74;
+    font-size: 10px; font-weight: 700; padding: 6px 10px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .meta {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px;
+    font-size: 11.5px; margin-bottom: 14px; color: #44403c;
+  }
+  .meta b { color: #1c1917; }
+  .fill { border-bottom: 1px dotted #a8a29e; display: inline-block; min-width: 140px; }
+  h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+    color: #1e3a5f; margin: 14px 0 8px; border-left: 4px solid #1e3a5f; padding-left: 8px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 8px; }
+  th { text-align: left; background: #f5f5f4; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: #57534e; }
+  th, td { border: 1px solid #d6d3d1; padding: 8px 9px; vertical-align: top; }
+  .chip {
+    display: inline-block; font-weight: 800; font-size: 10px; padding: 3px 8px;
+    border-radius: 4px; letter-spacing: .02em;
+  }
+  tr.g { background: #ecfdf5; }
+  tr.y { background: #fffbeb; }
+  tr.r { background: #fef2f2; }
+  .chip.g { background: #059669; color: #fff; }
+  .chip.y { background: #d97706; color: #fff; }
+  .chip.r { background: #dc2626; color: #fff; }
+  .note { font-size: 11px; color: #44403c; margin: 6px 0 0; }
+  ul.always { margin: 4px 0 0; padding-left: 18px; font-size: 11.5px; }
+  ul.always li { margin-bottom: 4px; }
+  .examples {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 4px;
+  }
+  .ex {
+    border: 1px solid #d6d3d1; border-radius: 8px; padding: 8px 9px; font-size: 11px;
+  }
+  .ex.g { border-top: 4px solid #059669; }
+  .ex.y { border-top: 4px solid #d97706; }
+  .ex.r { border-top: 4px solid #dc2626; }
+  .ex strong { display: block; margin-bottom: 3px; font-size: 11px; }
+  .callout {
+    margin-top: 12px; background: #f8fafc; border: 1px solid #cbd5e1;
+    border-radius: 8px; padding: 10px 12px; font-size: 11px;
+  }
+  .who {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px;
+    font-size: 11px; margin-top: 10px;
+  }
+  .foot {
+    margin-top: 14px; padding-top: 8px; border-top: 1px solid #e7e5e4;
+    font-size: 9.5px; color: #78716c; line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="topline">
+      <div class="brand">DeKalb County School District<strong>Classroom AI rules</strong></div>
+      <div class="badge">Review draft · not official</div>
+    </div>
+
+    <div class="meta">
+      <div><b>School / class:</b> <span class="fill"></span></div>
+      <div><b>Teacher:</b> <span class="fill"></span></div>
+      <div><b>Grades:</b> Middle &amp; high (teacher-directed)</div>
+      <div><b>School year:</b> 2026–27</div>
+      <div style="grid-column:1/-1"><b>Approved tools:</b> District <b>Copilot</b> and/or <b>Gemini</b> when named on the assignment.
+        <em>Not unless listed:</em> personal ChatGPT / unnamed consumer bots.</div>
+    </div>
+
+    <h2>Pick one color per assignment</h2>
+    <table>
+      <tr>
+        <th style="width:22%">Color</th>
+        <th style="width:20%">Meaning</th>
+        <th>Students may</th>
+        <th>Students must</th>
+      </tr>
+      <tr class="g">
+        <td><span class="chip g">GREEN — AI OK</span></td>
+        <td>AI allowed as a helper</td>
+        <td>Use the district tool the teacher names for brainstorm, outline, practice, or feedback</td>
+        <td>Disclose tool + use; final thinking is yours</td>
+      </tr>
+      <tr class="y">
+        <td><span class="chip y">YELLOW — limited</span></td>
+        <td>AI only for named steps</td>
+        <td>Use AI only for steps listed on the handout</td>
+        <td>No AI on the graded part unless listed</td>
+      </tr>
+      <tr class="r">
+        <td><span class="chip r">RED — no AI</span></td>
+        <td>Unaided work</td>
+        <td>Not use generative AI for any part</td>
+        <td>Ask if unsure — AI here is academic dishonesty</td>
+      </tr>
+    </table>
+    <p class="note">No color marked? Treat as <b>Yellow</b> until the teacher says otherwise. Draft IFBG direction: ethical use, teacher approval/attribution, no AI on assessments.</p>
+
+    <h2>Always true</h2>
+    <ul class="always">
+      <li>You own AI errors — invented facts and fake sources are still your mistakes.</li>
+      <li>No faking anyone’s face, voice, or writing; no harassment.</li>
+      <li>Don’t paste private student or family info into AI tools.</li>
+      <li>Disclosure line when used: <em>“I used [tool] for [brainstorm / outline / practice].”</em></li>
+      <li>School devices / accounts: only tools your teacher names.</li>
+    </ul>
+
+    <h2>Quick examples</h2>
+    <div class="examples">
+      <div class="ex g"><strong>Green</strong>Gemini for 5 essay angles — you write the essay.</div>
+      <div class="ex y"><strong>Yellow</strong>Copilot for outline only — graded draft is Red.</div>
+      <div class="ex r"><strong>Red</strong>Quiz, test, or in-class essay — no AI.</div>
+    </div>
+
+    <div class="callout">
+      <b>Elementary / unclear grades:</b> No finished public elementary student-AI rule set in sources reviewed — default Yellow or Red per teacher.<br>
+      <b>Literacy:</b> Gemini AI Certification for MS/HS (launch announced for Sep 21, 2026) does <b>not</b> make every assignment Green — follow the color on the handout.
+    </div>
+
+    <h2>Who to ask</h2>
+    <div class="who">
+      <div><b>Classroom:</b> your teacher</div>
+      <div><b>Tools:</b> Dr. Kermit Belcher, CIO · (678) 676-1200</div>
+      <div><b>Policy:</b> Dr. Norman C. Sauce III (Interim) · Norman_C_Sauce@dekalbschoolsga.org</div>
+      <div><b>Board:</b> Allyson Gevertz, Chair · dekalbschoolsga.org/board</div>
+    </div>
+
+    <p class="foot">
+      Proposed classroom layer while IFBG AI guidelines are still drafting. Does not replace board policy.
+      Why this exists: teacher-by-teacher practice (including school variance) leaves kids guessing — one shared traffic-light closes that gap.
+      Sources: DCSD ITS AI for Students; Decaturish; AI Policy Map verified 2026-09-14.
+    </p>
+  </div>
+</body>
+</html>

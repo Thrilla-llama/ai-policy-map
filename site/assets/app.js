@@ -2452,6 +2452,478 @@
   }
 
   /* ---------- District (LEA route) page ---------- */
+  /* ---------- Actionable district layer (Gap / Signal+Use / Tools / Who / Traffic-light) ---------- */
+  var ACTIONABLE_PILOTS = {
+    'Marietta City Schools': {
+      gapBullets: [
+        'The board voted on screens and AI. Screens stay closed unless there is a clear purpose.',
+        'Generative AI is banned in grades K–5. Middle and high school assignments use red / yellow / green labels.',
+        'MagicSchool is the district-supported tool. ChatGPT is not on the approved list for schoolwork.',
+        'We found no published student AI literacy path yet.'
+      ],
+      signal: {
+        Parent: {
+          means: 'K–5 means no generative AI at school. In 6–12, look for a color on each assignment. Screens closed is the default.',
+          do: 'Ask the teacher what color today’s work is. Ask whether MagicSchool is the only tool allowed at home for that assignment.'
+        },
+        Teacher: {
+          means: 'Secondary work uses a shared traffic-light. MagicSchool is the known tool; open ChatGPT is not the district path.',
+          do: 'Put Green, Yellow, or Red on each assignment. Name MagicSchool when AI is allowed. Keep K–5 student tool use Red.'
+        },
+        Admin: {
+          means: 'The board resolution plus traffic-light give a public signal. Training is as-needed, not a fixed program. Outcomes are not published yet.',
+          do: 'Ask for a short family FAQ that matches the traffic-light. Ask how MagicSchool access is checked school to school.'
+        },
+        Consultant: {
+          means: 'Published resolution + traffic-light + MagicSchool is a clear package. The gap is K–5 literacy and family-facing rules in one place.',
+          do: 'Offer a one-page classroom strip that matches board language. Do not sell open consumer chatbots against the ChatGPT posture.'
+        }
+      },
+      traffic: {
+        kind: 'published',
+        banner: 'Mapped from Marietta’s published traffic-light framing (board vision on screens/AI; MagicSchool). Not an official district handout.',
+        toolLine: 'Approved for schoolwork: MagicSchool AI. Not approved unless a teacher lists an exception: ChatGPT and other open consumer chatbots.',
+        note: 'If no color is marked, treat the assignment as Yellow until the teacher says otherwise. Screens closed by default — AI colors do not override screen rules. K–5: treat student generative AI as Red.',
+        onePager: '/assets/classroom-rules/marietta.html',
+        greenMay: 'Use MagicSchool (or another tool the teacher names) to brainstorm, outline, practice, or get feedback',
+        yellowMay: 'Use AI only for the steps the teacher lists',
+        redMay: 'Not use generative AI for any part of the assignment'
+      }
+    },
+    'City Schools of Decatur': {
+      gapBullets: [
+        'The district published 2024 AI Principles, but not finished classroom assignment rules (red / yellow / green).',
+        'Secondary use is restricted under teacher discretion — rules can differ by class.',
+        'Gemini is used on the district Google domain. ChatGPT is blocked / not in-domain for schoolwork.',
+        'The Chief of Safety & Technology seat was vacant after Eston Melton’s 2026 departure — confirm who owns tools today.'
+      ],
+      signal: {
+        Parent: {
+          means: 'Principles exist; a shared homework color system does not. Your child’s teacher sets AI limits class by class. Gemini is the school-domain tool.',
+          do: 'Ask the teacher which tool is allowed and whether today’s work allows AI. Ask the district for a one-page classroom rule sheet.'
+        },
+        Teacher: {
+          means: 'You have principles and Gemini-in-domain, but no published district traffic-light yet. ChatGPT is not the school path.',
+          do: 'Mark Green / Yellow / Red on each assignment and name Gemini when AI is allowed. Default unmarked work to Yellow.'
+        },
+        Admin: {
+          means: 'Principles without classroom rules leave honesty and access uneven. Tech ownership was in flux after the Safety & Technology vacancy.',
+          do: 'Ask for a published assignment framework. Confirm the current tech owner and Gemini account rules for families.'
+        },
+        Consultant: {
+          means: 'Decatur is principles-first with Gemini practice. The product gap is a shared classroom layer, not another philosophy deck.',
+          do: 'Propose a traffic-light one-pager aligned to the 2024 principles. Avoid ChatGPT/Claude recommendations that conflict with the block.'
+        }
+      },
+      traffic: {
+        kind: 'proposed',
+        banner: 'Proposed classroom layer — City Schools of Decatur has AI Principles and Gemini practice, not a published traffic-light yet. Review draft only; not an official CSD handout.',
+        toolLine: 'Approved for schoolwork: Google Gemini on the district Google Workspace domain. Not approved: ChatGPT, Claude, and other consumer chatbots (blocked / not in-domain).',
+        note: 'If no color is marked, treat as Yellow until the teacher says otherwise. Principles reminder: human-centered, inspectable / explainable / overridable, privacy and terms of service.',
+        onePager: '/assets/classroom-rules/decatur.html',
+        greenMay: 'Use district Gemini to brainstorm, outline, practice, or get feedback',
+        yellowMay: 'Use Gemini only for the steps the teacher lists',
+        redMay: 'Not use generative AI for any part of the assignment'
+      }
+    },
+    'DeKalb County School District': {
+      gapBullets: [
+        'Board IFBG AI guidelines are still drafting — there is no finished adopted AI board policy yet.',
+        'Classroom practice is teacher-by-teacher today, including school-to-school variance.',
+        'District tools named in public sources: Microsoft Copilot and Google Gemini. Whether ChatGPT is approved is unknown from what we checked.',
+        'A Gemini AI Certification path for middle and high school was announced for Sep 21, 2026 — certification is not a Green light on every assignment.'
+      ],
+      signal: {
+        Parent: {
+          means: 'Rules are still being written at the board level. Your child’s teacher decides AI use today. Copilot and/or Gemini may be named on an assignment.',
+          do: 'Ask the teacher which tool is allowed and whether AI is OK on this assignment. Ask the board when IFBG classroom rules will be adopted.'
+        },
+        Teacher: {
+          means: 'Without finished IFBG, you are inventing classroom rules. District Copilot and Gemini are the named channels; open consumer chatbots need an explicit exception.',
+          do: 'Put Green / Yellow / Red on each assignment and name the district tool. Keep tests and unauthorized work Red.'
+        },
+        Admin: {
+          means: 'Drafting IFBG signals intent, but teacher-discretion practice creates honesty and access risk across schools.',
+          do: 'Ask for a public timeline on IFBG. Ask CIO / ITS how Copilot and Gemini are rolled out and explained to families.'
+        },
+        Consultant: {
+          means: 'Large district, drafting policy, dual tool stack, teacher variance (including Dunwoody-area stories in press). Literacy certification is launching separately from assignment rules.',
+          do: 'Help ship a shared classroom traffic-light that matches draft IFBG themes. Do not treat Gemini certification as blanket AI permission.'
+        }
+      },
+      traffic: {
+        kind: 'proposed',
+        banner: 'Proposed classroom layer — DeKalb’s IFBG AI guidelines are still drafting; classroom practice is teacher-by-teacher. Review draft only; not an official DCSD handout.',
+        toolLine: 'Approved when the teacher names them: district Microsoft Copilot and/or Google Gemini. Not for schoolwork unless listed: open consumer chatbots (e.g. personal ChatGPT).',
+        note: 'If no color is marked, treat as Yellow until the teacher says otherwise. Draft board themes: ethical use, teacher approval / attribution, no AI on assessments or unauthorized work.',
+        onePager: '/assets/classroom-rules/dekalb.html',
+        greenMay: 'Use the district tool the teacher names (Copilot and/or Gemini) to brainstorm, outline, practice, or get feedback',
+        yellowMay: 'Use AI only for the steps the teacher lists',
+        redMay: 'Not use generative AI for any part of the assignment'
+      }
+    }
+  };
+
+  var schoolAiToolsCache = null;
+  var schoolAiToolsPending = null;
+
+  function loadSchoolAiTools() {
+    if (schoolAiToolsCache) return Promise.resolve(schoolAiToolsCache);
+    if (schoolAiToolsPending) return schoolAiToolsPending;
+    var ver = window.AIPM_DATA_VER || String(Date.now());
+    var url = '/data/school_ai_tools.csv?v=' + ver;
+    schoolAiToolsPending = fetch(url, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Failed to load school_ai_tools');
+        return res.text();
+      })
+      .then(function (text) {
+        schoolAiToolsCache = AIPM.parseCSV(text);
+        schoolAiToolsPending = null;
+        return schoolAiToolsCache;
+      })
+      .catch(function (err) {
+        schoolAiToolsPending = null;
+        schoolAiToolsCache = [];
+        console.warn(err);
+        return schoolAiToolsCache;
+      });
+    return schoolAiToolsPending;
+  }
+
+  function classroomGenaiForDistrict(districtName) {
+    var rows = schoolAiToolsCache || [];
+    return rows.filter(function (t) {
+      if (String(t.tool_class || '').trim() !== 'classroom_genai') return false;
+      return String(t.districts_csv_match || '').trim() === districtName;
+    });
+  }
+
+  function chatgptStanceLabel(flag) {
+    var f = String(flag || '').trim().toLowerCase();
+    if (f === 'no') return 'ChatGPT is not on the approved list for schoolwork.';
+    if (f === 'yes') return 'ChatGPT appears on the approved list.';
+    return 'ChatGPT approval: we don’t know yet.';
+  }
+
+  function renderGapStory(row) {
+    var pilot = ACTIONABLE_PILOTS[row.district];
+    var body;
+    if (pilot && pilot.gapBullets && pilot.gapBullets.length) {
+      body =
+        '<ul class="gap-list">' +
+        pilot.gapBullets
+          .map(function (b) {
+            return '<li>' + esc(b) + '</li>';
+          })
+          .join('') +
+        '</ul>';
+    } else if (hasVal(row.one_liner)) {
+      body = '<p class="gap-lede">' + esc(row.one_liner) + '</p>';
+    } else {
+      return '';
+    }
+    return (
+      '<section class="section card actionable-gap" id="gap-story">' +
+      '<div class="section-head"><h2>The gap</h2></div>' +
+      body +
+      '</section>'
+    );
+  }
+
+  function renderSignalUse(row) {
+    var pilot = ACTIONABLE_PILOTS[row.district];
+    if (!pilot || !pilot.signal) return '';
+    var roles = ['Parent', 'Teacher', 'Admin', 'Consultant'];
+    var cards = roles
+      .map(function (role) {
+        var s = pilot.signal[role];
+        if (!s) return '';
+        return (
+          '<article class="role-card">' +
+          '<h3>' +
+          esc(role) +
+          '</h3>' +
+          '<p class="role-means"><span class="role-label">What it means</span>' +
+          esc(s.means) +
+          '</p>' +
+          '<p class="role-do"><span class="role-label">What you can do</span>' +
+          esc(s.do) +
+          '</p>' +
+          '</article>'
+        );
+      })
+      .join('');
+    return (
+      '<section class="section card actionable-signal" id="signal-use">' +
+      '<div class="section-head"><h2>Signal + Use</h2></div>' +
+      '<p class="note" style="margin:0">Short read for each role. Facts and asks — write your own message; we do not ship canned emails.</p>' +
+      '<div class="role-cards">' +
+      cards +
+      '</div>' +
+      '</section>'
+    );
+  }
+
+  function renderApprovedTools(row) {
+    var approved = [];
+    var notApproved = [];
+    var primary = hasVal(row.primary_edtech_ai) ? String(row.primary_edtech_ai).trim() : '';
+    if (primary) {
+      primary.split(/[;|]/).forEach(function (p) {
+        var t = p.trim();
+        if (t) approved.push(t);
+      });
+    }
+    classroomGenaiForDistrict(row.district).forEach(function (t) {
+      var name = String(t.product_name || '').trim();
+      if (!name) return;
+      var already = approved.some(function (a) {
+        var al = a.toLowerCase();
+        var nl = name.toLowerCase();
+        return al === nl || nl.indexOf(al) >= 0 || al.indexOf(nl) >= 0;
+      });
+      if (!already) approved.push(name);
+    });
+
+    var cg = String(row.chatgpt_on_approved_list || '').trim().toLowerCase();
+    if (cg === 'no') notApproved.push('ChatGPT (not on the approved list)');
+    else if (cg === 'yes' && !approved.some(function (a) { return /chatgpt/i.test(a); })) {
+      approved.push('ChatGPT');
+    }
+
+    if (row.district === 'City Schools of Decatur') {
+      if (!notApproved.some(function (x) { return /claude/i.test(x); })) {
+        notApproved.push('Claude and other consumer chatbots (blocked / not in-domain)');
+      }
+    } else if (row.district === 'Marietta City Schools') {
+      if (!notApproved.some(function (x) { return /consumer/i.test(x); })) {
+        notApproved.push('Open consumer chatbots unless a teacher lists an exception');
+      }
+    } else if (row.district === 'DeKalb County School District') {
+      if (!notApproved.some(function (x) { return /consumer/i.test(x); })) {
+        notApproved.push('Open consumer chatbots (e.g. personal ChatGPT) unless your teacher lists an exception');
+      }
+    }
+
+    function listBlock(items, empty) {
+      if (!items.length) return '<p class="empty-msg">' + esc(empty) + '</p>';
+      return (
+        '<ul>' +
+        items
+          .map(function (i) {
+            return '<li>' + esc(i) + '</li>';
+          })
+          .join('') +
+        '</ul>'
+      );
+    }
+
+    if (!approved.length && !notApproved.length && !hasVal(row.chatgpt_on_approved_list) && !hasVal(row.primary_edtech_ai)) {
+      return (
+        '<section class="section card actionable-tools" id="approved-tools">' +
+        '<div class="section-head"><h2>Approved tools</h2></div>' +
+        '<p class="empty-msg">We don’t know yet which AI tools this district approves for schoolwork.</p>' +
+        '</section>'
+      );
+    }
+
+    return (
+      '<section class="section card actionable-tools" id="approved-tools">' +
+      '<div class="section-head"><h2>Approved tools</h2></div>' +
+      '<p class="note" style="margin:0">' +
+      esc(chatgptStanceLabel(row.chatgpt_on_approved_list)) +
+      '</p>' +
+      '<div class="tools-inout">' +
+      '<div class="tools-in"><h3>In / named for schoolwork</h3>' +
+      listBlock(approved, 'We don’t know yet.') +
+      '</div>' +
+      '<div class="tools-out"><h3>Out / not the district path</h3>' +
+      listBlock(notApproved, 'We don’t know yet.') +
+      '</div>' +
+      '</div>' +
+      '</section>'
+    );
+  }
+
+  function renderWhoToAsk(row) {
+    var items = [];
+    items.push({
+      cue: 'Classroom questions',
+      name: 'Your child’s teacher',
+      detail: 'Start here for assignment colors, tools, and honesty rules.'
+    });
+
+    var techName = hasVal(row.tech_lead_name) ? String(row.tech_lead_name).trim() : '';
+    var techTitle = hasVal(row.tech_lead_title) ? String(row.tech_lead_title).trim() : 'Tech lead';
+    var techBits = [];
+    if (hasVal(row.tech_lead_email)) techBits.push(String(row.tech_lead_email).trim());
+    if (hasVal(row.tech_lead_phone)) techBits.push(String(row.tech_lead_phone).trim());
+    if (techName) {
+      items.push({
+        cue: 'Tool / account questions',
+        name: techName,
+        detail: techTitle + (techBits.length ? ' · ' + techBits.join(' · ') : '')
+      });
+    } else if (row.district === 'City Schools of Decatur') {
+      items.push({
+        cue: 'Tool / account questions',
+        name: 'Safety & Technology Services',
+        detail: (hasVal(row.tech_lead_phone) ? String(row.tech_lead_phone).trim() + ' — ' : '') +
+          'Confirm current owner; tech seat was vacant after 2026 departure.'
+      });
+    } else {
+      items.push({
+        cue: 'Tool / account questions',
+        name: 'We don’t know yet',
+        detail: 'No public tech lead name filled for this district.'
+      });
+    }
+
+    var supName = hasVal(row.superintendent_name) ? String(row.superintendent_name).trim() : '';
+    var supBits = [];
+    if (hasVal(row.superintendent_title)) supBits.push(String(row.superintendent_title).trim());
+    if (hasVal(row.superintendent_email)) supBits.push(String(row.superintendent_email).trim());
+    if (hasVal(row.superintendent_phone)) supBits.push(String(row.superintendent_phone).trim());
+    items.push({
+      cue: 'Policy questions',
+      name: supName || 'We don’t know yet',
+      detail: supName ? supBits.join(' · ') : 'No public superintendent contact filled yet.'
+    });
+
+    var boardName = hasVal(row.board_chair_name) ? String(row.board_chair_name).trim() : '';
+    var boardDetail = boardName ? 'Board chair' : 'No board chair name filled yet.';
+    if (hasVal(row.board_roster_url)) {
+      boardDetail +=
+        ' · <a href="' +
+        esc(row.board_roster_url) +
+        '" target="_blank" rel="noopener noreferrer">Board roster</a>';
+    }
+    items.push({
+      cue: 'Board',
+      name: boardName || 'We don’t know yet',
+      detailHtml: boardDetail
+    });
+
+    var html = items
+      .map(function (it) {
+        return (
+          '<div class="who-ask-item">' +
+          '<p class="who-cue">' +
+          esc(it.cue) +
+          '</p>' +
+          '<p class="who-name">' +
+          esc(it.name) +
+          '</p>' +
+          '<p class="who-detail">' +
+          (it.detailHtml != null ? it.detailHtml : esc(it.detail || '')) +
+          '</p>' +
+          '</div>'
+        );
+      })
+      .join('');
+
+    var peopleExtra = '';
+    if (hasVal(row.board_members)) {
+      peopleExtra +=
+        '<p class="note" style="margin-top:0.75rem"><strong>Board roster (from public data):</strong> ' +
+        esc(row.board_members) +
+        '</p>';
+    }
+    if (hasVal(row.people_last_verified_at)) {
+      peopleExtra +=
+        '<p class="note">Contacts last checked: ' + esc(row.people_last_verified_at) + '</p>';
+    }
+
+    return (
+      '<section class="section card actionable-who" id="who-to-ask">' +
+      '<div class="section-head"><h2>Who to ask</h2></div>' +
+      '<div class="who-ask-grid">' +
+      html +
+      '</div>' +
+      peopleExtra +
+      '</section>'
+    );
+  }
+
+  function renderTrafficLight(row) {
+    var pilot = ACTIONABLE_PILOTS[row.district];
+    if (!pilot || !pilot.traffic) {
+      var fw = String(row.assignment_framework || '').trim().toLowerCase();
+      if (fw === 'traffic_light') {
+        return (
+          '<section class="section card actionable-traffic" id="classroom-rules">' +
+          '<div class="section-head"><h2>Classroom AI rules</h2></div>' +
+          '<p class="note">This district uses a traffic-light (red / yellow / green) assignment framework. We do not have a filled one-pager on this page yet.</p>' +
+          '</section>'
+        );
+      }
+      return '';
+    }
+    var t = pilot.traffic;
+    var bannerClass = t.kind === 'proposed' ? 'traffic-proposed-banner' : 'traffic-published-banner';
+    var bannerLabel = t.kind === 'proposed' ? 'Proposed classroom layer' : 'Published traffic-light (mapped)';
+    return (
+      '<section class="section card actionable-traffic" id="classroom-rules">' +
+      '<div class="section-head"><h2>Classroom AI rules</h2></div>' +
+      '<div class="' +
+      bannerClass +
+      '"><strong>' +
+      esc(bannerLabel) +
+      '.</strong> ' +
+      esc(t.banner) +
+      '</div>' +
+      '<p class="note" style="margin:0 0 0.65rem">' +
+      esc(t.toolLine) +
+      '</p>' +
+      '<div class="traffic-light-wrap">' +
+      '<table class="traffic-light-table">' +
+      '<thead><tr><th>Color</th><th>Meaning</th><th>Students may</th><th>Students must</th></tr></thead>' +
+      '<tbody>' +
+      '<tr class="tl-green"><td>Green — AI OK</td><td>AI is allowed as a helper</td><td>' +
+      esc(t.greenMay) +
+      '</td><td>Say what they used and how; final thinking in their own words</td></tr>' +
+      '<tr class="tl-yellow"><td>Yellow — AI limited</td><td>AI only for named steps</td><td>' +
+      esc(t.yellowMay) +
+      '</td><td>Follow those limits; no AI on the graded part unless listed</td></tr>' +
+      '<tr class="tl-red"><td>Red — no AI</td><td>This work is unaided</td><td>' +
+      esc(t.redMay) +
+      '</td><td>Ask if unsure; AI here counts as academic dishonesty</td></tr>' +
+      '</tbody></table></div>' +
+      '<p class="note" style="margin-top:0.65rem">' +
+      esc(t.note) +
+      '</p>' +
+      '<div class="traffic-actions">' +
+      '<a class="btn primary" href="' +
+      esc(t.onePager) +
+      '" target="_blank" rel="noopener noreferrer">Open one-page classroom rules</a>' +
+      '</div>' +
+      '</section>'
+    );
+  }
+
+  function renderActionableLayer(row) {
+    return renderGapStory(row) + renderSignalUse(row);
+  }
+
+  function renderActionableToolsWhoTraffic(row) {
+    var pilot = !!ACTIONABLE_PILOTS[row.district];
+    var tools = renderApprovedTools(row);
+    var who = renderWhoToAsk(row);
+    var traffic = renderTrafficLight(row);
+    if (pilot) return tools + who + traffic;
+    var hasTools = hasVal(row.primary_edtech_ai) || hasVal(row.chatgpt_on_approved_list);
+    var hasPeople =
+      hasVal(row.superintendent_name) ||
+      hasVal(row.tech_lead_name) ||
+      hasVal(row.board_chair_name);
+    var out = '';
+    if (hasTools) out += tools;
+    if (hasPeople || hasTools) out += who;
+    out += traffic;
+    return out;
+  }
+
   function initLea(data) {
     const slug = pathSlug();
     const root = document.getElementById('entity-root');
@@ -2480,36 +2952,6 @@
 
   function paintLea(root, row, data) {
     document.title = row.district + ' · AI Policy Map';
-    const people =
-      personCard(
-        'Superintendent',
-        row.superintendent_name,
-        row.superintendent_title,
-        row.superintendent_email,
-        row.superintendent_phone
-      ) +
-      personCard(
-        'Tech lead',
-        row.tech_lead_name,
-        row.tech_lead_title,
-        row.tech_lead_email,
-        row.tech_lead_phone
-      ) +
-      personCard('Board chair', row.board_chair_name, '', '', '');
-
-    let boardBlock = '';
-    if (hasVal(row.board_members)) {
-      boardBlock =
-        '<p class="note" style="margin-top:0.75rem"><strong>Board roster (from public data):</strong> ' +
-        esc(row.board_members) +
-        '</p>';
-    }
-    if (hasVal(row.board_roster_url)) {
-      boardBlock +=
-        '<p class="note"><a href="' +
-        esc(row.board_roster_url) +
-        '" target="_blank" rel="noopener noreferrer">Board roster link</a></p>';
-    }
 
     const peers = gaLeas(data.rows)
       .filter(function (r) {
@@ -2519,7 +2961,7 @@
 
     const typeLabel = row.entity_type === 'charter' ? 'Charter school' : 'School district';
 
-    /* Free parent order: hero → Email board → Safety → Board meeting → Impact → rest */
+    /* Order: hero → Gap → Signal+Use → Email/Safety/Board → snapshot → Tools → Who → Traffic-light → impact/helps → rest */
     root.innerHTML =
       '<div class="hero">' +
       '<p class="kicker"><span class="dot"></span> ' +
@@ -2555,27 +2997,19 @@
       '</div>' +
       locationApproxFinePrint(row) +
       '</div>' +
+      renderActionableLayer(row) +
       renderEmailBoardCta(row) +
       renderSafetySurface(row) +
       renderNextBoardMeeting(row) +
+      '<section class="section card"><div class="section-head"><h2>Policy snapshot</h2></div>' +
+      renderPolicySnapshot(row) +
+      '</section>' +
+      renderActionableToolsWhoTraffic(row) +
       '<section class="section card"><div class="section-head"><h2>Student &amp; teacher impact</h2></div>' +
       renderImpact(row) +
       '</section>' +
       (isFultonLea(row) ? renderClaritySafety(row) : '') +
       renderProsCons(row) +
-      '<section class="section card"><div class="section-head"><h2>Policy snapshot</h2></div>' +
-      renderPolicySnapshot(row) +
-      '</section>' +
-      '<section class="section card"><div class="section-head"><h2>Who to contact</h2></div>' +
-      (people
-        ? '<div class="people-grid">' + people + '</div>' + boardBlock
-        : '<div class="stub">No contact names filled for this district yet.</div>') +
-      (hasVal(row.people_last_verified_at)
-        ? '<p class="note" style="margin-top:0.75rem">Contacts last checked: ' +
-          esc(row.people_last_verified_at) +
-          '</p>'
-        : '') +
-      '</section>' +
       '<section class="section card"><div class="section-head"><h2>Nearby districts</h2></div>' +
       (peers.length
         ? '<ul class="entity-list">' +
@@ -2858,8 +3292,12 @@
 
   function boot() {
     const page = document.body.getAttribute('data-page') || '';
-    AIPM.loadDistricts('/districts.csv?v=' + (window.AIPM_DATA_VER || String(Date.now())))
-      .then(function (data) {
+    Promise.all([
+      AIPM.loadDistricts('/districts.csv?v=' + (window.AIPM_DATA_VER || String(Date.now()))),
+      loadSchoolAiTools(),
+    ])
+      .then(function (pair) {
+        var data = pair[0];
         window.AIPM_SLUG_MAP = data.bySlug;
         setAipmData(data);
         if (page === 'home') initHome(data);
@@ -2906,6 +3344,10 @@
     AIPM.metroParentLabel = metroParentLabel;
     AIPM.metroBadgeHtml = metroBadgeHtml;
     AIPM.locationApproxFinePrint = locationApproxFinePrint;
+    AIPM.renderActionableLayer = renderActionableLayer;
+    AIPM.renderApprovedTools = renderApprovedTools;
+    AIPM.renderWhoToAsk = renderWhoToAsk;
+    AIPM.renderTrafficLight = renderTrafficLight;
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
